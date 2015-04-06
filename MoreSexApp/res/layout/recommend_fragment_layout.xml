@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/content_bg_style" >
+
+        <include
+            android:id="@+id/head_layout"
+            layout="@layout/header" />
+
+        <com.whos.swiperefreshandload.view.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent" 
+            android:layout_height="match_parent"
+            android:layout_below="@id/head_layout" >
+
+            <ListView
+                android:id="@+id/article_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/gray"
+                android:dividerHeight="1dp"
+                android:fadingEdge="none"
+                android:fadingEdgeLength="0px"
+                android:overScrollFooter="@null"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:scrollingCache="false" />
+        </com.whos.swiperefreshandload.view.SwipeRefreshLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

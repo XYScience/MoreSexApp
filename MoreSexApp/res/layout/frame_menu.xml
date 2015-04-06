@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frame_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/drawer_bg" >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/moresex_logo"
+        android:contentDescription="@null" />
+
+    <ListView
+        android:id="@+id/menu_listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="60dp"
+        android:clickable="true"
+        android:divider="@drawable/divider_style"
+        android:dividerHeight="1dp"
+        android:minHeight="30dp"
+        android:scrollbars="none"
+        android:stackFromBottom="true" >
+
+        <!-- android:layout_width="match_parent"这么设置高度会带来另外一个很不好的体验，滚动很慢。因为Listview要不断的计算高度。可见的视图要不断的刷新 -->
+    </ListView>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/menu_listview"
+        android:layout_marginRight="45dp"
+        android:background="@drawable/divider_style" />
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:drawableLeft="@drawable/feedback"
+            android:text="@string/feedback"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:textColor="#fff"
+            android:text="V1.0"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/bottom_layout"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/divider_bottom_style" />
+
+</RelativeLayout>
