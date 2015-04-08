@@ -1,25 +1,27 @@
 package com.sciecne.moresexapp.fragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,6 +30,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sciecne.moresexapp.ArticleActivity;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
 import com.science.moresexapp.adapter.PageListViewAdapter;
@@ -45,29 +48,29 @@ import com.whos.swiperefreshandload.view.SwipeRefreshLayout.OnRefreshListener;
  * @date 2015-1-30
  */
 public class RecommendFragment extends Fragment implements OnRefreshListener,
-		OnLoadListener {
+		OnLoadListener, OnItemClickListener {
 
+	private View mView;
 	private ListView mArticleListView;
-	private List<News> mArticleBriefList;
-	private List<Map<String, Object>> list;
+	private List<News> mArticleBriefList = new ArrayList<News>();
 	private PageListViewAdapter mListAdapter;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 
 	private ImageView mImageView;
 	private TextView mTextModule;
 
+	private Intent mIntent;
+
 	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.recommend_fragment_layout,
-				container, false);
+		mView = inflater.inflate(R.layout.recommend_fragment_layout, container,
+				false);
 
-		list = new ArrayList<Map<String, Object>>();
-
-		mTextModule = (TextView) view.findViewById(R.id.text_module);
+		mTextModule = (TextView) mView.findViewById(R.id.text_module);
 		mTextModule.setText("推荐");
-		mImageView = (ImageView) view.findViewById(R.id.img_menu);
+		mImageView = (ImageView) mView.findViewById(R.id.img_menu);
 		mImageView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -77,12 +80,20 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 			}
 		});
 
-		mArticleListView = (ListView) view.findViewById(R.id.article_list);
+		mArticleListView = (ListView) mView.findViewById(R.id.article_list);
+		mArticleListView.setOnItemClickListener(this);
+
+		initComponent();
 
 		initData();
 
-		// 刷新加载效果
-		mSwipeRefreshLayout = (SwipeRefreshLayout) view
+		return mView;
+	}
+
+	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
+	// 刷新加载效果
+	private void initComponent() {
+		mSwipeRefreshLayout = (SwipeRefreshLayout) mView
 				.findViewById(R.id.swipe_container);
 		mSwipeRefreshLayout.setOnRefreshListener(this);
 		mSwipeRefreshLayout.setOnLoadListener(this);
@@ -92,12 +103,12 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 				android.R.color.holo_red_light);
 		mSwipeRefreshLayout.setMode(SwipeRefreshLayout.Mode.BOTH);
 		mSwipeRefreshLayout.setLoadNoFull(false);
-
-		return view;
 	}
 
-	private void initData() {
+	private JSONArray jsonArray;
 
+	private void initData() {
+		mSwipeRefreshLayout.setRefreshing(true);
 		// 请求队列对象，它可以缓存所有的HTTP请求，然后按照一定的算法并发地发出这些请求
 		RequestQueue mQueue = Volley.newRequestQueue(getActivity());
 		// 为了要发出一条HTTP请求，我们还需要创建一个JsonArrayRequest对象
@@ -106,25 +117,24 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 				new Response.Listener<JSONArray>() {
 					@Override
 					public void onResponse(JSONArray arg0) {
-						Log.d("onResponse", arg0.toString());
-						Gson gson = new Gson();
-						mArticleBriefList = gson.fromJson(arg0.toString(),
-								new TypeToken<List<News>>() {
-								}.getType());
 
-						for (Iterator<News> iterator = mArticleBriefList
-								.iterator(); iterator.hasNext();) {
-							News news = (News) iterator.next();
-							Map<String, Object> map = new HashMap<String, Object>();
-							map.put("title", news.getTitle());
-							map.put("publishTime", news.getPublishTime());
-							map.put("id", news.getId());
-							list.add(map);
-						}
+						jsonArray = arg0;
 
-						mListAdapter = new PageListViewAdapter(getActivity(),
-								list);
-						mArticleListView.setAdapter(mListAdapter);
+						new Thread() {
+							public void run() {
+								Message msg = new Message();
+								try {
+									if (jsonArray.length() > 0) {
+										msg.what = 1;
+									} else {
+										msg.what = -1;
+									}
+								} catch (Exception e) {
+								}
+								mHandler.sendMessage(msg);
+							}
+						}.start();
+
 					}
 				}, new Response.ErrorListener() {
 
@@ -136,25 +146,24 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 
 		mQueue.add(jsonRequest);
 
-		// Thread thread = new Thread(new Runnable() {
-		// @Override
-		// public void run() {
-		//
-		// //
-		// http://m.weather.com.cn/data/101010100.html，这是中国天气网提供的一个查询天气信息的接口，响应的数据就是以JSON格式返回的
-		// String path = "http://m.bitauto.com/appapi/News/List.ashx/";
-		// String jsonString = HttpUtils.getJsonContent(path);// 从网络获取数据
-		// Log.e("11111111111111111111", jsonString);
-		// mArticleBriefList = GsonTools.getArticleBrief(jsonString,
-		// News.class);// 解析json数据
-		// mListAdapter = new PageListViewAdapter(getActivity(),
-		// mArticleBriefList);
-		// mArticleListView.setAdapter(mListAdapter);
-		//
-		// }
-		// });
-		// thread.start();
 	}
+
+	Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				Gson gson = new Gson();
+				mArticleBriefList = gson.fromJson(jsonArray.toString(),
+						new TypeToken<List<News>>() {
+						}.getType());
+				mListAdapter = new PageListViewAdapter(getActivity(),
+						mArticleBriefList);
+				mArticleListView.setAdapter(mListAdapter);
+				mSwipeRefreshLayout.setRefreshing(false);
+			} else if (msg.what == -1) {
+				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_LONG);
+			}
+		}
+	};
 
 	@Override
 	public void onRefresh() {
@@ -178,5 +187,24 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 				mListAdapter.notifyDataSetChanged();
 			}
 		}, 1000);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+
+		showArticleItem(mArticleBriefList.get(position));
+	}
+
+	private void showArticleItem(News newsEntry) {
+		mIntent = new Intent(getActivity(), ArticleActivity.class);
+
+		mIntent.putExtra("Title", newsEntry.getTitle());
+		mIntent.putExtra("PublishTime", newsEntry.getPublishTime().toString()
+				.substring(0, 10));
+		mIntent.putExtra("ID", newsEntry.getID());
+		mIntent.putExtra("FirstPicUrl", newsEntry.getFirstPicUrl());
+
+		startActivity(mIntent);
 	}
 }

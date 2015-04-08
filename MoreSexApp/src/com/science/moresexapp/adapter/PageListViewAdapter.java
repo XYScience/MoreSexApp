@@ -1,17 +1,21 @@
 package com.science.moresexapp.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.sciecne.moresexapp.R;
+import com.sciecne.moresexapp.utils.VolleyTools;
+import com.science.moresexapp.bean.News;
 
 /**
  * @description   ≈‰∆˜ æ¿˝<br>
@@ -28,12 +32,15 @@ import com.sciecne.moresexapp.R;
 public class PageListViewAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
-	private List<Map<String, Object>> mArticleBriefList = null;
+	private Context mContext;
+	private List<News> mArticleBriefList = new ArrayList<News>();
+	RequestQueue mRequestQueue;
 
-	public PageListViewAdapter(Context context,
-			List<Map<String, Object>> articleBriefList) {
+	public PageListViewAdapter(Context context, List<News> articleBriefList) {
 		mInflater = LayoutInflater.from(context);
+		mContext = context;
 		this.mArticleBriefList = articleBriefList;
+		mRequestQueue = Volley.newRequestQueue(context);
 	}
 
 	@Override
@@ -64,17 +71,27 @@ public class PageListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.item_brief);
 			viewHolder.timeTextView = (TextView) convertView
 					.findViewById(R.id.item_time);
+			viewHolder.thumbnailImage = (NetworkImageView) convertView
+					.findViewById(R.id.thumbnail_image);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		viewHolder.titleTextView.setText(mArticleBriefList.get(position)
-				.toString());
-		viewHolder.briefTextView.setText(mArticleBriefList.get(position)
-				.toString());
-		viewHolder.timeTextView.setText(mArticleBriefList.get(position)
-				.toString());
+		News news = mArticleBriefList.get(position);
+
+		viewHolder.titleTextView.setText(news.getTitle());
+		viewHolder.briefTextView.setText(news.getID());
+		viewHolder.timeTextView.setText(news.getPublishTime().toString()
+				.substring(0, 10));
+
+		// …Ë÷√Œ¥º”‘ÿƒ¨»œÕº∆¨
+		viewHolder.thumbnailImage
+				.setDefaultImageResId(R.drawable.widget_loading);
+		// …Ë÷√º”‘ÿ“Ï≥£µƒÕº∆¨
+		// holder.imageView.setErrorImageResId(R.drawable.error);
+		viewHolder.thumbnailImage.setImageUrl(news.getFirstPicUrl(),
+				VolleyTools.getInstance(mContext).getImageLoader());
 
 		return convertView;
 	}
@@ -83,7 +100,7 @@ public class PageListViewAdapter extends BaseAdapter {
 		TextView titleTextView; // Ã‚ƒø
 		TextView briefTextView; // ºÚΩÈ
 		TextView timeTextView; //  ±º‰
-		ImageView thumbnailImage; // Àı¬‘Õº
+		NetworkImageView thumbnailImage; // Àı¬‘Õº
 	}
 
 }

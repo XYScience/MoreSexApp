@@ -1,40 +1,41 @@
 package com.science.moresexapp.bean;
 
 public class News {
-	private String title;
-	private String publishTime;
-	private String id;
-	private String firstPicUrl;
+	private String Title;
+	private String PublishTime;
+	private String ID;
+	private String FirstPicUrl;
 
 	public String getTitle() {
-		return title;
+		return Title;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		Title = title;
 	}
 
 	public String getPublishTime() {
-		return publishTime;
+		return PublishTime;
 	}
 
 	public void setPublishTime(String publishTime) {
-		this.publishTime = publishTime;
+		PublishTime = publishTime;
 	}
 
-	public String getId() {
-		return id;
+	public String getID() {
+		return ID;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setID(String iD) {
+		ID = iD;
 	}
 
 	public String getFirstPicUrl() {
-		return firstPicUrl;
+		return FirstPicUrl;
 	}
 
 	public void setFirstPicUrl(String firstPicUrl) {
-		this.firstPicUrl = firstPicUrl;
+		FirstPicUrl = firstPicUrl;
 	}
+
 }

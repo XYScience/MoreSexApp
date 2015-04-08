@@ -1,58 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="70dp" >
 
-    <ImageView
+    <!-- 缩略图 -->
+
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/thumbnail_image"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="6dp"
         android:clickable="true"
         android:contentDescription="@null"
         android:padding="1dp"
-        android:src="@drawable/widget_loading" />
+        android:scaleType="fitXY" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- 标题 -->
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/thumbnail_image"
+        android:includeFontPadding="false"
+        android:text="@string/loading"
+        android:textColor="#5ddd57"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <!-- 描述 -->
+
+    <TextView
+        android:id="@+id/item_brief"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_title"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/thumbnail_image"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="@string/loading"
+        android:textColor="#515151"
+        android:textSize="14sp" />
+
+    <!-- 时间 -->
+
+    <TextView
+        android:id="@+id/item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:orientation="vertical" >
-
-        <!-- 缩略图 -->
-
-        <TextView
-            android:id="@+id/item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:text="11111111111111"
-            android:textColor="#5ddd57"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <!-- 描述 -->
-
-        <TextView
-            android:id="@+id/item_brief"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dip"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:text="1111111111111111111111111111111111111"
-            android:textColor="#515151"
-            android:textSize="14dp" />
-
-        <!-- 时间 -->
-
-        <TextView
-            android:id="@+id/item_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"            android:text="2015-4-1"
-            android:textColor="#515151"
-            android:textSize="14dp" />
-    </LinearLayout>
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:text="@string/loading"
+        android:textColor="#515151"
+        android:textSize="14sp" />
 
 </RelativeLayout>

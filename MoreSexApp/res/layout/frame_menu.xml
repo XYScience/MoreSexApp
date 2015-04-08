@@ -27,7 +27,7 @@
         android:dividerHeight="1dp"
         android:minHeight="30dp"
         android:scrollbars="none"
-        android:stackFromBottom="true" >
+        android:stackFromBottom="true" > 
 
         <!-- android:layout_width="match_parent"这么设置高度会带来另外一个很不好的体验，滚动很慢。因为Listview要不断的计算高度。可见的视图要不断的刷新 -->
     </ListView>
@@ -36,8 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/menu_listview"
-        android:layout_marginRight="45dp"
-        android:background="@drawable/divider_style" />
+        android:layout_marginRight="40dp"
+        android:background="@drawable/divider2_style" />
 
     <RelativeLayout
         android:id="@+id/bottom_layout"
@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/bottom_layout"
-        android:layout_marginRight="60dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/divider_bottom_style" />
 
 </RelativeLayout>

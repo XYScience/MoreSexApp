@@ -7,5 +7,7 @@
     <string name="home">首页</string>
     <string name="recommend">推荐</string>
     <string name="feedback">问题反馈</string>
+    <string name="loading">加载中。。。</string>
+    <string name="article">美文欣赏</string>
 
 </resources>

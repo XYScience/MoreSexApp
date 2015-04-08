@@ -24,14 +24,10 @@ public class GsonTools {
 	// 使用Gson进行解析 List<ArticleBriefList>,转换成对象列表或者其他结构
 	public static <T> List<T> getArticleBrief(String jsonString, Class<T> cls) {
 		List<T> list = new ArrayList<T>();
-		List<T> listPage = new ArrayList<T>();
 		try {
 			Gson gson = new Gson();
 			list = gson.fromJson(jsonString, new TypeToken<List<T>>() {
 			}.getType());
-			// for (int i = 0; i < 9; i++) {
-			// listPage = list;
-			// }
 		} catch (Exception e) {
 		}
 		return list;
