@@ -25,15 +25,18 @@ public class ArticleActivity extends Activity {
 
 	private ImageView mImageBack;
 	private TextView mTextArticleTitle;
-	private TextView mTextArticleComments;
+	private TextView mTextArticleAuthor;
+	private TextView mTextArticleTime;
 	private ImageView mImageArticle;
 	private WebView mWebViewArticleContent;
 	private Intent mIntent;
 
 	private String mTitle;
-	private String mPublishTime;
-	private String mID;
-	private String mFirstPicUrl;
+	private String mTime;
+	private String mAuthor;
+	private String mContent;
+	private String mClick;
+	private String mSource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,11 @@ public class ArticleActivity extends Activity {
 	private void initComponent() {
 		mImageBack = (ImageView) findViewById(R.id.back);
 		mTextArticleTitle = (TextView) findViewById(R.id.text_article_title);
-		mTextArticleComments = (TextView) findViewById(R.id.text_article_author_time);
+		mTextArticleAuthor = (TextView) findViewById(R.id.text_article_author);
+		mTextArticleTime = (TextView) findViewById(R.id.text_article_time);
 		mImageArticle = (ImageView) findViewById(R.id.image_article);
 		mWebViewArticleContent = (WebView) findViewById(R.id.webview_article_content);
+
 		mWebViewArticleContent.setHorizontalScrollBarEnabled(false);// 设置水平滚动条，true表示允许使用
 		WebSettings webSettings = mWebViewArticleContent.getSettings();
 		webSettings.setDefaultTextEncodingName("UTF-8");
@@ -73,15 +78,18 @@ public class ArticleActivity extends Activity {
 	private void initData() {
 		mIntent = getIntent();
 
-		mTitle = mIntent.getStringExtra("Title");
-		mPublishTime = mIntent.getStringExtra("PublishTime");
-		mID = mIntent.getStringExtra("ID");
-		mFirstPicUrl = mIntent.getStringExtra("FirstPicUrl");
+		mTitle = mIntent.getStringExtra("title");
+		mTime = mIntent.getStringExtra("time");
+		mAuthor = mIntent.getStringExtra("author");
+		mContent = mIntent.getStringExtra("content");
+		mClick = mIntent.getStringExtra("click");
+		mSource = mIntent.getStringExtra("source");
 	}
 
 	private void addData() {
 
 		mTextArticleTitle.setText(mTitle);
-		mTextArticleComments.setText("作者：" + "健康" + "\r\n发布时间：" + mPublishTime);
+		mTextArticleAuthor.setText("作者：" + mAuthor + "    来源：" + mSource);
+		mTextArticleTime.setText("发布时间：" + mTime);
 	}
 }

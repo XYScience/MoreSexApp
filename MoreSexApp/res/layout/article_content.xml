@@ -41,14 +41,24 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/text_article_author_time"
+                    android:id="@+id/text_article_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/text_article_title"
                     android:layout_centerHorizontal="true"
                     android:text="@string/loading"
-                    android:textColor="#515151"
-                    android:textSize="12sp" />
+                    android:textColor="#84909c"
+                    android:textSize="11sp" />
+                
+                <TextView
+                    android:id="@+id/text_article_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_article_author"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/loading"
+                    android:textColor="#84909c"
+                    android:textSize="11sp" />
             </RelativeLayout>
 
             <ImageView

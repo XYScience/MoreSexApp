@@ -14,8 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.sciecne.moresexapp.R;
-import com.sciecne.moresexapp.utils.VolleyTools;
-import com.science.moresexapp.bean.News;
+import com.science.moresexapp.bean.Article;
 
 /**
  * @description 适配器示例<br>
@@ -33,10 +32,10 @@ public class PageListViewAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context mContext;
-	private List<News> mArticleBriefList = new ArrayList<News>();
+	private List<Article> mArticleBriefList = new ArrayList<Article>();
 	RequestQueue mRequestQueue;
 
-	public PageListViewAdapter(Context context, List<News> articleBriefList) {
+	public PageListViewAdapter(Context context, List<Article> articleBriefList) {
 		mInflater = LayoutInflater.from(context);
 		mContext = context;
 		this.mArticleBriefList = articleBriefList;
@@ -71,6 +70,10 @@ public class PageListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.item_brief);
 			viewHolder.timeTextView = (TextView) convertView
 					.findViewById(R.id.item_time);
+			viewHolder.sourceTextView = (TextView) convertView
+					.findViewById(R.id.item_source);
+			viewHolder.clickTextView = (TextView) convertView
+					.findViewById(R.id.item_click);
 			viewHolder.thumbnailImage = (NetworkImageView) convertView
 					.findViewById(R.id.thumbnail_image);
 			convertView.setTag(viewHolder);
@@ -78,20 +81,21 @@ public class PageListViewAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		News news = mArticleBriefList.get(position);
+		Article article = mArticleBriefList.get(position);
 
-		viewHolder.titleTextView.setText(news.getTitle());
-		viewHolder.briefTextView.setText(news.getID());
-		viewHolder.timeTextView.setText(news.getPublishTime().toString()
-				.substring(0, 10));
+		viewHolder.titleTextView.setText(article.getTitle());
+		viewHolder.briefTextView.setText(article.getContent());
+		viewHolder.timeTextView.setText(article.getTime());
+		viewHolder.sourceTextView.setText(article.getSource());
+		viewHolder.clickTextView.setText(article.getClick());
 
 		// 设置未加载默认图片
 		viewHolder.thumbnailImage
 				.setDefaultImageResId(R.drawable.widget_loading);
 		// 设置加载异常的图片
 		// holder.imageView.setErrorImageResId(R.drawable.error);
-		viewHolder.thumbnailImage.setImageUrl(news.getFirstPicUrl(),
-				VolleyTools.getInstance(mContext).getImageLoader());
+		// viewHolder.thumbnailImage.setImageUrl(news.getFirstPicUrl(),
+		// VolleyTools.getInstance(mContext).getImageLoader());
 
 		return convertView;
 	}
@@ -100,6 +104,8 @@ public class PageListViewAdapter extends BaseAdapter {
 		TextView titleTextView; // 题目
 		TextView briefTextView; // 简介
 		TextView timeTextView; // 时间
+		TextView sourceTextView; // 文章来源
+		TextView clickTextView; // 点击量
 		NetworkImageView thumbnailImage; // 缩略图
 	}
 

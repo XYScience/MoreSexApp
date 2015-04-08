@@ -7,6 +7,7 @@ import org.json.JSONArray;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,10 +30,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sciecne.moresexapp.ArticleActivity;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
 import com.science.moresexapp.adapter.PageListViewAdapter;
-import com.science.moresexapp.bean.News;
+import com.science.moresexapp.bean.Article;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout.OnLoadListener;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout.OnRefreshListener;
@@ -44,16 +48,18 @@ import com.whos.swiperefreshandload.view.SwipeRefreshLayout.OnRefreshListener;
  * @date 2015-1-28
  */
 public class BirthControlFragment extends Fragment implements
-		OnRefreshListener, OnLoadListener {
+		OnRefreshListener, OnLoadListener, OnItemClickListener {
 
 	private View mView;
 	private ListView mArticleListView;
-	private List<News> mArticleBriefList = new ArrayList<News>();
+	private List<Article> mArticleBriefList = new ArrayList<Article>();
 	private PageListViewAdapter mListAdapter;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 
 	private ImageView mImageView;
 	private TextView mTextModule;
+
+	private Intent mIntent;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +80,7 @@ public class BirthControlFragment extends Fragment implements
 		});
 
 		mArticleListView = (ListView) mView.findViewById(R.id.article_list);
+		mArticleListView.setOnItemClickListener(this);
 
 		initComponent();
 
@@ -105,7 +112,7 @@ public class BirthControlFragment extends Fragment implements
 		RequestQueue mQueue = Volley.newRequestQueue(getActivity());
 		// 为了要发出一条HTTP请求，我们还需要创建一个JsonArrayRequest对象
 		JsonArrayRequest jsonRequest = new JsonArrayRequest(
-				"http://m.bitauto.com/appapi/News/List.ashx/",
+				"http://123.56.93.109:8008/MoreSexClient/getBirthControlJson.action",
 				new Response.Listener<JSONArray>() {
 					@Override
 					public void onResponse(JSONArray arg0) {
@@ -145,7 +152,7 @@ public class BirthControlFragment extends Fragment implements
 			if (msg.what == 1) {
 				Gson gson = new Gson();
 				mArticleBriefList = gson.fromJson(jsonArray.toString(),
-						new TypeToken<List<News>>() {
+						new TypeToken<List<Article>>() {
 						}.getType());
 				mListAdapter = new PageListViewAdapter(getActivity(),
 						mArticleBriefList);
@@ -179,5 +186,25 @@ public class BirthControlFragment extends Fragment implements
 				mListAdapter.notifyDataSetChanged();
 			}
 		}, 1000);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+
+		showArticleItem(mArticleBriefList.get(position));
+	}
+
+	private void showArticleItem(Article articleEntry) {
+		mIntent = new Intent(getActivity(), ArticleActivity.class);
+
+		mIntent.putExtra("title", articleEntry.getTitle());
+		mIntent.putExtra("time", articleEntry.getTime());
+		mIntent.putExtra("author", articleEntry.getAuthor());
+		mIntent.putExtra("content", articleEntry.getContent());
+		mIntent.putExtra("click", articleEntry.getClick());
+		mIntent.putExtra("source", articleEntry.getSource());
+
+		startActivity(mIntent);
 	}
 }

@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp" >
+    android:layout_height="wrap_content" >
 
-    <!-- 缩略图 -->
+    <LinearLayout
+        android:id="@+id/left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/thumbnail_image"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="6dp"
-        android:clickable="true"
-        android:contentDescription="@null"
-        android:padding="1dp"
-        android:scaleType="fitXY" />
+        <!-- 缩略图 -->
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/thumbnail_image"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="6dp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:padding="1dp"
+            android:scaleType="fitXY" />
+
+        <!-- 文章来源 -->
+
+        <TextView
+            android:id="@+id/item_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="6dp"
+            android:text="@string/loading"
+            android:textColor="#84909c"
+            android:textSize="13sp" />
+    </LinearLayout>
 
     <!-- 标题 -->
 
@@ -27,8 +45,10 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="6dp"
-        android:layout_toRightOf="@id/thumbnail_image"
+        android:layout_toRightOf="@id/left_layout"
+        android:ellipsize="end"
         android:includeFontPadding="false"
+        android:maxLines="1"
         android:text="@string/loading"
         android:textColor="#5ddd57"
         android:textSize="15sp"
@@ -43,13 +63,13 @@
         android:layout_below="@id/item_title"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/thumbnail_image"
+        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@id/left_layout"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="@string/loading"
         android:textColor="#515151"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <!-- 时间 -->
 
@@ -57,12 +77,25 @@
         android:id="@+id/item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/left_layout"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
         android:text="@string/loading"
-        android:textColor="#515151"
+        android:textColor="#84909c"
+        android:textSize="14sp" />
+
+    <!-- 点击量 -->
+
+    <TextView
+        android:id="@+id/item_click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/item_time"
+        android:layout_marginRight="6dp"
+        android:layout_toLeftOf="@id/item_time"
+        android:text="22"
+        android:textColor="#84909c"
         android:textSize="14sp" />
 
 </RelativeLayout>

@@ -34,7 +34,7 @@ import com.sciecne.moresexapp.ArticleActivity;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
 import com.science.moresexapp.adapter.PageListViewAdapter;
-import com.science.moresexapp.bean.News;
+import com.science.moresexapp.bean.Article;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout.OnLoadListener;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout.OnRefreshListener;
@@ -52,7 +52,7 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 
 	private View mView;
 	private ListView mArticleListView;
-	private List<News> mArticleBriefList = new ArrayList<News>();
+	private List<Article> mArticleBriefList = new ArrayList<Article>();
 	private PageListViewAdapter mListAdapter;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -113,7 +113,8 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 		RequestQueue mQueue = Volley.newRequestQueue(getActivity());
 		// 为了要发出一条HTTP请求，我们还需要创建一个JsonArrayRequest对象
 		JsonArrayRequest jsonRequest = new JsonArrayRequest(
-				"http://m.bitauto.com/appapi/News/List.ashx/",
+				"http://123.56.93.109:8008/MoreSexClient/getRecommendJson.action",
+				// "http://m.bitauto.com/appapi/News/List.ashx/",
 				new Response.Listener<JSONArray>() {
 					@Override
 					public void onResponse(JSONArray arg0) {
@@ -153,7 +154,7 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 			if (msg.what == 1) {
 				Gson gson = new Gson();
 				mArticleBriefList = gson.fromJson(jsonArray.toString(),
-						new TypeToken<List<News>>() {
+						new TypeToken<List<Article>>() {
 						}.getType());
 				mListAdapter = new PageListViewAdapter(getActivity(),
 						mArticleBriefList);
@@ -196,14 +197,15 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 		showArticleItem(mArticleBriefList.get(position));
 	}
 
-	private void showArticleItem(News newsEntry) {
+	private void showArticleItem(Article articleEntry) {
 		mIntent = new Intent(getActivity(), ArticleActivity.class);
 
-		mIntent.putExtra("Title", newsEntry.getTitle());
-		mIntent.putExtra("PublishTime", newsEntry.getPublishTime().toString()
-				.substring(0, 10));
-		mIntent.putExtra("ID", newsEntry.getID());
-		mIntent.putExtra("FirstPicUrl", newsEntry.getFirstPicUrl());
+		mIntent.putExtra("title", articleEntry.getTitle());
+		mIntent.putExtra("time", articleEntry.getTime());
+		mIntent.putExtra("author", articleEntry.getAuthor());
+		mIntent.putExtra("content", articleEntry.getContent());
+		mIntent.putExtra("click", articleEntry.getClick());
+		mIntent.putExtra("source", articleEntry.getSource());
 
 		startActivity(mIntent);
 	}
