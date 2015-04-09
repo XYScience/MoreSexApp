@@ -17,7 +17,7 @@
             android:layout_height="80dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:contentDescription="@null"
             android:padding="1dp"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/left_layout"
         android:ellipsize="end"
         android:includeFontPadding="false"
@@ -71,30 +71,31 @@
         android:textColor="#515151"
         android:textSize="12sp" />
 
-    <!-- 时间 -->
-
-    <TextView
-        android:id="@+id/item_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/left_layout"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
-        android:text="@string/loading"
-        android:textColor="#84909c"
-        android:textSize="14sp" />
-
     <!-- 点击量 -->
 
     <TextView
         android:id="@+id/item_click"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/item_time"
-        android:layout_marginRight="6dp"
-        android:layout_toLeftOf="@id/item_time"
+        android:layout_alignBottom="@id/left_layout"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:drawableLeft="@drawable/click"
         android:text="22"
+        android:textColor="#84909c"
+        android:textSize="14sp" />
+
+    <!-- 时间 -->
+
+    <TextView
+        android:id="@+id/item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/item_click"
+        android:layout_marginRight="6dp"
+        android:layout_toLeftOf="@id/item_click"
+        android:text="@string/loading"
         android:textColor="#84909c"
         android:textSize="14sp" />
 

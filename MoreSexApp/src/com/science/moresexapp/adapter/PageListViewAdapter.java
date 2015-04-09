@@ -30,6 +30,7 @@ import com.science.moresexapp.bean.Article;
 
 public class PageListViewAdapter extends BaseAdapter {
 
+	private String mTimeString;
 	private LayoutInflater mInflater;
 	private Context mContext;
 	private List<Article> mArticleBriefList = new ArrayList<Article>();
@@ -83,9 +84,16 @@ public class PageListViewAdapter extends BaseAdapter {
 
 		Article article = mArticleBriefList.get(position);
 
+		if (article.getTime().length() > 9) {
+			mTimeString = article.getTime().substring(0, 10);
+		} else {
+			mTimeString = article.getTime().substring(0, 9);
+		}
+
 		viewHolder.titleTextView.setText(article.getTitle());
-		viewHolder.briefTextView.setText(article.getContent());
-		viewHolder.timeTextView.setText(article.getTime());
+		viewHolder.briefTextView.setText(article.getContent().replaceAll(
+				"[\\s\\\u003cbr/\u003e]", " "));// Ìæ»»<br/>ºÍ¿Õ¸ñ
+		viewHolder.timeTextView.setText(mTimeString);
 		viewHolder.sourceTextView.setText(article.getSource());
 		viewHolder.clickTextView.setText(article.getClick());
 

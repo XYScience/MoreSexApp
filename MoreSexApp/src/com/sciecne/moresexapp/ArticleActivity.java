@@ -3,6 +3,7 @@ package com.sciecne.moresexapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
@@ -12,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * @description 文章列表
+ * @description 文章内容
  * 
  * @author 幸运Science 陈土燊
  * @school University of South China
@@ -70,7 +71,7 @@ public class ArticleActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				finish();
+				ArticleActivity.this.finish();
 			}
 		});
 	}
@@ -84,6 +85,8 @@ public class ArticleActivity extends Activity {
 		mContent = mIntent.getStringExtra("content");
 		mClick = mIntent.getStringExtra("click");
 		mSource = mIntent.getStringExtra("source");
+
+		mContent.replaceAll(" ", "\r\n");
 	}
 
 	private void addData() {
@@ -91,5 +94,16 @@ public class ArticleActivity extends Activity {
 		mTextArticleTitle.setText(mTitle);
 		mTextArticleAuthor.setText("作者：" + mAuthor + "    来源：" + mSource);
 		mTextArticleTime.setText("发布时间：" + mTime);
+		mWebViewArticleContent.loadDataWithBaseURL(null, mContent, "text/html",
+				"UTF-8", null);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			ArticleActivity.this.finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
