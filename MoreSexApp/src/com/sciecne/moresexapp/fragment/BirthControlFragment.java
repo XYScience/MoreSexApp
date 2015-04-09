@@ -68,7 +68,11 @@ public class BirthControlFragment extends Fragment implements
 	private int requestStyle;
 	private RequestQueue mRequestQueue;
 	private JsonArrayRequest mJsonArrayRequest;
-	private Gson mGson;
+	private Gson mGson = new Gson();
+
+	// 下一页
+	private int mNextPage = 1;
+	private JSONArray mNextJsonArray;
 
 	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
 	@Override
@@ -120,6 +124,9 @@ public class BirthControlFragment extends Fragment implements
 	private void initData(String path, int i) {
 
 		requestStyle = i;
+		if (requestStyle != 3) {
+			mSwipeRefreshLayout.setRefreshing(true);
+		}
 		// 为了要发出一条HTTP请求，我们还需要创建一个JsonArrayRequest对象
 		mJsonArrayRequest = new JsonArrayRequest(path,
 		// "http://m.bitauto.com/appapi/News/List.ashx/",
@@ -129,7 +136,6 @@ public class BirthControlFragment extends Fragment implements
 
 						switch (requestStyle) {
 						case 1:
-							mSwipeRefreshLayout.setRefreshing(true);
 							jsonArray = arg0;
 							new Thread() {
 								public void run() {
@@ -150,6 +156,24 @@ public class BirthControlFragment extends Fragment implements
 						case 2:
 							mSwipeRefreshLayout.setRefreshing(false);
 							break;
+
+						case 3:
+							mNextJsonArray = arg0;
+							new Thread() {
+								public void run() {
+									Message msg = new Message();
+									try {
+										if (mNextJsonArray.length() > 0) {
+											msg.what = 2;
+										} else {
+											msg.what = -1;
+										}
+									} catch (Exception e) {
+									}
+									mHandler.sendMessage(msg);
+								}
+							}.start();
+							break;
 						}
 					}
 				}, new Response.ErrorListener() {
@@ -167,7 +191,6 @@ public class BirthControlFragment extends Fragment implements
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
-				mGson = new Gson();
 				mArticleBriefList = mGson.fromJson(jsonArray.toString(),
 						new TypeToken<List<Article>>() {
 						}.getType());
@@ -175,6 +198,19 @@ public class BirthControlFragment extends Fragment implements
 						mArticleBriefList);
 				mArticleListView.setAdapter(mListAdapter);
 				mSwipeRefreshLayout.setRefreshing(false);
+
+			} else if (msg.what == 2) {
+
+				mArticleBriefList = mGson.fromJson(mNextJsonArray.toString(),
+						new TypeToken<List<Article>>() {
+						}.getType());
+				mArticleBriefList = mListAdapter
+						.updataArticleList(mArticleBriefList);
+				mListAdapter.notifyDataSetChanged();
+
+				mSwipeRefreshLayout.setLoading(false);
+				mSwipeRefreshLayout.setRefreshing(false);
+
 			} else if (msg.what == -1) {
 				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_LONG);
 			}
@@ -197,7 +233,10 @@ public class BirthControlFragment extends Fragment implements
 
 	@Override
 	public void onLoad() {
-		initData(AppConfig.GET_BIRTHCONTROL_JSON.replace("{1}", "1"), 1);
+		mNextPage++;
+		initData(
+				AppConfig.GET_BIRTHCONTROL_JSON.replace("{1}", "" + mNextPage),
+				3);
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
@@ -227,8 +266,8 @@ public class BirthControlFragment extends Fragment implements
 
 		mPath = AppConfig.GET_CLICK_JSON;
 		mPath = mPath.replace("{ID}", "" + articleEntry.getId());
-		Log.e("11111111", "11111111111111111:" + articleEntry.getId());
 		initData(mPath, 2);
+		mSwipeRefreshLayout.setRefreshing(false);
 
 		startActivity(mIntent);
 	}

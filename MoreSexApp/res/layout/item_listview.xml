@@ -17,7 +17,7 @@
             android:layout_height="80dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:clickable="true"
             android:contentDescription="@null"
             android:padding="1dp"
@@ -29,11 +29,11 @@
             android:id="@+id/item_source"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="7dp"
             android:layout_marginLeft="6dp"
             android:text="@string/loading"
             android:textColor="#84909c"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <!-- 标题 -->
@@ -44,14 +44,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_toRightOf="@id/left_layout"
         android:ellipsize="end"
         android:includeFontPadding="false"
         android:maxLines="1"
         android:text="@string/loading"
         android:textColor="#5ddd57"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <!-- 描述 -->
@@ -59,14 +59,14 @@
     <TextView
         android:id="@+id/item_brief"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_title"
+        android:layout_height="wrap_content" 
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="7dp"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/left_layout"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:lineSpacingMultiplier="1.2"
+        android:maxLines="2"
         android:text="@string/loading"
         android:textColor="#515151"
         android:textSize="12sp" />
@@ -79,12 +79,12 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/left_layout"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginRight="5dp"
         android:drawableLeft="@drawable/click"
         android:text="22"
         android:textColor="#84909c"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <!-- 时间 -->
 
@@ -97,6 +97,6 @@
         android:layout_toLeftOf="@id/item_click"
         android:text="@string/loading"
         android:textColor="#84909c"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
 </RelativeLayout>

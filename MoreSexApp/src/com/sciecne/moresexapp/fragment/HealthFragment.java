@@ -68,7 +68,11 @@ public class HealthFragment extends Fragment implements OnRefreshListener,
 	private int requestStyle;
 	private RequestQueue mRequestQueue;
 	private JsonArrayRequest mJsonArrayRequest;
-	private Gson mGson;
+	private Gson mGson = new Gson();
+
+	// 下一页
+	private int mNextPage = 1;
+	private JSONArray mNextJsonArray;
 
 	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
 	@Override
@@ -119,8 +123,10 @@ public class HealthFragment extends Fragment implements OnRefreshListener,
 
 	private void initData(String path, int i) {
 
-		mSwipeRefreshLayout.setRefreshing(true);
 		requestStyle = i;
+		if (requestStyle != 3) {
+			mSwipeRefreshLayout.setRefreshing(true);
+		}
 		// 为了要发出一条HTTP请求，我们还需要创建一个JsonArrayRequest对象
 		mJsonArrayRequest = new JsonArrayRequest(path,
 		// "http://m.bitauto.com/appapi/News/List.ashx/",
@@ -150,6 +156,24 @@ public class HealthFragment extends Fragment implements OnRefreshListener,
 						case 2:
 							mSwipeRefreshLayout.setRefreshing(false);
 							break;
+
+						case 3:
+							mNextJsonArray = arg0;
+							new Thread() {
+								public void run() {
+									Message msg = new Message();
+									try {
+										if (mNextJsonArray.length() > 0) {
+											msg.what = 2;
+										} else {
+											msg.what = -1;
+										}
+									} catch (Exception e) {
+									}
+									mHandler.sendMessage(msg);
+								}
+							}.start();
+							break;
 						}
 					}
 				}, new Response.ErrorListener() {
@@ -167,7 +191,6 @@ public class HealthFragment extends Fragment implements OnRefreshListener,
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
-				mGson = new Gson();
 				mArticleBriefList = mGson.fromJson(jsonArray.toString(),
 						new TypeToken<List<Article>>() {
 						}.getType());
@@ -175,6 +198,19 @@ public class HealthFragment extends Fragment implements OnRefreshListener,
 						mArticleBriefList);
 				mArticleListView.setAdapter(mListAdapter);
 				mSwipeRefreshLayout.setRefreshing(false);
+
+			} else if (msg.what == 2) {
+
+				mArticleBriefList = mGson.fromJson(mNextJsonArray.toString(),
+						new TypeToken<List<Article>>() {
+						}.getType());
+				mArticleBriefList = mListAdapter
+						.updataArticleList(mArticleBriefList);
+				mListAdapter.notifyDataSetChanged();
+
+				mSwipeRefreshLayout.setLoading(false);
+				mSwipeRefreshLayout.setRefreshing(false);
+
 			} else if (msg.what == -1) {
 				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_LONG);
 			}
@@ -197,7 +233,8 @@ public class HealthFragment extends Fragment implements OnRefreshListener,
 
 	@Override
 	public void onLoad() {
-		initData(AppConfig.GET_HEALTH_JSON.replace("{1}", "1"), 1);
+		mNextPage++;
+		initData(AppConfig.GET_HEALTH_JSON.replace("{1}", "" + mNextPage), 3);
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {

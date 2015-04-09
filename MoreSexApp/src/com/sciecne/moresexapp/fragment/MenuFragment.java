@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -30,9 +31,11 @@ import com.sciecne.moresexapp.R;
 public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	private ListView mListView;
+	private TextView mFeedback;
 	private MenuAdapter mMenuAdapter;
 	private Fragment mRecommendFragment, mSkillFragment, mHealthFragment,
-			mPhysiologyFragment, mMentalityFragment, mBirthControlFragment;
+			mPhysiologyFragment, mMentalityFragment, mBirthControlFragment,
+			FeedBackFragment;
 	private FragmentManager mFragmentManager;
 	private String[] mMenu = { "推荐", "技巧", "健康", "生理", "心理", "避孕" };
 	private int[] mIcMenu = { R.drawable.recommand, R.drawable.ic_skill,
@@ -49,8 +52,16 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		View view = inflater.inflate(R.layout.frame_menu, container, false);
 
 		mListView = (ListView) view.findViewById(R.id.menu_listview);
+		mFeedback = (TextView) view.findViewById(R.id.feedback);
 
 		mListView.setOnItemClickListener(this);
+		mFeedback.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showFeedBackFragment();
+			}
+		});
 
 		mMenuAdapter = new MenuAdapter(getActivity());
 		mListView.setAdapter(mMenuAdapter);
@@ -246,6 +257,21 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		if (!mBirthControlFragment.isVisible()) {
 			mFragmentManager.beginTransaction()
 					.replace(R.id.content, mBirthControlFragment).commit();
+		}
+		((MainActivity) getActivity()).getSlidingMenu().toggle();
+	}
+
+	/**
+	 * FeedBack module fragment
+	 */
+	public void showFeedBackFragment() {
+
+		if (FeedBackFragment == null) {
+			FeedBackFragment = new FeedBackFragment();
+		}
+		if (!FeedBackFragment.isVisible()) {
+			mFragmentManager.beginTransaction()
+					.replace(R.id.content, FeedBackFragment).commit();
 		}
 		((MainActivity) getActivity()).getSlidingMenu().toggle();
 	}

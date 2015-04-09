@@ -117,4 +117,11 @@ public class PageListViewAdapter extends BaseAdapter {
 		NetworkImageView thumbnailImage; // ËõÂÔÍ¼
 	}
 
+	public List<Article> updataArticleList(List<Article> newList) {
+		List<Article> listTemp = new ArrayList<Article>();
+		listTemp.addAll(newList);
+		mArticleBriefList.addAll(listTemp);
+		return mArticleBriefList;
+	}
+
 }

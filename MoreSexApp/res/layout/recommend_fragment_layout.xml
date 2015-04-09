@@ -29,8 +29,7 @@
                 android:fadingEdge="none"
                 android:fadingEdgeLength="0px"
                 android:overScrollFooter="@null"
-                android:overScrollMode="never"
-                android:scrollbars="none"
+                android:overScrollMode="never" 
                 android:scrollingCache="false" />
         </com.whos.swiperefreshandload.view.SwipeRefreshLayout>
     </RelativeLayout>

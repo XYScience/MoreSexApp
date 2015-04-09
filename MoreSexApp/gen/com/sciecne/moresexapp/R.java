@@ -174,10 +174,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int action_settings=0x7f040027;
         public static final int article_list=0x7f040025;
         public static final int back=0x7f040018;
-        public static final int bottom_layout=0x7f040012;
+        public static final int bottom_layout=0x7f040013;
         public static final int content=0x7f040005;
-        public static final int feedback=0x7f040013;
-        public static final int frame_menu=0x7f04000f;
+        public static final int feedback=0x7f04000f;
+        public static final int frame_menu=0x7f040010;
         public static final int fullscreen=0x7f040003;
         public static final int head_layout=0x7f040007;
         public static final int ic_item=0x7f040022;
@@ -191,12 +191,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int layout_menu=0x7f040020;
         public static final int left=0x7f040001;
         public static final int left_layout=0x7f040019;
-        public static final int logo=0x7f040010;
+        public static final int logo=0x7f040011;
         public static final int main_relativelayout_header=0x7f040015;
         public static final int margin=0x7f040004;
         public static final int menu_frame=0x7f040006;
         public static final int menu_item=0x7f040021;
-        public static final int menu_listview=0x7f040011;
+        public static final int menu_listview=0x7f040012;
         public static final int right=0x7f040002;
         public static final int scrollView=0x7f04000c;
         public static final int selected_view=0x7f040000;
@@ -215,14 +215,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int article_content=0x7f030001;
-        public static final int frame_menu=0x7f030002;
-        public static final int header=0x7f030003;
-        public static final int header_article=0x7f030004;
-        public static final int item_listview=0x7f030005;
-        public static final int layout_menu=0x7f030006;
-        public static final int list_menu=0x7f030007;
-        public static final int recommend_fragment_layout=0x7f030008;
-        public static final int slidingmenumain=0x7f030009;
+        public static final int feedback_fragment_layout=0x7f030002;
+        public static final int frame_menu=0x7f030003;
+        public static final int header=0x7f030004;
+        public static final int header_article=0x7f030005;
+        public static final int item_listview=0x7f030006;
+        public static final int layout_menu=0x7f030007;
+        public static final int list_menu=0x7f030008;
+        public static final int recommend_fragment_layout=0x7f030009;
+        public static final int slidingmenumain=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f090000;
