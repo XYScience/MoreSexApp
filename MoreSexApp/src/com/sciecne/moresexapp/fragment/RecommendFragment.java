@@ -63,6 +63,12 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 	private Intent mIntent;
 	// 点击量URL
 	private String mPath;
+	private JSONArray jsonArray;
+	// 刷新请求和点击量请求
+	private int requestStyle;
+	private RequestQueue mRequestQueue;
+	private JsonArrayRequest mJsonArrayRequest;
+	private Gson mGson;
 
 	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
 	@Override
@@ -106,24 +112,24 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 				android.R.color.holo_red_light);
 		mSwipeRefreshLayout.setMode(SwipeRefreshLayout.Mode.BOTH);
 		mSwipeRefreshLayout.setLoadNoFull(false);
-	}
-
-	private JSONArray jsonArray;
-
-	private void initData(String path, final int i) {
 
 		// 请求队列对象，它可以缓存所有的HTTP请求，然后按照一定的算法并发地发出这些请求
-		RequestQueue mQueue = Volley.newRequestQueue(getActivity());
+		mRequestQueue = Volley.newRequestQueue(getActivity());
+	}
+
+	private void initData(String path, int i) {
+
+		mSwipeRefreshLayout.setRefreshing(true);
+		requestStyle = i;
 		// 为了要发出一条HTTP请求，我们还需要创建一个JsonArrayRequest对象
-		JsonArrayRequest jsonRequest = new JsonArrayRequest(path,
+		mJsonArrayRequest = new JsonArrayRequest(path,
 		// "http://m.bitauto.com/appapi/News/List.ashx/",
 				new Response.Listener<JSONArray>() {
 					@Override
 					public void onResponse(JSONArray arg0) {
 
-						switch (i) {
+						switch (requestStyle) {
 						case 1:
-							mSwipeRefreshLayout.setRefreshing(true);
 							jsonArray = arg0;
 							new Thread() {
 								public void run() {
@@ -141,11 +147,10 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 							}.start();
 							break;
 
-						default:
+						case 2:
 							mSwipeRefreshLayout.setRefreshing(false);
 							break;
 						}
-
 					}
 				}, new Response.ErrorListener() {
 
@@ -155,15 +160,15 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 					}
 				});
 
-		mQueue.add(jsonRequest);
+		mRequestQueue.add(mJsonArrayRequest);
 
 	}
 
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
-				Gson gson = new Gson();
-				mArticleBriefList = gson.fromJson(jsonArray.toString(),
+				mGson = new Gson();
+				mArticleBriefList = mGson.fromJson(jsonArray.toString(),
 						new TypeToken<List<Article>>() {
 						}.getType());
 				mListAdapter = new PageListViewAdapter(getActivity(),
@@ -223,8 +228,8 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 		mPath = AppConfig.GET_CLICK_JSON;
 		mPath = mPath.replace("{ID}", "" + articleEntry.getId());
 		initData(mPath, 2);
+		mSwipeRefreshLayout.setRefreshing(false);
 
 		startActivity(mIntent);
-
 	}
 }

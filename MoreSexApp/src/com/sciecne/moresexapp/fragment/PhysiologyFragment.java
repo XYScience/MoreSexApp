@@ -33,6 +33,7 @@ import com.google.gson.reflect.TypeToken;
 import com.sciecne.moresexapp.ArticleActivity;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
+import com.sciecne.moresexapp.utils.AppConfig;
 import com.science.moresexapp.adapter.PageListViewAdapter;
 import com.science.moresexapp.bean.Article;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout;
@@ -60,7 +61,16 @@ public class PhysiologyFragment extends Fragment implements OnRefreshListener,
 	private TextView mTextModule;
 
 	private Intent mIntent;
+	// 点击量URL
+	private String mPath;
+	private JSONArray jsonArray;
+	// 刷新请求和点击量请求
+	private int requestStyle;
+	private RequestQueue mRequestQueue;
+	private JsonArrayRequest mJsonArrayRequest;
+	private Gson mGson;
 
+	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -84,7 +94,7 @@ public class PhysiologyFragment extends Fragment implements OnRefreshListener,
 
 		initComponent();
 
-		initData();
+		initData(AppConfig.GET_PHYSIOLOGY_JSON.replace("{1}", "1"), 1);
 
 		return mView;
 	}
@@ -102,38 +112,45 @@ public class PhysiologyFragment extends Fragment implements OnRefreshListener,
 				android.R.color.holo_red_light);
 		mSwipeRefreshLayout.setMode(SwipeRefreshLayout.Mode.BOTH);
 		mSwipeRefreshLayout.setLoadNoFull(false);
+
+		// 请求队列对象，它可以缓存所有的HTTP请求，然后按照一定的算法并发地发出这些请求
+		mRequestQueue = Volley.newRequestQueue(getActivity());
 	}
 
-	private JSONArray jsonArray;
+	private void initData(String path, int i) {
 
-	private void initData() {
 		mSwipeRefreshLayout.setRefreshing(true);
-		// 请求队列对象，它可以缓存所有的HTTP请求，然后按照一定的算法并发地发出这些请求
-		RequestQueue mQueue = Volley.newRequestQueue(getActivity());
+		requestStyle = i;
 		// 为了要发出一条HTTP请求，我们还需要创建一个JsonArrayRequest对象
-		JsonArrayRequest jsonRequest = new JsonArrayRequest(
-				"http://123.56.93.109:8008/MoreSexClient/getPhysiologyJson.action",
+		mJsonArrayRequest = new JsonArrayRequest(path,
+		// "http://m.bitauto.com/appapi/News/List.ashx/",
 				new Response.Listener<JSONArray>() {
 					@Override
 					public void onResponse(JSONArray arg0) {
 
-						jsonArray = arg0;
-
-						new Thread() {
-							public void run() {
-								Message msg = new Message();
-								try {
-									if (jsonArray.length() > 0) {
-										msg.what = 1;
-									} else {
-										msg.what = -1;
+						switch (requestStyle) {
+						case 1:
+							jsonArray = arg0;
+							new Thread() {
+								public void run() {
+									Message msg = new Message();
+									try {
+										if (jsonArray.length() > 0) {
+											msg.what = 1;
+										} else {
+											msg.what = -1;
+										}
+									} catch (Exception e) {
 									}
-								} catch (Exception e) {
+									mHandler.sendMessage(msg);
 								}
-								mHandler.sendMessage(msg);
-							}
-						}.start();
+							}.start();
+							break;
 
+						case 2:
+							mSwipeRefreshLayout.setRefreshing(false);
+							break;
+						}
 					}
 				}, new Response.ErrorListener() {
 
@@ -143,15 +160,15 @@ public class PhysiologyFragment extends Fragment implements OnRefreshListener,
 					}
 				});
 
-		mQueue.add(jsonRequest);
+		mRequestQueue.add(mJsonArrayRequest);
 
 	}
 
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
-				Gson gson = new Gson();
-				mArticleBriefList = gson.fromJson(jsonArray.toString(),
+				mGson = new Gson();
+				mArticleBriefList = mGson.fromJson(jsonArray.toString(),
 						new TypeToken<List<Article>>() {
 						}.getType());
 				mListAdapter = new PageListViewAdapter(getActivity(),
@@ -167,6 +184,7 @@ public class PhysiologyFragment extends Fragment implements OnRefreshListener,
 	@Override
 	public void onRefresh() {
 		// values.add(0, "Add " + values.size());
+		initData(AppConfig.GET_PHYSIOLOGY_JSON.replace("{1}", "1"), 1);
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
@@ -179,6 +197,7 @@ public class PhysiologyFragment extends Fragment implements OnRefreshListener,
 
 	@Override
 	public void onLoad() {
+		initData(AppConfig.GET_PHYSIOLOGY_JSON.replace("{1}", "1"), 1);
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
@@ -196,6 +215,7 @@ public class PhysiologyFragment extends Fragment implements OnRefreshListener,
 	}
 
 	private void showArticleItem(Article articleEntry) {
+
 		mIntent = new Intent(getActivity(), ArticleActivity.class);
 
 		mIntent.putExtra("title", articleEntry.getTitle());
@@ -204,6 +224,11 @@ public class PhysiologyFragment extends Fragment implements OnRefreshListener,
 		mIntent.putExtra("content", articleEntry.getContent());
 		mIntent.putExtra("click", articleEntry.getClick());
 		mIntent.putExtra("source", articleEntry.getSource());
+
+		mPath = AppConfig.GET_CLICK_JSON;
+		mPath = mPath.replace("{ID}", "" + articleEntry.getId());
+		initData(mPath, 2);
+		mSwipeRefreshLayout.setRefreshing(false);
 
 		startActivity(mIntent);
 	}
