@@ -177,7 +177,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int widget_loading=0x7f020026;
     }
     public static final class id {
-        public static final int action_settings=0x7f050035;
+        public static final int action_settings=0x7f050033;
         public static final int article_list=0x7f050026;
         public static final int back=0x7f050019;
         public static final int bottom_layout=0x7f050014;
@@ -198,22 +198,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int layout_menu=0x7f050021;
         public static final int left=0x7f050001;
         public static final int left_layout=0x7f05001a;
-        public static final int login=0x7f050030;
+        public static final int login=0x7f05002e;
         public static final int main_relativelayout_header=0x7f050016;
         public static final int margin=0x7f050004;
         public static final int menu_frame=0x7f050006;
         public static final int menu_item=0x7f050022;
         public static final int menu_listview=0x7f050013;
         public static final int moresex_logo=0x7f050028;
-        public static final int password=0x7f05002f;
-        public static final int password_img=0x7f05002e;
-        public static final int password_layout=0x7f05002d;
-        public static final int register=0x7f050031;
-        public static final int renren=0x7f050034;
+        public static final int password=0x7f05002c;
+        public static final int password_line=0x7f05002d;
+        public static final int register=0x7f05002f;
+        public static final int renren=0x7f050032;
         public static final int right=0x7f050002;
         public static final int scrollView=0x7f05000c;
         public static final int selected_view=0x7f050000;
-        public static final int sina_weibo=0x7f050033;
+        public static final int sina_weibo=0x7f050031;
         public static final int slidingmenumain=0x7f050027;
         public static final int swipe_container=0x7f050025;
         public static final int text_article_author=0x7f05000a;
@@ -223,14 +222,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int text_module=0x7f050018;
         public static final int thumbnail_image=0x7f05001b;
         public static final int title_layout=0x7f050008;
-        public static final int uesrname=0x7f05002c;
+        public static final int uesrname=0x7f05002a;
         public static final int user_flexiImage=0x7f050011;
+        public static final int user_line=0x7f05002b;
         public static final int user_name=0x7f050012;
-        public static final int username_img=0x7f05002b;
-        public static final int username_layout=0x7f05002a;
         public static final int version=0x7f050015;
         public static final int webview_article_content=0x7f05000e;
-        public static final int wechat=0x7f050032;
+        public static final int wechat=0x7f050030;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

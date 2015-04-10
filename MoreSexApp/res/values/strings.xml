@@ -12,7 +12,7 @@
     <string name="network_not_connected">网络连接失败，请检查网络设置</string>
     <string name="click_login">点击登录</string>
     <string name="username">用户名</string>
-    <string name="password">密码</string>
+    <string name="password">密　码</string>
     <string name="login">登陆</string>
     <string name="register">注册</string>
 

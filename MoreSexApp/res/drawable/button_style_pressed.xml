@@ -7,7 +7,7 @@
         android:topLeftRadius="25dp"
         android:topRightRadius="25dp" />
  
-    <solid android:color="#e0000000" />
+    <solid android:color="#7fffffff" />
 
     <stroke
         android:dashGap="0dp"

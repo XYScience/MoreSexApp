@@ -4,7 +4,7 @@
     android:id="@+id/menu_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b7f7b4" >
+    android:background="#d3fad1" >
 
     <ImageView
         android:id="@+id/moresex_logo"
@@ -21,73 +21,71 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" >
 
-        <RelativeLayout
-            android:id="@+id/username_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:id="@+id/username_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:background="@drawable/start"
-                android:contentDescription="@null" />
-
-            <EditText
-                android:id="@+id/uesrname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
-                android:layout_toRightOf="@id/username_img"
-                android:hint="@string/username"
-                android:inputType="textPassword"
-                android:textColor="#fff"
-                android:textColorHint="#fff" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/password_layout"
+        <EditText
+            android:id="@+id/uesrname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/username_layout"
-            android:layout_below="@id/username_layout"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp" >
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/start"
+            android:hint="@string/username"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:textColorHint="#ccc" />
 
-            <ImageView
-                android:id="@+id/password_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:background="@drawable/start_select"
-                android:contentDescription="@null" />
+        <View
+            android:id="@+id/user_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/uesrname"
+            android:layout_marginLeft="78dp"
+            android:layout_marginRight="50dp"
+            android:background="#fff" />
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
-                android:layout_toRightOf="@id/password_img"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:textColor="#fff"
-                android:textColorHint="#fff" />
-        </RelativeLayout>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/uesrname"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="13dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/start_select"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:textColorHint="#ccc" />
+
+        <View
+            android:id="@+id/password_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/password"
+            android:layout_marginLeft="78dp"
+            android:layout_marginRight="50dp"
+            android:background="#fff" />
 
         <Button
             android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/password_layout"
+            android:layout_below="@id/password"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/button_click"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:text="@string/login"
             android:textColor="#fff"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/register"
@@ -96,12 +94,14 @@
             android:layout_below="@id/login"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/button_click"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:text="@string/register"
             android:textColor="#fff"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -123,7 +123,7 @@
             android:id="@+id/sina_weibo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
             android:layout_toLeftOf="@id/wechat"
             android:contentDescription="@null"
@@ -133,7 +133,7 @@
             android:id="@+id/renren"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/wechat"
             android:contentDescription="@null"
