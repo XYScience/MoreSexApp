@@ -30,10 +30,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sciecne.moresexapp.ArticleActivity;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
+import com.sciecne.moresexapp.ui.ArticleActivity;
 import com.sciecne.moresexapp.utils.AppConfig;
+import com.sciecne.moresexapp.utils.AppContext;
 import com.science.moresexapp.adapter.PageListViewAdapter;
 import com.science.moresexapp.bean.Article;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout;
@@ -70,12 +71,21 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 	private JsonArrayRequest mJsonArrayRequest;
 	private Gson mGson;
 
+	private AppContext appContext;// 全局Context
+
 	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.recommend_fragment_layout, container,
 				false);
+
+		appContext = (AppContext) getActivity().getApplication();
+		// 网络连接判断
+		if (!appContext.isNetworkConnected()) {
+			Toast.makeText(getActivity(), R.string.network_not_connected,
+					Toast.LENGTH_LONG).show();
+		}
 
 		mTextModule = (TextView) mView.findViewById(R.id.text_module);
 		mTextModule.setText("推荐");

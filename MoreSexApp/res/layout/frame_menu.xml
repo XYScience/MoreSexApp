@@ -5,33 +5,41 @@
     android:layout_height="match_parent"
     android:background="@drawable/drawer_bg" >
 
-    <ImageView
-        android:id="@+id/logo"
+    <com.psaravan.flexiimageview.lib.View.FlexiImageView
+        android:id="@+id/user_flexiImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/moresex_logo"
-        android:contentDescription="@null" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/default_user_img" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_flexiImage"
+        android:layout_centerHorizontal="true"
+        android:text="@string/click_login"
+        android:textColor="#fff" />
 
     <ListView
         android:id="@+id/menu_listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logo"
+        android:layout_below="@id/user_name"
         android:layout_marginRight="44dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:clickable="true"
         android:divider="@drawable/divider_style"
         android:dividerHeight="1dp"
         android:minHeight="30dp"
         android:scrollbars="none"
-        android:stackFromBottom="true" > 
+        android:stackFromBottom="true" >
 
         <!-- android:layout_width="match_parent"这么设置高度会带来另外一个很不好的体验，滚动很慢。因为Listview要不断的计算高度。可见的视图要不断的刷新 -->
     </ListView>
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -64,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="40dp"
-            android:textColor="#fff"
             android:text="V1.0"
+            android:textColor="#fff"
             android:textSize="15sp" />
     </RelativeLayout>
 

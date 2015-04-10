@@ -1,4 +1,4 @@
-package com.sciecne.moresexapp;
+package com.sciecne.moresexapp.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.sciecne.moresexapp.R;
 
 /**
  * @description ÎÄÕÂÄÚÈİ

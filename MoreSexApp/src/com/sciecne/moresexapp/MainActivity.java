@@ -4,9 +4,11 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.sciecne.moresexapp.fragment.MenuFragment;
 import com.sciecne.moresexapp.fragment.RecommendFragment;
+import com.sciecne.moresexapp.utils.AppContext;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingActivity;
 
@@ -25,10 +27,18 @@ public class MainActivity extends SlidingActivity {
 	private SlidingMenu mSlidingMenu;
 	private FragmentTransaction mFragmentTransaction;
 
+	private AppContext appContext;// 全局Context
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		appContext = (AppContext) getApplication();
+		// 网络连接判断
+		if (!appContext.isNetworkConnected())
+			Toast.makeText(this, R.string.network_not_connected,
+					Toast.LENGTH_LONG).show();
 
 		// set the behind menu view
 		setBehindContentView(R.layout.layout_menu);

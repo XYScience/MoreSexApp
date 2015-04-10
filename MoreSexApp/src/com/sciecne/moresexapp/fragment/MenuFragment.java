@@ -3,6 +3,8 @@ package com.sciecne.moresexapp.fragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +18,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.psaravan.flexiimageview.lib.View.FlexiImageView;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
+import com.sciecne.moresexapp.ui.UserActivity;
 
 /**
  * The menu fragment
@@ -30,8 +34,11 @@ import com.sciecne.moresexapp.R;
 
 public class MenuFragment extends Fragment implements OnItemClickListener {
 
+	private View mView;
 	private ListView mListView;
 	private TextView mFeedback;
+	private FlexiImageView mUserFlexiImage;
+	private TextView mUserName;
 	private MenuAdapter mMenuAdapter;
 	private Fragment mRecommendFragment, mSkillFragment, mHealthFragment,
 			mPhysiologyFragment, mMentalityFragment, mBirthControlFragment,
@@ -49,11 +56,31 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.frame_menu, container, false);
+		mView = inflater.inflate(R.layout.frame_menu, container, false);
 
-		mListView = (ListView) view.findViewById(R.id.menu_listview);
-		mFeedback = (TextView) view.findViewById(R.id.feedback);
+		initComponent();
 
+		addListener();
+
+		mMenuAdapter = new MenuAdapter(getActivity());
+		mListView.setAdapter(mMenuAdapter);
+		mFragmentManager = this.getFragmentManager();
+
+		return mView;
+	}
+
+	private void initComponent() {
+		mListView = (ListView) mView.findViewById(R.id.menu_listview);
+		mFeedback = (TextView) mView.findViewById(R.id.feedback);
+		mUserFlexiImage = (FlexiImageView) mView
+				.findViewById(R.id.user_flexiImage);
+		mUserName = (TextView) mView.findViewById(R.id.user_name);
+		// 用户圆形头像
+		mUserFlexiImage.setShape(FlexiImageView.SHAPE_CIRCLE)
+				.setShadow(true, 50.0f, 0.0f, 10.0f, Color.BLACK).draw();
+	}
+
+	private void addListener() {
 		mListView.setOnItemClickListener(this);
 		mFeedback.setOnClickListener(new OnClickListener() {
 
@@ -63,12 +90,20 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			}
 		});
 
-		mMenuAdapter = new MenuAdapter(getActivity());
-		mListView.setAdapter(mMenuAdapter);
+		mUserFlexiImage.setOnClickListener(new OnClickListener() {
 
-		mFragmentManager = this.getFragmentManager();
+			@Override
+			public void onClick(View v) {
+				showUserFragment();
+			}
+		});
+		mUserName.setOnClickListener(new OnClickListener() {
 
-		return view;
+			@Override
+			public void onClick(View v) {
+				showUserFragment();
+			}
+		});
 	}
 
 	private class MenuAdapter extends BaseAdapter {
@@ -276,4 +311,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		((MainActivity) getActivity()).getSlidingMenu().toggle();
 	}
 
+	public void showUserFragment() {
+		Intent intent = new Intent(getActivity(), UserActivity.class);
+		startActivity(intent);
+	}
 }

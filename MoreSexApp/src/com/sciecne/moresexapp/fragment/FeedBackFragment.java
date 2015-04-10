@@ -4,8 +4,12 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
 
 /**
@@ -22,6 +26,9 @@ import com.sciecne.moresexapp.R;
 public class FeedBackFragment extends Fragment {
 
 	private View mView;
+	// 左上角返回图标
+	private ImageView mImageView;
+	private TextView mTextModule;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +36,18 @@ public class FeedBackFragment extends Fragment {
 
 		mView = inflater.inflate(R.layout.feedback_fragment_layout, container,
 				false);
+
+		mTextModule = (TextView) mView.findViewById(R.id.text_module);
+		mTextModule.setText("技巧");
+		mImageView = (ImageView) mView.findViewById(R.id.img_menu);
+		mImageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// Automatically determine the switch
+				((MainActivity) getActivity()).getSlidingMenu().toggle();
+			}
+		});
 
 		return mView;
 	}
