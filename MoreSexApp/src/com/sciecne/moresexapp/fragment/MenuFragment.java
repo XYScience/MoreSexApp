@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.psaravan.flexiimageview.lib.View.FlexiImageView;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
-import com.sciecne.moresexapp.ui.UserActivity;
+import com.sciecne.moresexapp.ui.LoginActivity;
 
 /**
  * The menu fragment
@@ -312,7 +312,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	}
 
 	public void showUserFragment() {
-		Intent intent = new Intent(getActivity(), UserActivity.class);
+		Intent intent = new Intent(getActivity(), LoginActivity.class);
 		startActivity(intent);
 	}
 }

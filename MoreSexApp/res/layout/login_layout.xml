@@ -4,7 +4,9 @@
     android:id="@+id/menu_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d3fad1" >
+    android:background="@drawable/login_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true" >
 
     <ImageView
         android:id="@+id/moresex_logo"
@@ -22,15 +24,15 @@
         android:layout_centerInParent="true" >
 
         <EditText
-            android:id="@+id/uesrname"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp"
             android:background="@null"
-            android:drawableLeft="@drawable/start"
-            android:hint="@string/username"
+            android:drawableLeft="@drawable/user"
+            android:hint="@string/user"
             android:inputType="textEmailAddress"
             android:singleLine="true"
             android:textColor="#fff"
@@ -40,7 +42,7 @@
             android:id="@+id/user_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignBottom="@id/uesrname"
+            android:layout_alignBottom="@id/username"
             android:layout_marginLeft="78dp"
             android:layout_marginRight="50dp"
             android:background="#fff" />
@@ -49,13 +51,13 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/uesrname"
+            android:layout_below="@id/username"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp"
             android:layout_marginTop="13dp"
             android:background="@null"
-            android:drawableLeft="@drawable/start_select"
+            android:drawableLeft="@drawable/password"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:singleLine="true"
@@ -117,27 +119,27 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:contentDescription="@null"
-            android:src="@drawable/wechat" />
+            android:src="@drawable/wx" />
 
         <ImageView
-            android:id="@+id/sina_weibo"
+            android:id="@+id/qq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
             android:layout_toLeftOf="@id/wechat"
             android:contentDescription="@null"
-            android:src="@drawable/sina_weibo" />
+            android:src="@drawable/qq" />
 
         <ImageView
-            android:id="@+id/renren"
+            android:id="@+id/sina_weibo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/wechat"
             android:contentDescription="@null"
-            android:src="@drawable/renren" />
+            android:src="@drawable/wb" />
     </RelativeLayout>
 
 </RelativeLayout>
