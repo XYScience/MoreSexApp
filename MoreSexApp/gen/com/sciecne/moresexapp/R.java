@@ -184,7 +184,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int wx=0x7f02002d;
     }
     public static final class id {
-        public static final int action_settings=0x7f050037;
+        public static final int action_settings=0x7f050039;
         public static final int article_list=0x7f050031;
         public static final int back=0x7f050019;
         public static final int bottom_layout=0x7f050014;
@@ -215,16 +215,18 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int menu_listview=0x7f050013;
         public static final int moresex_logo=0x7f050025;
         public static final int password=0x7f050029;
+        public static final int password_again=0x7f050034;
+        public static final int password_again_line=0x7f050035;
         public static final int password_line=0x7f05002a;
         public static final int qq=0x7f05002e;
-        public static final int quick_register=0x7f050035;
-        public static final int quick_register_ll=0x7f050034;
+        public static final int quick_register=0x7f050037;
+        public static final int quick_register_ll=0x7f050036;
         public static final int register=0x7f05002c;
         public static final int right=0x7f050002;
         public static final int scrollView=0x7f05000c;
         public static final int selected_view=0x7f050000;
         public static final int sina_weibo=0x7f05002f;
-        public static final int slidingmenumain=0x7f050036;
+        public static final int slidingmenumain=0x7f050038;
         public static final int swipe_container=0x7f050030;
         public static final int text_article_author=0x7f05000a;
         public static final int text_article_time=0x7f05000b;
@@ -264,7 +266,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int app_name=0x7f040000;
         public static final int article=0x7f040007;
         public static final int click_login=0x7f040009;
+        public static final int dialog_error_title=0x7f04001a;
+        public static final int dialog_message_title=0x7f040017;
+        public static final int dialog_text_wait=0x7f040018;
         public static final int email=0x7f04000d;
+        public static final int error_login_error=0x7f04001b;
+        public static final int error_register_email_address_null=0x7f040011;
+        public static final int error_register_email_repeat=0x7f040016;
+        public static final int error_register_password_not_equals=0x7f040014;
+        public static final int error_register_password_null=0x7f040013;
+        public static final int error_register_user_name_null=0x7f040012;
+        public static final int error_register_user_name_repeat=0x7f040015;
         public static final int feedback=0x7f040005;
         public static final int hello_world=0x7f040002;
         public static final int home=0x7f040003;
@@ -275,6 +287,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int quick_register=0x7f040010;
         public static final int recommend=0x7f040004;
         public static final int register=0x7f04000f;
+        public static final int success_register_success=0x7f040019;
         public static final int user=0x7f04000a;
         public static final int username=0x7f04000c;
     }

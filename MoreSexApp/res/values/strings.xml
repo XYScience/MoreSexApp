@@ -18,5 +18,16 @@
     <string name="login">登陆</string>
     <string name="register">注册</string>
     <string name="quick_register">一键注册</string>
+    <string name="error_register_email_address_null">E-mail地址不可空</string>
+    <string name="error_register_user_name_null">用户名不可空</string>
+    <string name="error_register_password_null">密码不可为空</string>
+    <string name="error_register_password_not_equals">两次输入密码不一致，请重新输入</string>
+    <string name="error_register_user_name_repeat">用户名已被注册，请重新填写</string>
+    <string name="error_register_email_repeat">邮箱已被注册，请更换邮箱</string>
+    <string name="dialog_message_title">提示</string>
+    <string name="dialog_text_wait">请等待</string>
+    <string name="success_register_success">注册成功</string>
+    <string name="dialog_error_title">错误</string>
+    <string name="error_login_error">登陆失败，请确认网络和用户名密码后重试</string>
 
 </resources>

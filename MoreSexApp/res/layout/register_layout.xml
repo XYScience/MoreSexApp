@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:contentDescription="@null"
         android:src="@drawable/moresex_logo" />
 
@@ -99,11 +99,37 @@
             android:layout_marginRight="50dp"
             android:background="#fff" />
 
+        <EditText
+            android:id="@+id/password_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="13dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:textColorHint="#ccc" />
+
+        <View
+            android:id="@+id/password_again_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/password_again"
+            android:layout_marginLeft="78dp"
+            android:layout_marginRight="50dp"
+            android:background="#fff" />
+
         <Button
             android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/password"
+            android:layout_below="@id/password_again"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="40dp"

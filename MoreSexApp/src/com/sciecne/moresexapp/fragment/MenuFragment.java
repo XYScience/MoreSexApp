@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.psaravan.flexiimageview.lib.View.FlexiImageView;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
@@ -78,6 +79,14 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		// 用户圆形头像
 		mUserFlexiImage.setShape(FlexiImageView.SHAPE_CIRCLE)
 				.setShadow(true, 50.0f, 0.0f, 10.0f, Color.BLACK).draw();
+
+		// 得到用户名称
+		AVUser currentUser = AVUser.getCurrentUser();
+		if (currentUser != null) {
+			mUserName.setText(currentUser.getUsername());
+		} else {
+			mUserName.setText(R.string.click_login);
+		}
 	}
 
 	private void addListener() {

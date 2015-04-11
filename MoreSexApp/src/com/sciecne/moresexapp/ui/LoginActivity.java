@@ -2,6 +2,9 @@ package com.sciecne.moresexapp.ui;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION;
@@ -14,7 +17,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
+import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
 
 /**
@@ -36,6 +44,8 @@ public class LoginActivity extends Activity {
 	private ImageView mQQImg;
 	private ImageView mWeChatImg;
 	private ImageView mSinaWeiBoImg;
+
+	private ProgressDialog progressDialog;
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)
 	@Override
@@ -81,11 +91,73 @@ public class LoginActivity extends Activity {
 
 	class LoginListener implements OnClickListener {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void onClick(View v) {
 
+			String username = mUserName.getText().toString();
+			String password = mPassword.getText().toString();
+			if (username.isEmpty()) {
+				Toast.makeText(LoginActivity.this,
+						R.string.error_register_user_name_null,
+						Toast.LENGTH_LONG).show();
+				return;
+			}
+			if (password.isEmpty()) {
+				Toast.makeText(LoginActivity.this,
+						R.string.error_register_password_null,
+						Toast.LENGTH_LONG).show();
+				return;
+			}
+			progressDialogShow();
+			// µÇÂ½²éÑ¯
+			AVUser.logInInBackground(username, password, new LogInCallback() {
+				public void done(AVUser user, AVException e) {
+					if (user != null) {
+						progressDialogDismiss();
+						Intent mainIntent = new Intent(LoginActivity.this,
+								MainActivity.class);
+						startActivity(mainIntent);
+						LoginActivity.this.finish();
+					} else {
+						progressDialogDismiss();
+						showLoginError();
+					}
+				}
+			});
 		}
 
+	}
+
+	private void progressDialogShow() {
+		progressDialog = ProgressDialog.show(
+				LoginActivity.this,
+				LoginActivity.this.getResources().getText(
+						R.string.dialog_message_title), LoginActivity.this
+						.getResources().getText(R.string.dialog_text_wait),
+				true, false);
+	}
+
+	private void progressDialogDismiss() {
+		if (progressDialog != null)
+			progressDialog.dismiss();
+	}
+
+	private void showLoginError() {
+		new AlertDialog.Builder(LoginActivity.this)
+				.setTitle(
+						LoginActivity.this.getResources().getString(
+								R.string.dialog_error_title))
+				.setMessage(
+						LoginActivity.this.getResources().getString(
+								R.string.error_login_error))
+				.setNegativeButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+							}
+						}).show();
 	}
 
 	class RegisterListener implements OnClickListener {

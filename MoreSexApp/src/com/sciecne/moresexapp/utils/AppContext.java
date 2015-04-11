@@ -5,6 +5,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.avos.avoscloud.AVOSCloud;
+
 /**
  * @description 全局应用程序类：用于保存和调用全局应用配置及访问网络数据
  * 
@@ -16,6 +18,15 @@ import android.net.NetworkInfo;
  */
 
 public class AppContext extends Application {
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		// U need your AVOS key and so on to run the code.
+		AVOSCloud.initialize(getApplicationContext(),
+				"60pzw82x5d1bl18atisy26c3436vtvp0l4t0ma71yqu0udea",
+				"g2epsoajhdloisvszkoeblyyugpjfedq7sgwjeahpimgx2ci");
+	}
 
 	/**
 	 * 检测网络是否可用

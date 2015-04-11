@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.sciecne.moresexapp.fragment.MenuFragment;
 import com.sciecne.moresexapp.fragment.RecommendFragment;
 import com.sciecne.moresexapp.utils.AppContext;
@@ -33,6 +34,9 @@ public class MainActivity extends SlidingActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// 跟踪统计应用的打开情况
+		AVAnalytics.trackAppOpened(getIntent());
 
 		appContext = (AppContext) getApplication();
 		// 网络连接判断
