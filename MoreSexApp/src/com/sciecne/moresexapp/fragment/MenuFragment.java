@@ -23,6 +23,7 @@ import com.psaravan.flexiimageview.lib.View.FlexiImageView;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
 import com.sciecne.moresexapp.ui.LoginActivity;
+import com.sciecne.moresexapp.ui.UserActivity;
 
 /**
  * The menu fragment
@@ -54,6 +55,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private int mClickFlag = -1;
 	private boolean isClick = true;
 
+	private AVUser mCurrentUser;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -81,9 +84,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 				.setShadow(true, 50.0f, 0.0f, 10.0f, Color.BLACK).draw();
 
 		// 得到用户名称
-		AVUser currentUser = AVUser.getCurrentUser();
-		if (currentUser != null) {
-			mUserName.setText(currentUser.getUsername());
+		mCurrentUser = AVUser.getCurrentUser();
+		if (mCurrentUser != null) {
+			mUserName.setText(mCurrentUser.getUsername());
 		} else {
 			mUserName.setText(R.string.click_login);
 		}
@@ -321,7 +324,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	}
 
 	public void showUserFragment() {
-		Intent intent = new Intent(getActivity(), LoginActivity.class);
-		startActivity(intent);
+		if (mCurrentUser == null) {
+			Intent intent = new Intent(getActivity(), LoginActivity.class);
+			startActivity(intent);
+		} else {
+			Intent intent = new Intent(getActivity(), UserActivity.class);
+			startActivity(intent);
+		}
 	}
 }

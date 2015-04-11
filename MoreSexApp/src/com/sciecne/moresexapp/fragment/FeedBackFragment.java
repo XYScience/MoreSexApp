@@ -38,7 +38,7 @@ public class FeedBackFragment extends Fragment {
 				false);
 
 		mTextModule = (TextView) mView.findViewById(R.id.text_module);
-		mTextModule.setText("¼¼ÇÉ");
+		mTextModule.setText("·´À¡");
 		mImageView = (ImageView) mView.findViewById(R.id.img_menu);
 		mImageView.setOnClickListener(new OnClickListener() {
 

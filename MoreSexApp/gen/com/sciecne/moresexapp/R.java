@@ -257,6 +257,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int recommend_fragment_layout=0x7f03000a;
         public static final int register_layout=0x7f03000b;
         public static final int slidingmenumain=0x7f03000c;
+        public static final int systembar_header=0x7f03000d;
+        public static final int user_layout=0x7f03000e;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -266,30 +268,31 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int app_name=0x7f040000;
         public static final int article=0x7f040007;
         public static final int click_login=0x7f040009;
-        public static final int dialog_error_title=0x7f04001a;
-        public static final int dialog_message_title=0x7f040017;
-        public static final int dialog_text_wait=0x7f040018;
-        public static final int email=0x7f04000d;
-        public static final int error_login_error=0x7f04001b;
-        public static final int error_register_email_address_null=0x7f040011;
-        public static final int error_register_email_repeat=0x7f040016;
-        public static final int error_register_password_not_equals=0x7f040014;
-        public static final int error_register_password_null=0x7f040013;
-        public static final int error_register_user_name_null=0x7f040012;
-        public static final int error_register_user_name_repeat=0x7f040015;
+        public static final int dialog_error_title=0x7f04001b;
+        public static final int dialog_message_title=0x7f040018;
+        public static final int dialog_text_wait=0x7f040019;
+        public static final int email=0x7f04000e;
+        public static final int error_login_error=0x7f04001c;
+        public static final int error_register_email_address_null=0x7f040012;
+        public static final int error_register_email_repeat=0x7f040017;
+        public static final int error_register_password_not_equals=0x7f040015;
+        public static final int error_register_password_null=0x7f040014;
+        public static final int error_register_user_name_null=0x7f040013;
+        public static final int error_register_user_name_repeat=0x7f040016;
         public static final int feedback=0x7f040005;
         public static final int hello_world=0x7f040002;
         public static final int home=0x7f040003;
         public static final int loading=0x7f040006;
-        public static final int login=0x7f04000e;
+        public static final int login=0x7f04000f;
         public static final int network_not_connected=0x7f040008;
         public static final int password=0x7f04000b;
-        public static final int quick_register=0x7f040010;
+        public static final int password_again=0x7f04000c;
+        public static final int quick_register=0x7f040011;
         public static final int recommend=0x7f040004;
-        public static final int register=0x7f04000f;
-        public static final int success_register_success=0x7f040019;
+        public static final int register=0x7f040010;
+        public static final int success_register_success=0x7f04001a;
         public static final int user=0x7f04000a;
-        public static final int username=0x7f04000c;
+        public static final int username=0x7f04000d;
     }
     public static final class style {
         /** 
@@ -312,12 +315,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
+
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    
+ API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        public static final int MyTranslucent=0x7f080002;
     }
     public static final class styleable {
         /** Attributes that can be used with a SlidingMenu.
