@@ -10,4 +10,105 @@
         android:id="@+id/head_layout"
         layout="@layout/systembar_header" />
 
+    <com.science.moresexapp.widget.DampView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dampview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/head_layout" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <!-- 此处必须设置imageview的scaleType为centerCrop,当然在代码中设置也可以 -->
+
+                <ImageView
+                    android:id="@+id/user_background_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ss" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="可爱的人"
+                        android:textColor="#fff"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/username"
+                        android:layout_marginTop="5dp"
+                        android:text="生命在于运动"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="-60dp"
+                android:contentDescription="@null"
+                android:src="@drawable/user_avatar" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="1" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="2" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="3" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="4" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="1" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="2" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="3" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="4" />
+        </LinearLayout>
+    </com.science.moresexapp.widget.DampView>
+
 </RelativeLayout>

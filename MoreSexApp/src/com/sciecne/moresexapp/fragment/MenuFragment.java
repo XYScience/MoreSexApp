@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +18,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
-import com.psaravan.flexiimageview.lib.View.FlexiImageView;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
 import com.sciecne.moresexapp.ui.LoginActivity;
 import com.sciecne.moresexapp.ui.UserActivity;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * The menu fragment
@@ -39,7 +39,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private View mView;
 	private ListView mListView;
 	private TextView mFeedback;
-	private FlexiImageView mUserFlexiImage;
+	private CircleImageView mUserCircleImage;
 	private TextView mUserName;
 	private MenuAdapter mMenuAdapter;
 	private Fragment mRecommendFragment, mSkillFragment, mHealthFragment,
@@ -76,12 +76,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private void initComponent() {
 		mListView = (ListView) mView.findViewById(R.id.menu_listview);
 		mFeedback = (TextView) mView.findViewById(R.id.feedback);
-		mUserFlexiImage = (FlexiImageView) mView
+		mUserCircleImage = (CircleImageView) mView
 				.findViewById(R.id.user_flexiImage);
 		mUserName = (TextView) mView.findViewById(R.id.user_name);
 		// 用户圆形头像
-		mUserFlexiImage.setShape(FlexiImageView.SHAPE_CIRCLE)
-				.setShadow(true, 50.0f, 0.0f, 10.0f, Color.BLACK).draw();
+		// mUserFlexiImage.setShape(FlexiImageView.SHAPE_CIRCLE)
+		// .setShadow(true, 50.0f, 0.0f, 10.0f, Color.BLACK).draw();
 
 		// 得到用户名称
 		mCurrentUser = AVUser.getCurrentUser();
@@ -102,7 +102,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			}
 		});
 
-		mUserFlexiImage.setOnClickListener(new OnClickListener() {
+		mUserCircleImage.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {

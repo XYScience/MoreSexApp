@@ -18,7 +18,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int behindOffset=0x7f010003;
+        public static final int behindOffset=0x7f010005;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -26,7 +26,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int behindScrollScale=0x7f010005;
+        public static final int behindScrollScale=0x7f010007;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -36,7 +36,26 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int behindWidth=0x7f010004;
+        public static final int behindWidth=0x7f010006;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int border_color=0x7f010001;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int border_width=0x7f010000;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -44,7 +63,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int fadeDegree=0x7f01000b;
+        public static final int fadeDegree=0x7f01000d;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -52,7 +71,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int fadeEnabled=0x7f01000a;
+        public static final int fadeEnabled=0x7f01000c;
         /** <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
@@ -63,11 +82,11 @@ containing a value of this type.
 <tr><td><code>right</code></td><td>1</td><td></td></tr>
 </table>
          */
-        public static final int mode=0x7f010000;
+        public static final int mode=0x7f010002;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int selectorDrawable=0x7f01000d;
+        public static final int selectorDrawable=0x7f01000f;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -75,11 +94,11 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int selectorEnabled=0x7f01000c;
+        public static final int selectorEnabled=0x7f01000e;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int shadowDrawable=0x7f010008;
+        public static final int shadowDrawable=0x7f01000a;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -89,7 +108,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int shadowWidth=0x7f010009;
+        public static final int shadowWidth=0x7f01000b;
         /** <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
@@ -100,7 +119,7 @@ containing a value of this type.
 <tr><td><code>fullscreen</code></td><td>1</td><td></td></tr>
 </table>
          */
-        public static final int touchModeAbove=0x7f010006;
+        public static final int touchModeAbove=0x7f010008;
         /** <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
@@ -111,19 +130,19 @@ containing a value of this type.
 <tr><td><code>fullscreen</code></td><td>1</td><td></td></tr>
 </table>
          */
-        public static final int touchModeBehind=0x7f010007;
+        public static final int touchModeBehind=0x7f010009;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int viewAbove=0x7f010001;
+        public static final int viewAbove=0x7f010003;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int viewBehind=0x7f010002;
+        public static final int viewBehind=0x7f010004;
     }
     public static final class color {
-        public static final int gray=0x7f060000;
-        public static final int green=0x7f060001;
+        public static final int gray=0x7f050000;
+        public static final int green=0x7f050001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -132,8 +151,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f070000;
-        public static final int activity_vertical_margin=0x7f070001;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
+        /**  Default Parallax ImageView Height 
+         */
+        public static final int size_default_height=0x7f060002;
     }
     public static final class drawable {
         public static final int article_img=0x7f020000;
@@ -175,73 +197,78 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int right_white=0x7f020024;
         public static final int shadow=0x7f020025;
         public static final int sina_weibo=0x7f020026;
-        public static final int start=0x7f020027;
-        public static final int start_select=0x7f020028;
-        public static final int user=0x7f020029;
-        public static final int wb=0x7f02002a;
-        public static final int wechat=0x7f02002b;
-        public static final int widget_loading=0x7f02002c;
-        public static final int wx=0x7f02002d;
+        public static final int ss=0x7f020027;
+        public static final int start=0x7f020028;
+        public static final int start_select=0x7f020029;
+        public static final int user=0x7f02002a;
+        public static final int user_avatar=0x7f02002b;
+        public static final int wb=0x7f02002c;
+        public static final int wechat=0x7f02002d;
+        public static final int widget_loading=0x7f02002e;
+        public static final int wx=0x7f02002f;
     }
     public static final class id {
-        public static final int action_settings=0x7f050039;
-        public static final int article_list=0x7f050031;
-        public static final int back=0x7f050019;
-        public static final int bottom_layout=0x7f050014;
-        public static final int center_layout=0x7f050026;
-        public static final int content=0x7f050005;
-        public static final int email=0x7f050032;
-        public static final int email_line=0x7f050033;
-        public static final int feedback=0x7f05000f;
-        public static final int frame_menu=0x7f050010;
-        public static final int fullscreen=0x7f050003;
-        public static final int head_layout=0x7f050007;
-        public static final int ic_item=0x7f050023;
-        public static final int image_article=0x7f05000d;
-        public static final int img_menu=0x7f050017;
-        public static final int item_brief=0x7f05001e;
-        public static final int item_click=0x7f05001f;
-        public static final int item_source=0x7f05001c;
-        public static final int item_time=0x7f050020;
-        public static final int item_title=0x7f05001d;
-        public static final int layout_menu=0x7f050021;
-        public static final int left=0x7f050001;
-        public static final int left_layout=0x7f05001a;
-        public static final int login=0x7f05002b;
-        public static final int main_relativelayout_header=0x7f050016;
-        public static final int margin=0x7f050004;
-        public static final int menu_frame=0x7f050006;
-        public static final int menu_item=0x7f050022;
-        public static final int menu_listview=0x7f050013;
-        public static final int moresex_logo=0x7f050025;
-        public static final int password=0x7f050029;
-        public static final int password_again=0x7f050034;
-        public static final int password_again_line=0x7f050035;
-        public static final int password_line=0x7f05002a;
-        public static final int qq=0x7f05002e;
-        public static final int quick_register=0x7f050037;
-        public static final int quick_register_ll=0x7f050036;
-        public static final int register=0x7f05002c;
-        public static final int right=0x7f050002;
-        public static final int scrollView=0x7f05000c;
-        public static final int selected_view=0x7f050000;
-        public static final int sina_weibo=0x7f05002f;
-        public static final int slidingmenumain=0x7f050038;
-        public static final int swipe_container=0x7f050030;
-        public static final int text_article_author=0x7f05000a;
-        public static final int text_article_time=0x7f05000b;
-        public static final int text_article_title=0x7f050009;
-        public static final int text_menu=0x7f050024;
-        public static final int text_module=0x7f050018;
-        public static final int thumbnail_image=0x7f05001b;
-        public static final int title_layout=0x7f050008;
-        public static final int user_flexiImage=0x7f050011;
-        public static final int user_line=0x7f050028;
-        public static final int user_name=0x7f050012;
-        public static final int username=0x7f050027;
-        public static final int version=0x7f050015;
-        public static final int webview_article_content=0x7f05000e;
-        public static final int wechat=0x7f05002d;
+        public static final int action_settings=0x7f04003c;
+        public static final int article_list=0x7f040031;
+        public static final int back=0x7f040019;
+        public static final int bottom_layout=0x7f040014;
+        public static final int center_layout=0x7f040026;
+        public static final int content=0x7f040005;
+        public static final int dampview=0x7f040039;
+        public static final int email=0x7f040032;
+        public static final int email_line=0x7f040033;
+        public static final int feedback=0x7f04000f;
+        public static final int frame_menu=0x7f040010;
+        public static final int fullscreen=0x7f040003;
+        public static final int head_layout=0x7f040007;
+        public static final int ic_item=0x7f040023;
+        public static final int image_article=0x7f04000d;
+        public static final int img_menu=0x7f040017;
+        public static final int item_brief=0x7f04001e;
+        public static final int item_click=0x7f04001f;
+        public static final int item_source=0x7f04001c;
+        public static final int item_time=0x7f040020;
+        public static final int item_title=0x7f04001d;
+        public static final int iv_photo=0x7f04003b;
+        public static final int layout_menu=0x7f040021;
+        public static final int left=0x7f040001;
+        public static final int left_layout=0x7f04001a;
+        public static final int login=0x7f04002b;
+        public static final int main_relativelayout_header=0x7f040016;
+        public static final int margin=0x7f040004;
+        public static final int menu_frame=0x7f040006;
+        public static final int menu_item=0x7f040022;
+        public static final int menu_listview=0x7f040013;
+        public static final int moresex_logo=0x7f040025;
+        public static final int password=0x7f040029;
+        public static final int password_again=0x7f040034;
+        public static final int password_again_line=0x7f040035;
+        public static final int password_line=0x7f04002a;
+        public static final int qq=0x7f04002e;
+        public static final int quick_register=0x7f040037;
+        public static final int quick_register_ll=0x7f040036;
+        public static final int register=0x7f04002c;
+        public static final int right=0x7f040002;
+        public static final int scrollView=0x7f04000c;
+        public static final int selected_view=0x7f040000;
+        public static final int sina_weibo=0x7f04002f;
+        public static final int slidingmenumain=0x7f040038;
+        public static final int swipe_container=0x7f040030;
+        public static final int text_article_author=0x7f04000a;
+        public static final int text_article_time=0x7f04000b;
+        public static final int text_article_title=0x7f040009;
+        public static final int text_menu=0x7f040024;
+        public static final int text_module=0x7f040018;
+        public static final int thumbnail_image=0x7f04001b;
+        public static final int title_layout=0x7f040008;
+        public static final int user_background_img=0x7f04003a;
+        public static final int user_flexiImage=0x7f040011;
+        public static final int user_line=0x7f040028;
+        public static final int user_name=0x7f040012;
+        public static final int username=0x7f040027;
+        public static final int version=0x7f040015;
+        public static final int webview_article_content=0x7f04000e;
+        public static final int wechat=0x7f04002d;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -264,35 +291,35 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int main=0x7f090000;
     }
     public static final class string {
-        public static final int action_settings=0x7f040001;
-        public static final int app_name=0x7f040000;
-        public static final int article=0x7f040007;
-        public static final int click_login=0x7f040009;
-        public static final int dialog_error_title=0x7f04001b;
-        public static final int dialog_message_title=0x7f040018;
-        public static final int dialog_text_wait=0x7f040019;
-        public static final int email=0x7f04000e;
-        public static final int error_login_error=0x7f04001c;
-        public static final int error_register_email_address_null=0x7f040012;
-        public static final int error_register_email_repeat=0x7f040017;
-        public static final int error_register_password_not_equals=0x7f040015;
-        public static final int error_register_password_null=0x7f040014;
-        public static final int error_register_user_name_null=0x7f040013;
-        public static final int error_register_user_name_repeat=0x7f040016;
-        public static final int feedback=0x7f040005;
-        public static final int hello_world=0x7f040002;
-        public static final int home=0x7f040003;
-        public static final int loading=0x7f040006;
-        public static final int login=0x7f04000f;
-        public static final int network_not_connected=0x7f040008;
-        public static final int password=0x7f04000b;
-        public static final int password_again=0x7f04000c;
-        public static final int quick_register=0x7f040011;
-        public static final int recommend=0x7f040004;
-        public static final int register=0x7f040010;
-        public static final int success_register_success=0x7f04001a;
-        public static final int user=0x7f04000a;
-        public static final int username=0x7f04000d;
+        public static final int action_settings=0x7f070001;
+        public static final int app_name=0x7f070000;
+        public static final int article=0x7f070007;
+        public static final int click_login=0x7f070009;
+        public static final int dialog_error_title=0x7f07001b;
+        public static final int dialog_message_title=0x7f070018;
+        public static final int dialog_text_wait=0x7f070019;
+        public static final int email=0x7f07000e;
+        public static final int error_login_error=0x7f07001c;
+        public static final int error_register_email_address_null=0x7f070012;
+        public static final int error_register_email_repeat=0x7f070017;
+        public static final int error_register_password_not_equals=0x7f070015;
+        public static final int error_register_password_null=0x7f070014;
+        public static final int error_register_user_name_null=0x7f070013;
+        public static final int error_register_user_name_repeat=0x7f070016;
+        public static final int feedback=0x7f070005;
+        public static final int hello_world=0x7f070002;
+        public static final int home=0x7f070003;
+        public static final int loading=0x7f070006;
+        public static final int login=0x7f07000f;
+        public static final int network_not_connected=0x7f070008;
+        public static final int password=0x7f07000b;
+        public static final int password_again=0x7f07000c;
+        public static final int quick_register=0x7f070011;
+        public static final int recommend=0x7f070004;
+        public static final int register=0x7f070010;
+        public static final int success_register_success=0x7f07001a;
+        public static final int user=0x7f07000a;
+        public static final int username=0x7f07000d;
     }
     public static final class style {
         /** 
@@ -327,9 +354,54 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
-        public static final int MyTranslucent=0x7f080002;
     }
     public static final class styleable {
+        /** Attributes that can be used with a CircleImageView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #CircleImageView_border_color com.sciecne.moresexapp:border_color}</code></td><td></td></tr>
+           <tr><td><code>{@link #CircleImageView_border_width com.sciecne.moresexapp:border_width}</code></td><td></td></tr>
+           </table>
+           @see #CircleImageView_border_color
+           @see #CircleImageView_border_width
+         */
+        public static final int[] CircleImageView = {
+            0x7f010000, 0x7f010001
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.sciecne.moresexapp.R.attr#border_color}
+          attribute's value can be found in the {@link #CircleImageView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sciecne.moresexapp:border_color
+        */
+        public static final int CircleImageView_border_color = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.sciecne.moresexapp.R.attr#border_width}
+          attribute's value can be found in the {@link #CircleImageView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sciecne.moresexapp:border_width
+        */
+        public static final int CircleImageView_border_width = 0;
         /** Attributes that can be used with a SlidingMenu.
            <p>Includes the following attributes:</p>
            <table>
@@ -367,10 +439,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            @see #SlidingMenu_viewBehind
          */
         public static final int[] SlidingMenu = {
-            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
-            0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
-            0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
-            0x7f01000c, 0x7f01000d
+            0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005,
+            0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009,
+            0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d,
+            0x7f01000e, 0x7f01000f
         };
         /**
           <p>This symbol is the offset where the {@link com.sciecne.moresexapp.R.attr#behindOffset}

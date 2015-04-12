@@ -80,12 +80,22 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 		mView = inflater.inflate(R.layout.recommend_fragment_layout, container,
 				false);
 
-		appContext = (AppContext) getActivity().getApplication();
 		// 网络连接判断
+		appContext = (AppContext) getActivity().getApplication();
 		if (!appContext.isNetworkConnected()) {
 			Toast.makeText(getActivity(), R.string.network_not_connected,
 					Toast.LENGTH_LONG).show();
 		}
+
+		initComponent();
+
+		initData(AppConfig.GET_RECOMMEND_JSON, 1);
+
+		return mView;
+	}
+
+	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
+	private void initComponent() {
 
 		mTextModule = (TextView) mView.findViewById(R.id.text_module);
 		mTextModule.setText("推荐");
@@ -102,16 +112,7 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 		mArticleListView = (ListView) mView.findViewById(R.id.article_list);
 		mArticleListView.setOnItemClickListener(this);
 
-		initComponent();
-
-		initData(AppConfig.GET_RECOMMEND_JSON, 1);
-
-		return mView;
-	}
-
-	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
-	// 刷新加载效果
-	private void initComponent() {
+		// 刷新加载效果
 		mSwipeRefreshLayout = (SwipeRefreshLayout) mView
 				.findViewById(R.id.swipe_container);
 		mSwipeRefreshLayout.setOnRefreshListener(this);

@@ -4,4 +4,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Default Parallax ImageView Height -->
+    <dimen name="size_default_height">200dp</dimen>
+
 </resources>

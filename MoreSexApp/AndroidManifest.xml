@@ -47,7 +47,7 @@
         </activity>
         <activity
             android:name="com.sciecne.moresexapp.ui.UserActivity"
-            android:theme="@style/MyTranslucent" >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
     </application>
 
