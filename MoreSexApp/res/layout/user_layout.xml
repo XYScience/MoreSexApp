@@ -56,8 +56,7 @@
                         android:layout_below="@id/username"
                         android:layout_marginTop="5dp"
                         android:text="生命在于运动"
-                        android:textColor="#fff"
-                        android:textSize="15sp" />
+                        android:textColor="#fff" />
                 </RelativeLayout>
             </FrameLayout>
 
@@ -69,45 +68,48 @@
                 android:contentDescription="@null"
                 android:src="@drawable/user_avatar" />
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="2" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="3" />
+                    <TextView
+                        android:id="@+id/my_collect_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:gravity="center"
+                        android:text="@string/my_collect_text"
+                        android:textSize="18sp" />
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="4" />
+                    <TextView
+                        android:id="@+id/my_comment_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:gravity="center"
+                        android:text="@string/my_comment_text"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="1" />
+                <TextView
+                    android:id="@+id/cursor"
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:background="#5ddd57" />
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="2" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="3" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="4" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:flipInterval="30"
+                    android:persistentDrawingCache="animation" />
+            </LinearLayout>
         </LinearLayout>
     </com.science.moresexapp.widget.DampView>
 

@@ -6,7 +6,7 @@
     android:background="#5ddd57" >
 
     <ImageView
-        android:id="@+id/img_menu"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
