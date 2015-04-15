@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 
 	private ImageView mImageView;
 	private TextView mTextModule;
+	private FrameLayout mLoadView;
 
 	private Intent mIntent;
 	// 点击量URL
@@ -70,6 +72,7 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 	private RequestQueue mRequestQueue;
 	private JsonArrayRequest mJsonArrayRequest;
 	private Gson mGson;
+	private int connect = 0;
 
 	private AppContext appContext;// 全局Context
 
@@ -80,23 +83,27 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 		mView = inflater.inflate(R.layout.recommend_fragment_layout, container,
 				false);
 
-		// 网络连接判断
-		appContext = (AppContext) getActivity().getApplication();
+		initComponent();
+
 		if (!appContext.isNetworkConnected()) {
 			Toast.makeText(getActivity(), R.string.network_not_connected,
 					Toast.LENGTH_LONG).show();
+			// 去除加载
+			mLoadView.setVisibility(View.GONE);
+			connect = 1;
+
+		} else {
+			initData(AppConfig.GET_RECOMMEND_JSON, 1);
 		}
-
-		initComponent();
-
-		initData(AppConfig.GET_RECOMMEND_JSON, 1);
 
 		return mView;
 	}
 
 	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
 	private void initComponent() {
-
+		// 网络连接判断
+		appContext = (AppContext) getActivity().getApplication();
+		mLoadView = (FrameLayout) mView.findViewById(R.id.loadView);
 		mTextModule = (TextView) mView.findViewById(R.id.text_module);
 		mTextModule.setText("推荐");
 		mImageView = (ImageView) mView.findViewById(R.id.img_menu);
@@ -178,6 +185,7 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
+				mLoadView.setVisibility(View.GONE);
 				mGson = new Gson();
 				mArticleBriefList = mGson.fromJson(jsonArray.toString(),
 						new TypeToken<List<Article>>() {
@@ -186,6 +194,7 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 						mArticleBriefList);
 				mArticleListView.setAdapter(mListAdapter);
 				mSwipeRefreshLayout.setRefreshing(false);
+
 			} else if (msg.what == -1) {
 				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_LONG);
 			}
@@ -195,27 +204,38 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 	@Override
 	public void onRefresh() {
 		// values.add(0, "Add " + values.size());
-		initData(AppConfig.GET_RECOMMEND_JSON, 1);
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// 在请求完成的时候
-				mSwipeRefreshLayout.setRefreshing(false);
-				mListAdapter.notifyDataSetChanged();
-			}
-		}, 2000);
+		if (connect == 1) {
+			Toast.makeText(getActivity(), "网络错误,请检查网络", Toast.LENGTH_LONG);
+			mSwipeRefreshLayout.setRefreshing(false);
+		} else {
+			initData(AppConfig.GET_RECOMMEND_JSON, 1);
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					// 在请求完成的时候
+					mSwipeRefreshLayout.setRefreshing(false);
+					mListAdapter.notifyDataSetChanged();
+				}
+			}, 2000);
+		}
 	}
 
 	@Override
 	public void onLoad() {
-		initData(AppConfig.GET_RECOMMEND_JSON, 1);
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				mSwipeRefreshLayout.setLoading(false);
-				mListAdapter.notifyDataSetChanged();
-			}
-		}, 1000);
+		if (connect == 1) {
+			Toast.makeText(getActivity(), "网络错误,请检查网络", Toast.LENGTH_LONG);
+			mSwipeRefreshLayout.setLoading(false);
+		} else {
+			initData(AppConfig.GET_RECOMMEND_JSON, 1);
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mSwipeRefreshLayout.setLoading(false);
+					mListAdapter.notifyDataSetChanged();
+				}
+			}, 1000);
+		}
+
 	}
 
 	@Override
@@ -231,10 +251,10 @@ public class RecommendFragment extends Fragment implements OnRefreshListener,
 
 		mIntent.putExtra("title", articleEntry.getTitle());
 		mIntent.putExtra("time", articleEntry.getTime());
-		mIntent.putExtra("author", articleEntry.getAuthor());
-		mIntent.putExtra("content", articleEntry.getContent());
+		mIntent.putExtra("id", articleEntry.getId());
 		mIntent.putExtra("click", articleEntry.getClick());
 		mIntent.putExtra("source", articleEntry.getSource());
+		mIntent.putExtra("content", articleEntry.getContent());
 
 		mPath = AppConfig.GET_CLICK_JSON;
 		mPath = mPath.replace("{ID}", "" + articleEntry.getId());

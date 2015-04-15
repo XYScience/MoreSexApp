@@ -7,6 +7,7 @@
         android:id="@+id/left_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:orientation="vertical" >
 
         <!-- 缩略图 -->
@@ -16,7 +17,6 @@
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_marginTop="15dp"
             android:clickable="true"
             android:contentDescription="@null"
@@ -30,7 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="7dp"
-            android:layout_marginLeft="10dp"
             android:text="@string/loading"
             android:textColor="#84909c"
             android:textSize="12sp" />
@@ -59,10 +58,10 @@
     <TextView
         android:id="@+id/item_brief"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_toRightOf="@id/left_layout"
         android:ellipsize="end"
         android:lineSpacingMultiplier="1.2"

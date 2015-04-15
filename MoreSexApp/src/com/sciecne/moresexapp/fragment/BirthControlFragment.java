@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
 import com.sciecne.moresexapp.ui.ArticleActivity;
 import com.sciecne.moresexapp.utils.AppConfig;
+import com.sciecne.moresexapp.utils.AppContext;
 import com.science.moresexapp.adapter.PageListViewAdapter;
 import com.science.moresexapp.bean.Article;
 import com.whos.swiperefreshandload.view.SwipeRefreshLayout;
@@ -48,6 +50,7 @@ import com.whos.swiperefreshandload.view.SwipeRefreshLayout.OnRefreshListener;
  * @email chentushen.science@gmail.com,274240671@qq.com
  * @date 2015-1-28
  */
+@SuppressLint("ShowToast")
 public class BirthControlFragment extends Fragment implements
 		OnRefreshListener, OnLoadListener, OnItemClickListener {
 
@@ -59,6 +62,9 @@ public class BirthControlFragment extends Fragment implements
 
 	private ImageView mImageView;
 	private TextView mTextModule;
+	private FrameLayout mLoadView;
+
+	private AppContext appContext;// 全局Context
 
 	private Intent mIntent;
 	// 点击量URL
@@ -73,6 +79,7 @@ public class BirthControlFragment extends Fragment implements
 	// 下一页
 	private int mNextPage = 1;
 	private JSONArray mNextJsonArray;
+	private int connect = 0;
 
 	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
 	@Override
@@ -81,6 +88,28 @@ public class BirthControlFragment extends Fragment implements
 		mView = inflater.inflate(R.layout.recommend_fragment_layout, container,
 				false);
 
+		initComponent();
+
+		if (!appContext.isNetworkConnected()) {
+			Toast.makeText(getActivity(), R.string.network_not_connected,
+					Toast.LENGTH_LONG).show();
+			// 去除加载
+			mLoadView.setVisibility(View.GONE);
+			connect = 1;
+
+		} else {
+			initData(AppConfig.GET_BIRTHCONTROL_JSON.replace("{1}", "1"), 1);
+		}
+
+		return mView;
+	}
+
+	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
+	private void initComponent() {
+
+		// 网络连接判断
+		appContext = (AppContext) getActivity().getApplication();
+		mLoadView = (FrameLayout) mView.findViewById(R.id.loadView);
 		mTextModule = (TextView) mView.findViewById(R.id.text_module);
 		mTextModule.setText("避孕");
 		mImageView = (ImageView) mView.findViewById(R.id.img_menu);
@@ -96,16 +125,7 @@ public class BirthControlFragment extends Fragment implements
 		mArticleListView = (ListView) mView.findViewById(R.id.article_list);
 		mArticleListView.setOnItemClickListener(this);
 
-		initComponent();
-
-		initData(AppConfig.GET_BIRTHCONTROL_JSON.replace("{1}", "1"), 1);
-
-		return mView;
-	}
-
-	@SuppressLint({ "ResourceAsColor", "InlinedApi" })
-	// 刷新加载效果
-	private void initComponent() {
+		// 刷新加载效果
 		mSwipeRefreshLayout = (SwipeRefreshLayout) mView
 				.findViewById(R.id.swipe_container);
 		mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -191,6 +211,10 @@ public class BirthControlFragment extends Fragment implements
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
+
+				// 隐藏加载
+				mLoadView.setVisibility(View.GONE);
+
 				mArticleBriefList = mGson.fromJson(jsonArray.toString(),
 						new TypeToken<List<Article>>() {
 						}.getType());
@@ -220,30 +244,40 @@ public class BirthControlFragment extends Fragment implements
 	@Override
 	public void onRefresh() {
 		// values.add(0, "Add " + values.size());
-		initData(AppConfig.GET_BIRTHCONTROL_JSON.replace("{1}", "1"), 1);
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// 在请求完成的时候
-				mSwipeRefreshLayout.setRefreshing(false);
-				mListAdapter.notifyDataSetChanged();
-			}
-		}, 2000);
+		if (connect == 1) {
+			Toast.makeText(getActivity(), "网络错误,请检查网络", Toast.LENGTH_LONG);
+			mSwipeRefreshLayout.setRefreshing(false);
+		} else {
+			initData(AppConfig.GET_BIRTHCONTROL_JSON.replace("{1}", "1"), 1);
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					// 在请求完成的时候
+					mSwipeRefreshLayout.setRefreshing(false);
+					mListAdapter.notifyDataSetChanged();
+				}
+			}, 2000);
+		}
 	}
 
 	@Override
 	public void onLoad() {
-		mNextPage++;
-		initData(
-				AppConfig.GET_BIRTHCONTROL_JSON.replace("{1}", "" + mNextPage),
-				3);
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				mSwipeRefreshLayout.setLoading(false);
-				mListAdapter.notifyDataSetChanged();
-			}
-		}, 1000);
+		if (connect == 1) {
+			Toast.makeText(getActivity(), "网络错误,请检查网络", Toast.LENGTH_LONG);
+			mSwipeRefreshLayout.setLoading(false);
+		} else {
+			mNextPage++;
+			initData(
+					AppConfig.GET_BIRTHCONTROL_JSON.replace("{1}", ""
+							+ mNextPage), 3);
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mSwipeRefreshLayout.setLoading(false);
+					mListAdapter.notifyDataSetChanged();
+				}
+			}, 1000);
+		}
 	}
 
 	@Override
@@ -259,7 +293,6 @@ public class BirthControlFragment extends Fragment implements
 
 		mIntent.putExtra("title", articleEntry.getTitle());
 		mIntent.putExtra("time", articleEntry.getTime());
-		mIntent.putExtra("author", articleEntry.getAuthor());
 		mIntent.putExtra("content", articleEntry.getContent());
 		mIntent.putExtra("click", articleEntry.getClick());
 		mIntent.putExtra("source", articleEntry.getSource());

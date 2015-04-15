@@ -99,8 +99,9 @@ public class PageListViewAdapter extends BaseAdapter {
 
 		viewHolder.titleTextView.setText("" + article.getTitle());
 		viewHolder.briefTextView.setText(""
-				+ article.getContent()
-						.replaceAll("[\\s\\\u003cbr/\u003e]", " "));// 替换<br/>和空格
+				+ article.getContent().replaceAll("文章导读", "")
+						.replaceAll("<br/>", "\b\b\b\b\b\b"));// 替换<br/>和空格
+		// .replaceAll("[\\s\\\u003cbr/\u003e]", " "));// 替换<br/>和空格
 		viewHolder.timeTextView.setText("" + mTimeString);
 		viewHolder.sourceTextView.setText("" + article.getSource());
 		viewHolder.clickTextView.setText("" + mClick);

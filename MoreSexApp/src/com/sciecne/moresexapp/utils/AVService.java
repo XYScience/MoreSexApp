@@ -101,6 +101,7 @@ public class AVService {
 		user.signUpInBackground(signUpCallback);
 	}
 
+	// 用户基本资料
 	public static void alterUserInformation(String userId, String username,
 			String sex, String birth, String home, SaveCallback saveCallback) {
 		AVObject doing = new AVObject("UserInformation");
@@ -115,6 +116,7 @@ public class AVService {
 		AVUser.logOut();
 	}
 
+	// 意见反馈
 	public static void createAdvice(String userId, String advice,
 			SaveCallback saveCallback) {
 		AVObject doing = new AVObject("SuggestionByUser");

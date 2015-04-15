@@ -94,7 +94,7 @@ public class FeedBackActivity extends Activity {
 	public void initFindCallback() {
 		currentUser = AVUser.getCurrentUser();
 		if (currentUser != null) {
-			userId = currentUser.getEmail();
+			userId = currentUser.getObjectId();
 		}
 		FindCallback<AVObject> findCallback = new FindCallback<AVObject>() {
 			public void done(List<AVObject> avObjects, AVException e) {

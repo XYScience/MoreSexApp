@@ -83,7 +83,6 @@ public class ArticleActivity extends Activity {
 
 		mTitle = mIntent.getStringExtra("title");
 		mTime = mIntent.getStringExtra("time");
-		mAuthor = mIntent.getStringExtra("author");
 		mContent = mIntent.getStringExtra("content");
 		mClick = mIntent.getStringExtra("click");
 		mSource = mIntent.getStringExtra("source");

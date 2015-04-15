@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.sciecne.moresexapp"
     android:id="@+id/menu_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,21 +16,27 @@
             android:id="@+id/head_layout"
             layout="@layout/header" />
 
+        <com.mingle.widget.LoadingView
+            android:id="@+id/loadView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:loadingText="加载中。。。" />
+
         <com.whos.swiperefreshandload.view.SwipeRefreshLayout
             android:id="@+id/swipe_container"
-            android:layout_width="match_parent" 
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/head_layout" >
 
             <ListView
                 android:id="@+id/article_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" 
+                android:layout_height="match_parent"
                 android:dividerHeight="1dp"
                 android:fadingEdge="none"
                 android:fadingEdgeLength="0px"
                 android:overScrollFooter="@null"
-                android:overScrollMode="never" 
+                android:overScrollMode="never"
                 android:scrollingCache="false" />
         </com.whos.swiperefreshandload.view.SwipeRefreshLayout>
     </RelativeLayout>
