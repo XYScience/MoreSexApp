@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.sciecne.moresexapp.MainActivity;
 import com.sciecne.moresexapp.R;
+import com.sciecne.moresexapp.ui.FeedBackActivity;
 import com.sciecne.moresexapp.ui.LoginActivity;
 import com.sciecne.moresexapp.ui.UserActivity;
 
@@ -43,8 +44,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private TextView mUserName;
 	private MenuAdapter mMenuAdapter;
 	private Fragment mRecommendFragment, mSkillFragment, mHealthFragment,
-			mPhysiologyFragment, mMentalityFragment, mBirthControlFragment,
-			FeedBackFragment;
+			mPhysiologyFragment, mMentalityFragment, mBirthControlFragment;
 	private FragmentManager mFragmentManager;
 	private String[] mMenu = { "推荐", "技巧", "健康", "生理", "心理", "避孕" };
 	private int[] mIcMenu = { R.drawable.recommand, R.drawable.ic_skill,
@@ -308,21 +308,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		((MainActivity) getActivity()).getSlidingMenu().toggle();
 	}
 
-	/**
-	 * FeedBack module fragment
-	 */
-	public void showFeedBackFragment() {
-
-		if (FeedBackFragment == null) {
-			FeedBackFragment = new FeedBackFragment();
-		}
-		if (!FeedBackFragment.isVisible()) {
-			mFragmentManager.beginTransaction()
-					.replace(R.id.content, FeedBackFragment).commit();
-		}
-		((MainActivity) getActivity()).getSlidingMenu().toggle();
-	}
-
 	public void showUserFragment() {
 		if (mCurrentUser == null) {
 			Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -331,5 +316,14 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			Intent intent = new Intent(getActivity(), UserActivity.class);
 			startActivity(intent);
 		}
+	}
+
+	/**
+	 * FeedBack module fragment
+	 */
+	public void showFeedBackFragment() {
+
+		Intent intent = new Intent(getActivity(), FeedBackActivity.class);
+		startActivity(intent);
 	}
 }

@@ -44,7 +44,7 @@
         android:scrollbars="none"
         android:stackFromBottom="true" >
 
-        <!-- android:layout_width="match_parent"这么设置高度会带来另外一个很不好的体验，滚动很慢。因为Listview要不断的计算高度。可见的视图要不断的刷新 -->
+        <!-- android:layout_height="match_parent"这么设置高度会带来另外一个很不好的体验，滚动很慢。因为Listview要不断的计算高度。可见的视图要不断的刷新 -->
     </ListView>
 
     <View

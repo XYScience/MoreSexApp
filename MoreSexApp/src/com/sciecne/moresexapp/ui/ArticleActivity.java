@@ -94,7 +94,7 @@ public class ArticleActivity extends Activity {
 	private void addData() {
 
 		mTextArticleTitle.setText(mTitle);
-		mTextArticleAuthor.setText("作者：" + mAuthor + "    来源：" + mSource);
+		mTextArticleAuthor.setText("作者：" + "本站整理" + "    来源：" + mSource);
 		mTextArticleTime.setText("发布时间：" + mTime);
 		mWebViewArticleContent.loadDataWithBaseURL(null, mContent, "text/html",
 				"UTF-8", null);

@@ -49,6 +49,14 @@
             android:name="com.sciecne.moresexapp.ui.UserActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.sciecne.moresexapp.ui.AlterActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.sciecne.moresexapp.ui.FeedBackActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

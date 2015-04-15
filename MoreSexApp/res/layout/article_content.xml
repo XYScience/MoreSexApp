@@ -38,6 +38,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:text="@string/loading"
                     android:textColor="#5ddd57"
                     android:textSize="20sp" />
@@ -48,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/text_article_title"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/loading"
+                    android:text="@string/tidied_by_us"
                     android:textColor="#84909c"
                     android:textSize="11sp" />
 
@@ -86,7 +88,8 @@
                 <WebView
                     android:id="@+id/webview_article_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"                    android:layout_marginLeft="13dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
                     android:layout_marginRight="10dp"
                     android:scrollbars="none"
                     android:textSize="17sp" />

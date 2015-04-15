@@ -8,6 +8,7 @@
     <string name="recommend">推荐</string>
     <string name="feedback">问题反馈</string>
     <string name="loading">加载中。。。</string>
+    <string name="tidied_by_us">本站整理</string>
     <string name="article">美文欣赏</string>
     <string name="network_not_connected">网络连接失败，请检查网络设置</string>
     <string name="click_login">点击登录</string>
@@ -25,12 +26,28 @@
     <string name="error_register_password_not_equals">两次输入密码不一致，请重新输入</string>
     <string name="error_register_user_name_repeat">用户名已被注册，请重新填写</string>
     <string name="error_register_email_repeat">邮箱已被注册，请更换邮箱</string>
+    <string name="error_sex_null">性别不能为空</string>
+    <string name="error_birth_null">出生不能为空</string>
+    <string name="error_hometown_null">家乡不能为空</string>
     <string name="dialog_message_title">提示</string>
     <string name="dialog_text_wait">请等待</string>
     <string name="success_register_success">注册成功</string>
     <string name="dialog_error_title">错误</string>
     <string name="error_login_error">登陆失败，请确认网络和用户名密码后重试</string>
-    <string name="my_collect_text">我的收藏</string>
-    <string name="my_comment_text">我的评论</string>
+    <string name="myself_text">个人</string>
+    <string name="my_collect_text">收藏</string>
+    <string name="my_comment_text">评论</string>
+    <string name="account_title">我的账号</string>
+    <string name="basic_information">基本信息</string>
+    <string name="social_information">社交信息</string>
+    <string name="account_username">姓名</string>
+    <string name="sex">性别</string>
+    <string name="birth">出生</string>
+    <string name="hometown">家乡</string>
+    <string name="empty">（未填写）</string>
+    <string name="save">保存</string>
+    <string name="button_back_click">退出当前账号</string>
+    <string name="feedback_content_hint">你的意见是我们无限的动力</string>
+    <string name="send_feedback">发送</string>
 
 </resources>

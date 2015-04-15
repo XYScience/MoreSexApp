@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.sciecne.moresexapp.R;
+import com.sciecne.moresexapp.utils.VolleyTools;
 import com.science.moresexapp.bean.Article;
 
 /**
@@ -31,6 +32,7 @@ import com.science.moresexapp.bean.Article;
 public class PageListViewAdapter extends BaseAdapter {
 
 	private String mTimeString;
+	private Integer mClick;
 	private LayoutInflater mInflater;
 	private Context mContext;
 	private List<Article> mArticleBriefList = new ArrayList<Article>();
@@ -84,26 +86,32 @@ public class PageListViewAdapter extends BaseAdapter {
 
 		Article article = mArticleBriefList.get(position);
 
-		if (article.getTime().length() > 9) {
-			mTimeString = article.getTime().substring(0, 10);
+		if (article.getTime() == null) {
+			mTimeString = "未知";
 		} else {
-			mTimeString = article.getTime().substring(0, 9);
+			mTimeString = article.getTime().substring(0, 10);
+		}
+		if (article.getClick() == null) {
+			mClick = 0;
+		} else {
+			mClick = article.getClick();
 		}
 
-		viewHolder.titleTextView.setText(article.getTitle());
-		viewHolder.briefTextView.setText(article.getContent().replaceAll(
-				"[\\s\\\u003cbr/\u003e]", " "));// 替换<br/>和空格
-		viewHolder.timeTextView.setText(mTimeString);
-		viewHolder.sourceTextView.setText(article.getSource());
-		viewHolder.clickTextView.setText(article.getClick());
+		viewHolder.titleTextView.setText("" + article.getTitle());
+		viewHolder.briefTextView.setText(""
+				+ article.getContent()
+						.replaceAll("[\\s\\\u003cbr/\u003e]", " "));// 替换<br/>和空格
+		viewHolder.timeTextView.setText("" + mTimeString);
+		viewHolder.sourceTextView.setText("" + article.getSource());
+		viewHolder.clickTextView.setText("" + mClick);
 
 		// 设置未加载默认图片
 		viewHolder.thumbnailImage
 				.setDefaultImageResId(R.drawable.widget_loading);
 		// 设置加载异常的图片
 		// holder.imageView.setErrorImageResId(R.drawable.error);
-		// viewHolder.thumbnailImage.setImageUrl(news.getFirstPicUrl(),
-		// VolleyTools.getInstance(mContext).getImageLoader());
+		viewHolder.thumbnailImage.setImageUrl(article.getImgUrl(), VolleyTools
+				.getInstance(mContext).getImageLoader());
 
 		return convertView;
 	}

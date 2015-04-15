@@ -101,6 +101,16 @@ public class AVService {
 		user.signUpInBackground(signUpCallback);
 	}
 
+	public static void alterUserInformation(String userId, String username,
+			String sex, String birth, String home, SaveCallback saveCallback) {
+		AVObject doing = new AVObject("UserInformation");
+		doing.put("UserObjectId", userId);
+		doing.put("UserSex", sex);
+		doing.put("UserBirth", birth);
+		doing.put("UserHome", home);
+		doing.saveInBackground(saveCallback);
+	}
+
 	public static void logout() {
 		AVUser.logOut();
 	}

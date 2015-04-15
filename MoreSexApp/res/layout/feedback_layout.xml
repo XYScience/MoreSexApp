@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true" >
+
+    <include
+        android:id="@+id/head_layout"
+        layout="@layout/systembar_header" />
+
+    <RelativeLayout
+        android:id="@+id/basic_information_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/head_layout"
+        android:layout_margin="15dp" >
+
+        <EditText
+            android:id="@+id/feedback_content_edit"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/feedback_edit_bg"
+            android:gravity="top"
+            android:hint="@string/feedback_content_hint"
+            android:paddingBottom="14.0dp"
+            android:paddingLeft="12.0dp"
+            android:paddingTop="12.0dp"
+            android:singleLine="false"
+            android:textColor="#ff333333"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/send_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/feedback_content_edit"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_alter_click"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/send_feedback"
+            android:textColor="#737373"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

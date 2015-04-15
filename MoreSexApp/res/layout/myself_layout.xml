@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/basic_information_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp" >
+
+        <!-- 账号 -->
+
+        <TextView
+            android:id="@+id/account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/account_title"
+            android:textColor="#5ddd57"
+            android:textSize="17sp" />
+
+        <View
+            android:id="@+id/account_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/account_title"
+            android:background="#5ddd57" />
+
+        <TextView
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/account_line"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/acount"
+            android:textColor="#686868"
+            android:textSize="15sp" />
+
+        <!-- 基本信息 -->
+
+        <RelativeLayout
+            android:id="@+id/basic_information_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/account"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/basic_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/basic_information"
+                android:textColor="#5ddd57"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/alter_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/alter" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/basic_information_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/basic_information_ll"
+            android:background="#5ddd57" />
+
+        <!-- 用户名 -->
+
+        <RelativeLayout
+            android:id="@+id/username_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/basic_information_line"
+            android:layout_marginTop="15dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/username"
+                android:text="@string/account_username"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/empty"
+                android:textColor="#686868"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <!-- 性别 -->
+
+        <RelativeLayout
+            android:id="@+id/sex_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_layout"
+            android:layout_marginTop="15dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/sex"
+                android:text="@string/sex"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/empty"
+                android:textColor="#686868"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <!-- 出生日期 -->
+
+        <RelativeLayout
+            android:id="@+id/birth_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sex_layout"
+            android:layout_marginTop="15dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/birth"
+                android:text="@string/birth"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/empty"
+                android:textColor="#686868"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <!-- 家乡 -->
+
+        <RelativeLayout
+            android:id="@+id/hometown_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/birth_layout"
+            android:layout_marginTop="15dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/hometown"
+                android:text="@string/sex"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/hometown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/empty"
+                android:textColor="#686868"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <!-- 社交信息 -->
+
+        <TextView
+            android:id="@+id/social_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hometown_layout"
+            android:layout_marginTop="20dp"
+            android:text="@string/social_information"
+            android:textColor="#5ddd57"
+            android:textSize="15sp" />
+
+        <View
+            android:id="@+id/social_information_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/social_information"
+            android:background="#5ddd57" />
+
+        <!-- qq -->
+
+        <RelativeLayout
+            android:id="@+id/qq_login_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/social_information_line"
+            android:layout_marginTop="15dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="即将推出"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="#686868"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/back_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/qq_login_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_alter_click"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="@string/button_back_click"
+            android:textColor="#737373"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
