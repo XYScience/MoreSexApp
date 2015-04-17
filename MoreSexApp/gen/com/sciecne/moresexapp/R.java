@@ -300,14 +300,15 @@ containing a value of this type.
         public static final int username=0x7f02004b;
         public static final int wb=0x7f02004c;
         public static final int wechat=0x7f02004d;
-        public static final int widget_loading=0x7f02004e;
-        public static final int wx=0x7f02004f;
+        public static final int welcome=0x7f02004e;
+        public static final int widget_loading=0x7f02004f;
+        public static final int wx=0x7f020050;
     }
     public static final class id {
         public static final int account=0x7f070049;
         public static final int account_line=0x7f070048;
         public static final int account_title=0x7f070047;
-        public static final int action_settings=0x7f07006b;
+        public static final int action_settings=0x7f07006c;
         public static final int alter=0x7f070016;
         public static final int alter_img=0x7f07004c;
         public static final int alter_information_layout=0x7f07000d;
@@ -412,6 +413,7 @@ containing a value of this type.
         public static final int webview=0x7f070002;
         public static final int webview_article_content=0x7f07001e;
         public static final int wechat=0x7f070044;
+        public static final int welcome=0x7f07006b;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -438,6 +440,7 @@ containing a value of this type.
         public static final int view_intro_1=0x7f030015;
         public static final int view_intro_2=0x7f030016;
         public static final int view_start=0x7f030017;
+        public static final int welcome=0x7f030018;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;

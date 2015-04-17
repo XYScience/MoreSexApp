@@ -3,6 +3,7 @@ package com.science.moresexapp.guide;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Build.VERSION;
@@ -42,6 +43,10 @@ public class GuideActivity extends Activity {
 		// 沉浸式状态栏设置
 		initSystemBar();
 
+		SharedPreferences settingPreferences = getSharedPreferences(
+				"WelcomeActivity", 0);
+		settingPreferences.edit().putBoolean("isFirstIn", false).commit();
+
 		/**
 		 * 动画支持11以上sdk,11以下默认不显示动画
 		 * 若需要支持11以下动画,也可导入https://github.com/JakeWharton/NineOldAndroids
@@ -71,6 +76,7 @@ public class GuideActivity extends Activity {
 				Intent intent = new Intent(GuideActivity.this,
 						MainActivity.class);
 				startActivity(intent);
+				GuideActivity.this.finish();
 			}
 		});
 
