@@ -18,43 +18,46 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="com.sciecne.moresexapp.utils.AppContext"
+        android:name="com.science.moresexapp.utils.AppContext"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.sciecne.moresexapp.MainActivity"
+            android:name="com.science.moresexapp.guide.GuideActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sciecne.moresexapp.ui.ArticleActivity"
+            android:name="com.science.moresexapp.MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.sciecne.moresexapp.ui.LoginActivity"
+            android:name="com.science.moresexapp.ui.ArticleActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.sciecne.moresexapp.ui.RegisterActivity"
+            android:name="com.science.moresexapp.ui.LoginActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.sciecne.moresexapp.ui.UserActivity"
+            android:name="com.science.moresexapp.ui.RegisterActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.sciecne.moresexapp.ui.AlterActivity"
+            android:name="com.science.moresexapp.ui.UserActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.sciecne.moresexapp.ui.FeedBackActivity"
+            android:name="com.science.moresexapp.ui.AlterActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.science.moresexapp.ui.FeedBackActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
     </application>

@@ -49,5 +49,6 @@
     <string name="button_back_click">退出当前账号</string>
     <string name="feedback_content_hint">你的意见是我们无限的动力</string>
     <string name="send_feedback">发送</string>
+    <string name="start_app">立即开启</string>
 
 </resources>

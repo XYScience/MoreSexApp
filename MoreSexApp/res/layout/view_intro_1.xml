@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000" >
+
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_a_b"
+        app:x_in="1.1"
+        app:x_out="1.1" />
+
+    <ImageView
+        android:id="@+id/iv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@id/iv_2"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_a_a"
+        app:x_in="1.9"
+        app:x_out="1.9" />
+
+    <ImageView
+        android:id="@+id/iv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/iv_1"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_a_c"
+        app:x_in="1.9"
+        app:x_out="1.9" />
+
+    <ImageView
+        android:id="@+id/iv_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/iv_3"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_a_f"
+        app:x_in="1.1"
+        app:x_out="1.1" />
+
+    <ImageView
+        android:id="@+id/iv_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_6"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@id/iv_6"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_a_e"
+        app:x_in="1.5"
+        app:x_out="1.5" />
+
+    <ImageView
+        android:id="@+id/iv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_6"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@id/iv_5"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_a_d"
+        app:x_in="1.9"
+        app:x_out="1.9" />
+
+</RelativeLayout>
