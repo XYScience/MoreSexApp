@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.science.moresexapp.ui.WelcomeActivity"
+            android:name="com.science.moresexapp.guide.GuideActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
             <intent-filter>
@@ -36,10 +36,7 @@
             android:name="com.science.moresexapp.MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity
-            android:name="com.science.moresexapp.guide.GuideActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>
+         
         <activity
             android:name="com.science.moresexapp.ui.ArticleActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >

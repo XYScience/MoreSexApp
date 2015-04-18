@@ -6,11 +6,12 @@
     android:background="#00000000" >
 
     <ImageView
-        android:id="@+id/iv_1"
+        android:id="@+id/iv_women"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="15dp"        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="40dp"
         android:contentDescription="@null"
         android:src="@drawable/guide_b_a"
         app:x_in="1.9"
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/iv_1"
+        android:layout_below="@id/iv_women"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:contentDescription="@null"
@@ -34,24 +35,98 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/iv_3"
-        android:layout_below="@id/iv_1"
+        android:layout_below="@id/iv_women"
         android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_3"
         android:contentDescription="@null"
         android:src="@drawable/guide_b_b"
-        android:layout_toRightOf="@id/iv_3"
-        app:x_in="1.1"
-        app:x_out="1.1" />
-    
+        app:x_in="1.9"
+        app:x_out="1.9" />
+
     <ImageView
         android:id="@+id/iv_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@null"
         android:layout_marginBottom="30dp"
+        android:contentDescription="@null"
         android:src="@drawable/guide_bb"
-        app:x_in="1.9"
+        app:y_in="-1.9"
+        app:y_out="1.9" />
+
+    <ImageView
+        android:id="@+id/iv_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_toLeftOf="@id/iv_4"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_ba"
+        app:x_in="-1.9"
         app:x_out="1.9" />
+
+    <ImageView
+        android:id="@+id/iv_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_toRightOf="@id/iv_4"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_bc"
+        app:x_in="1.9"
+        app:x_out="-1.9" />
+
+    <ImageView
+        android:id="@+id/iv_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/iv_5"
+        android:layout_alignLeft="@id/iv_5"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="-10dp"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_b_d"
+        app:y_in="1.9"
+        app:y_out="1.9" />
+
+    <ImageView
+        android:id="@+id/iv_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/iv_7"
+        android:layout_alignLeft="@id/iv_5"
+        android:layout_marginLeft="15dp"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_b_e"
+        app:y_in="1.1"
+        app:y_out="1.1" />
+
+    <ImageView
+        android:id="@+id/iv_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/iv_6"
+        android:layout_alignRight="@id/iv_6"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="-10dp"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_b_f"
+        app:y_in="1.9"
+        app:y_out="1.9" />
+
+    <ImageView
+        android:id="@+id/iv_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/iv_9"
+        android:layout_alignRight="@id/iv_9"
+        android:layout_marginRight="15dp"
+        android:contentDescription="@null"
+        android:src="@drawable/guide_b_g"
+        app:y_in="1.1"
+        app:y_out="1.1" />
 
 </RelativeLayout>

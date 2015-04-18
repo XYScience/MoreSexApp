@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/guide_a"
+        android:background="@drawable/guide_aa"
         android:contentDescription="@null"
         android:visibility="gone" />
 
