@@ -21,9 +21,9 @@ public final class R {
 		public static final int shadow = 0x7f020058;
 	}
 	public static final class id {
-		public static final int indication = 0x7f070040;
-		public static final int promptTV = 0x7f070041;
-		public static final int shapeLoadingView = 0x7f070042;
+		public static final int indication = 0x7f070042;
+		public static final int promptTV = 0x7f070043;
+		public static final int shapeLoadingView = 0x7f070044;
 	}
 	public static final class layout {
 		public static final int load_view = 0x7f03000b;

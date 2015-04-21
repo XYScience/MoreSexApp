@@ -22,11 +22,13 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sciecne.moresexapp.R;
 import com.science.moresexapp.bean.ArticleContent;
 import com.science.moresexapp.utils.AppConfig;
+import com.science.moresexapp.utils.VolleyTools;
 
 /**
  * @description 文章内容
@@ -45,16 +47,14 @@ public class ArticleActivity extends Activity {
 	private TextView mTextArticleTitle;
 	private TextView mTextArticleAuthor;
 	private TextView mTextArticleTime;
-	private ImageView mImageArticle;
+	private NetworkImageView mImageArticle;
 	private WebView mWebViewArticleContent;
 	private Intent mIntent;
 
 	private int mId;
 	private String mTitle;
 	private String mTime;
-	private String mAuthor;
-	private String mContent;
-	private String mClick;
+	private String mImgUrl;
 	private String mSource;
 
 	private String mContentPath;
@@ -78,7 +78,7 @@ public class ArticleActivity extends Activity {
 		mTextArticleTitle = (TextView) findViewById(R.id.text_article_title);
 		mTextArticleAuthor = (TextView) findViewById(R.id.text_article_author);
 		mTextArticleTime = (TextView) findViewById(R.id.text_article_time);
-		mImageArticle = (ImageView) findViewById(R.id.image_article);
+		mImageArticle = (NetworkImageView) findViewById(R.id.image_article);
 		mWebViewArticleContent = (WebView) findViewById(R.id.webview_article_content);
 
 		mWebViewArticleContent.setHorizontalScrollBarEnabled(false);// 设置水平滚动条，true表示允许使用
@@ -105,7 +105,7 @@ public class ArticleActivity extends Activity {
 		mId = mIntent.getIntExtra("id", 22);
 		mTitle = mIntent.getStringExtra("title");
 		mTime = mIntent.getStringExtra("time");
-		mClick = mIntent.getStringExtra("click");
+		mImgUrl = mIntent.getStringExtra("imgurl");
 		mSource = mIntent.getStringExtra("source");
 		// mContent.replaceAll(" ", "\r\n");
 		getContent();
@@ -165,7 +165,8 @@ public class ArticleActivity extends Activity {
 		mTextArticleTitle.setText(mTitle);
 		mTextArticleAuthor.setText("作者：" + "本站整理" + "    来源：" + mSource);
 		mTextArticleTime.setText("发布时间：" + mTime);
-
+		mImageArticle.setImageUrl(mImgUrl, VolleyTools.getInstance(this)
+				.getImageLoader());
 		mWebViewArticleContent.loadDataWithBaseURL(null, mContentString,
 				"text/html", "UTF-8", null);
 	}

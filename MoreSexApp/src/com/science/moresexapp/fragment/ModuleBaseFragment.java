@@ -228,6 +228,7 @@ public class ModuleBaseFragment extends Fragment implements OnRefreshListener,
 						}.getType());
 				mListAdapter = new PageListViewAdapter(getActivity(),
 						mArticleBriefList);
+
 				mArticleListView.setAdapter(mListAdapter);
 				mSwipeRefreshLayout.setRefreshing(false);
 
@@ -265,19 +266,6 @@ public class ModuleBaseFragment extends Fragment implements OnRefreshListener,
 					}
 				}).start();
 
-		// if (!appContext.isNetworkConnected()) {
-		// mSwipeRefreshLayout.setRefreshing(false);
-		// } else {
-		// initData(AppConfig.GET_RECOMMEND_JSON, 1);
-		// new Handler().postDelayed(new Runnable() {
-		// @Override
-		// public void run() {
-		// // 在请求完成的时候
-		// mSwipeRefreshLayout.setRefreshing(false);
-		// mListAdapter.notifyDataSetChanged();
-		// }
-		// }, 2000);
-		// }
 	}
 
 	private MyHandler handler = new MyHandler();
@@ -368,6 +356,7 @@ public class ModuleBaseFragment extends Fragment implements OnRefreshListener,
 		mIntent.putExtra("time", articleEntry.getTime());
 		mIntent.putExtra("click", articleEntry.getClick());
 		mIntent.putExtra("source", articleEntry.getSource());
+		mIntent.putExtra("imgurl", articleEntry.getImgUrl());
 		startActivity(mIntent);
 
 		mClickPath = AppConfig.GET_CLICK_JSON;

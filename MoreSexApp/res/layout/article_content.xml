@@ -85,13 +85,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
 
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/image_article"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/loading"
-                    android:src="@drawable/article_img" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/widget_loading" />
 
                 <WebView
                     android:id="@+id/webview_article_content"
