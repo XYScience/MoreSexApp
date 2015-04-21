@@ -26,5 +26,7 @@ public class AppConfig {
 	public static final String GET_BIRTHCONTROL_JSON = "http://123.56.93.109:8080/MoreSexClient/getBirthControlJson.action?page={1}";
 	// 获取点击量数据
 	public static final String GET_CLICK_JSON = "http://123.56.93.109:8080/MoreSexClient/clickAction.action?id={ID}";
+	// 获取完整文章内容数据
+	public static final String GET_Content_JSON = "http://123.56.93.109:8080/MoreSexClient/ContentAction.action?id={ID}";
 
 }

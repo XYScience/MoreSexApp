@@ -1,18 +1,32 @@
 package com.science.moresexapp.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.sciecne.moresexapp.R;
+import com.science.moresexapp.bean.ArticleContent;
+import com.science.moresexapp.utils.AppConfig;
 
 /**
  * @description 文章内容
@@ -27,6 +41,7 @@ import com.sciecne.moresexapp.R;
 public class ArticleActivity extends Activity {
 
 	private ImageView mImageBack;
+	private FrameLayout mLoadView;
 	private TextView mTextArticleTitle;
 	private TextView mTextArticleAuthor;
 	private TextView mTextArticleTime;
@@ -34,12 +49,18 @@ public class ArticleActivity extends Activity {
 	private WebView mWebViewArticleContent;
 	private Intent mIntent;
 
+	private int mId;
 	private String mTitle;
 	private String mTime;
 	private String mAuthor;
 	private String mContent;
 	private String mClick;
 	private String mSource;
+
+	private String mContentPath;
+	private List<ArticleContent> mArticleContentList = new ArrayList<ArticleContent>();
+	private RequestQueue mRequestQueue;
+	private String mContentString;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +70,11 @@ public class ArticleActivity extends Activity {
 
 		initComponent();
 		initData();
-		addData();
 	}
 
 	private void initComponent() {
 		mImageBack = (ImageView) findViewById(R.id.back);
+		mLoadView = (FrameLayout) findViewById(R.id.loadView);
 		mTextArticleTitle = (TextView) findViewById(R.id.text_article_title);
 		mTextArticleAuthor = (TextView) findViewById(R.id.text_article_author);
 		mTextArticleTime = (TextView) findViewById(R.id.text_article_time);
@@ -65,8 +86,6 @@ public class ArticleActivity extends Activity {
 		webSettings.setDefaultTextEncodingName("UTF-8");
 		webSettings.setCacheMode(1);
 		webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-		mWebViewArticleContent.loadDataWithBaseURL(null,
-				"<center/>正在加载 ...<hr>", "text/html", "UTF-8", null);
 
 		// 退出文章页面
 		mImageBack.setOnClickListener(new OnClickListener() {
@@ -76,27 +95,79 @@ public class ArticleActivity extends Activity {
 				ArticleActivity.this.finish();
 			}
 		});
+
+		// 请求队列对象，它可以缓存所有的HTTP请求，然后按照一定的算法并发地发出这些请求
+		mRequestQueue = Volley.newRequestQueue(this);
 	}
 
 	private void initData() {
 		mIntent = getIntent();
-
+		mId = mIntent.getIntExtra("id", 22);
 		mTitle = mIntent.getStringExtra("title");
 		mTime = mIntent.getStringExtra("time");
-		mContent = mIntent.getStringExtra("content");
 		mClick = mIntent.getStringExtra("click");
 		mSource = mIntent.getStringExtra("source");
-
-		mContent.replaceAll(" ", "\r\n");
+		// mContent.replaceAll(" ", "\r\n");
+		getContent();
 	}
+
+	private void getContent() {
+		mContentPath = AppConfig.GET_Content_JSON;
+		mContentPath = mContentPath.replace("{ID}", "" + mId);
+		getJsonData(mContentPath);
+
+	}
+
+	private void getJsonData(String contentPath) {
+		StringRequest mStringRequest = new StringRequest(contentPath,
+				new Response.Listener<String>() {
+					@Override
+					public void onResponse(String string) {
+						mContentString = string;
+						new Thread() {
+							public void run() {
+								Message msg = new Message();
+								try {
+									if (mContentString.length() > 0) {
+										msg.what = 1;
+									} else {
+										msg.what = -1;
+									}
+								} catch (Exception e) {
+								}
+								mHandler.sendMessage(msg);
+							}
+						}.start();
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						Log.e("onError", arg0.getMessage(), arg0);
+					}
+				});
+
+		mRequestQueue.add(mStringRequest);
+
+	}
+
+	Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				addData();
+			}
+		}
+	};
 
 	private void addData() {
 
+		mLoadView.setVisibility(View.GONE);// 去除加载
 		mTextArticleTitle.setText(mTitle);
 		mTextArticleAuthor.setText("作者：" + "本站整理" + "    来源：" + mSource);
 		mTextArticleTime.setText("发布时间：" + mTime);
-		mWebViewArticleContent.loadDataWithBaseURL(null, mContent, "text/html",
-				"UTF-8", null);
+
+		mWebViewArticleContent.loadDataWithBaseURL(null, mContentString,
+				"text/html", "UTF-8", null);
 	}
 
 	@Override

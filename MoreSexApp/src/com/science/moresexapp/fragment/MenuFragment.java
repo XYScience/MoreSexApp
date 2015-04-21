@@ -46,7 +46,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private Fragment mRecommendFragment, mSkillFragment, mHealthFragment,
 			mPhysiologyFragment, mMentalityFragment, mBirthControlFragment;
 	private FragmentManager mFragmentManager;
-	private String[] mMenu = { "推荐", "技巧", "健康", "生理", "心理", "避孕" };
+	private String[] mMenu = { "推荐", "生活", "健康", "生理", "心理", "避孕" };
 	private int[] mIcMenu = { R.drawable.recommand, R.drawable.ic_skill,
 			R.drawable.ic_health, R.drawable.ic_physiology,
 			R.drawable.ic_mentality, R.drawable.ic_birthcontrol };
