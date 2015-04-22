@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.NetworkImageView;
@@ -47,6 +48,7 @@ public class PageListViewAdapter extends BaseAdapter {
 	// 记录当前展开项的索引
 	private int expandPosition = -1, praisePosition = -1, collectPosition = -1;
 	ViewHolder viewHolder = null;
+	private boolean praiseFlag = true, collectFlag = true;
 
 	public PageListViewAdapter(Context context, List<Article> articleBriefList) {
 		mInflater = LayoutInflater.from(context);
@@ -151,7 +153,7 @@ public class PageListViewAdapter extends BaseAdapter {
 					Animation.RELATIVE_TO_SELF, 0.5f,
 					Animation.RELATIVE_TO_SELF, 0.5f);
 			// 设置动画执行过程用的时间,单位毫秒
-			rAnimation.setDuration(1000);
+			rAnimation.setDuration(700);
 			// 动画执行完之后效果定格在执行完之后的状态
 			aset.setFillAfter(true);
 			// 将动画加入动画集合中
@@ -167,7 +169,7 @@ public class PageListViewAdapter extends BaseAdapter {
 					Animation.RELATIVE_TO_SELF, 0.5f,
 					Animation.RELATIVE_TO_SELF, 0.5f);
 			// 设置动画执行过程用的时间,单位毫秒
-			rAnimation.setDuration(1000);
+			rAnimation.setDuration(700);
 			// 动画执行完之后效果定格在执行完之后的状态
 			aset.setFillAfter(true);
 			// 将动画加入动画集合中
@@ -187,7 +189,6 @@ public class PageListViewAdapter extends BaseAdapter {
 			viewHolder.praiseText.setCompoundDrawables(drawable1, null, null,
 					null);
 			notifyDataSetChanged();
-			// Toast.makeText(mContext, "已赞", Toast.LENGTH_SHORT).show();
 		} else {
 			Drawable drawable1 = mContext.getResources().getDrawable(
 					R.drawable.praise);
@@ -196,7 +197,6 @@ public class PageListViewAdapter extends BaseAdapter {
 			viewHolder.praiseText.setCompoundDrawables(drawable1, null, null,
 					null);
 			notifyDataSetChanged();
-			// Toast.makeText(mContext, "已取消赞", Toast.LENGTH_SHORT).show();
 		}
 		// 收藏
 		viewHolder.collectLayout
@@ -210,7 +210,6 @@ public class PageListViewAdapter extends BaseAdapter {
 			viewHolder.collectText.setCompoundDrawables(drawable2, null, null,
 					null);
 			notifyDataSetChanged();
-			// Toast.makeText(mContext, "已收藏", Toast.LENGTH_SHORT).show();
 		} else {
 			Drawable drawable2 = mContext.getResources().getDrawable(
 					R.drawable.collect);
@@ -219,7 +218,6 @@ public class PageListViewAdapter extends BaseAdapter {
 			viewHolder.collectText.setCompoundDrawables(drawable2, null, null,
 					null);
 			notifyDataSetChanged();
-			// Toast.makeText(mContext, "已取消收藏", Toast.LENGTH_SHORT).show();
 		}
 
 		return convertView;
@@ -265,6 +263,14 @@ public class PageListViewAdapter extends BaseAdapter {
 				praisePosition = position;
 			}
 			notifyDataSetChanged();
+
+			if (praiseFlag) {
+				Toast.makeText(mContext, "已赞", Toast.LENGTH_SHORT).show();
+				praiseFlag = false;
+			} else {
+				Toast.makeText(mContext, "已取消赞", Toast.LENGTH_SHORT).show();
+				praiseFlag = true;
+			}
 		}
 
 	}
@@ -287,6 +293,14 @@ public class PageListViewAdapter extends BaseAdapter {
 				collectPosition = position;
 			}
 			notifyDataSetChanged();
+
+			if (collectFlag) {
+				Toast.makeText(mContext, "已收藏", Toast.LENGTH_SHORT).show();
+				collectFlag = false;
+			} else {
+				Toast.makeText(mContext, "已取收藏", Toast.LENGTH_SHORT).show();
+				collectFlag = true;
+			}
 		}
 
 	}
