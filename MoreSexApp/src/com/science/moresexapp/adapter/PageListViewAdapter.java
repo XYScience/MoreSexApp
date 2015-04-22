@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,11 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.SaveCallback;
 import com.sciecne.moresexapp.R;
 import com.science.moresexapp.bean.Article;
+import com.science.moresexapp.utils.AVService;
 import com.science.moresexapp.utils.VolleyTools;
 
 /**
@@ -43,8 +46,8 @@ public class PageListViewAdapter extends BaseAdapter {
 	private Integer mClick;
 	private LayoutInflater mInflater;
 	private Context mContext;
+	private String mArticleContentTitle;
 	private List<Article> mArticleBriefList = new ArrayList<Article>();
-	private RequestQueue mRequestQueue;
 	// 记录当前展开项的索引
 	private int expandPosition = -1, praisePosition = -1, collectPosition = -1;
 	ViewHolder viewHolder = null;
@@ -54,7 +57,6 @@ public class PageListViewAdapter extends BaseAdapter {
 		mInflater = LayoutInflater.from(context);
 		mContext = context;
 		this.mArticleBriefList = articleBriefList;
-		mRequestQueue = Volley.newRequestQueue(context);
 	}
 
 	@Override
@@ -146,6 +148,9 @@ public class PageListViewAdapter extends BaseAdapter {
 				.setOnClickListener(new MorePraiseCollectImg(position));
 		// 如果点击的是当前项，则将其展开，否则将其隐藏
 		if (expandPosition == position) {
+
+			mArticleContentTitle = mArticleBriefList.get(position).getTitle();
+
 			viewHolder.morePraiseCollectLayout.setVisibility(View.VISIBLE);
 			// viewHolder.morePraiseCollectImg
 			// .setImageResource(R.drawable.more_select_up);
@@ -265,15 +270,44 @@ public class PageListViewAdapter extends BaseAdapter {
 			notifyDataSetChanged();
 
 			if (praiseFlag) {
-				Toast.makeText(mContext, "已赞", Toast.LENGTH_SHORT).show();
+				SaveCallback saveCallback = new SaveCallback() {
+					@Override
+					public void done(AVException e) {
+						if (e == null) {
+							mHandler.obtainMessage(1).sendToTarget();
+						} else {
+							mHandler.obtainMessage(3).sendToTarget();
+						}
+					}
+				};
+				AVService.article(mArticleContentTitle, 1, 0, "", saveCallback);
+
 				praiseFlag = false;
 			} else {
 				Toast.makeText(mContext, "已取消赞", Toast.LENGTH_SHORT).show();
 				praiseFlag = true;
 			}
 		}
-
 	}
+
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				Toast.makeText(mContext, "已赞", Toast.LENGTH_LONG).show();
+				break;
+			case 2:
+				Toast.makeText(mContext, "已取消赞", Toast.LENGTH_LONG).show();
+				break;
+			case 3:
+				Toast.makeText(mContext, "非常抱歉，提交出错！", Toast.LENGTH_LONG)
+						.show();
+				break;
+			default:
+				break;
+			}
+		}
+	};
 
 	class CollectLayout implements OnClickListener {
 

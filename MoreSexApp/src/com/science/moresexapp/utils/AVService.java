@@ -92,6 +92,7 @@ public class AVService {
 		AVInstallation.getCurrentInstallation().saveInBackground();
 	}
 
+	// 注册
 	public static void signUp(String username, String password, String email,
 			SignUpCallback signUpCallback) {
 		AVUser user = new AVUser();
@@ -114,10 +115,6 @@ public class AVService {
 		doing.saveInBackground(saveCallback);
 	}
 
-	public static void logout() {
-		AVUser.logOut();
-	}
-
 	// 意见反馈
 	public static void createAdvice(String userId, String advice,
 			SaveCallback saveCallback) {
@@ -125,5 +122,29 @@ public class AVService {
 		doing.put("UserObjectId", userId);
 		doing.put("UserSuggestion", advice);
 		doing.saveInBackground(saveCallback);
+	}
+
+	// 文章点赞数、收藏数、评论
+	public static void article(String articleContentTitle, int praiseNum,
+			int collectNum, String comment, SaveCallback saveCallback) {
+		AVObject doing = new AVObject("Article");
+		AVQuery<AVObject> query = new AVQuery<AVObject>("Article");
+		doing.put("ArticleContentTitle", articleContentTitle);
+		doing.put("PraiseNum", praiseNum);
+		doing.put("CollectNum", collectNum);
+		doing.put("Comment", comment);
+		doing.saveInBackground(saveCallback);
+	}
+
+	public static void article(int praiseNum, SaveCallback saveCallback)
+			throws AVException {
+		AVObject doing = new AVObject("Article");
+		AVQuery<AVObject> query = new AVQuery<AVObject>("Article");
+		doing = query.get(doing.getObjectId());
+	}
+
+	// 退出登录
+	public static void logout() {
+		AVUser.logOut();
 	}
 }

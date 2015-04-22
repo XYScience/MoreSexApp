@@ -33,7 +33,6 @@ import com.sciecne.moresexapp.R;
 import com.science.moresexapp.MainActivity;
 import com.science.moresexapp.adapter.PageListViewAdapter;
 import com.science.moresexapp.bean.Article;
-import com.science.moresexapp.bean.ArticleContent;
 import com.science.moresexapp.ui.ArticleActivity;
 import com.science.moresexapp.utils.AppConfig;
 import com.science.moresexapp.utils.AppContext;
@@ -60,7 +59,6 @@ public class ModuleBaseFragment extends Fragment implements OnRefreshListener,
 
 	private ListView mArticleListView;
 	private List<Article> mArticleBriefList = new ArrayList<Article>();
-	private List<ArticleContent> mArticleContentList = new ArrayList<ArticleContent>();
 	private PageListViewAdapter mListAdapter;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 

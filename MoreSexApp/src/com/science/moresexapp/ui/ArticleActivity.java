@@ -1,8 +1,5 @@
 package com.science.moresexapp.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +23,6 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sciecne.moresexapp.R;
-import com.science.moresexapp.bean.ArticleContent;
 import com.science.moresexapp.utils.AppConfig;
 import com.science.moresexapp.utils.VolleyTools;
 
@@ -58,7 +54,6 @@ public class ArticleActivity extends Activity {
 	private String mSource;
 
 	private String mContentPath;
-	private List<ArticleContent> mArticleContentList = new ArrayList<ArticleContent>();
 	private RequestQueue mRequestQueue;
 	private String mContentString;
 
