@@ -1,6 +1,7 @@
 package com.science.moresexapp.ui;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -48,6 +49,7 @@ public class UserActivity extends FragmentActivity {
 	private ImageView mImageBack;
 	private ImageView mUserBackgroundImg;
 	private TextView mBgImgUsername;
+	private TextView mPersonalStatement;
 	private TextView mBarText;
 	private int currIndex;// 当前页卡编号
 	private TextView mMyCollectText;
@@ -109,6 +111,7 @@ public class UserActivity extends FragmentActivity {
 		DampView view = (DampView) findViewById(R.id.dampview);
 		view.setImageView(mUserBackgroundImg);
 
+		mPersonalStatement = (TextView) findViewById(R.id.personal_statement);
 		// 头部用户名
 		mBgImgUsername = (TextView) findViewById(R.id.username);
 		AVUser currentUser = AVUser.getCurrentUser();
@@ -252,6 +255,22 @@ public class UserActivity extends FragmentActivity {
 		protected void onPostExecute(Void result) {
 			resetViewPagerHeight(0);
 		}
+	}
+
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (requestCode == 0) {
+			if (resultCode == RESULT_OK) {
+				mPersonalStatement.setText(data
+						.getStringExtra("personalStatement"));
+				String username = data.getStringExtra("username");
+				String sex = data.getStringExtra("sex");
+				String birth = data.getStringExtra("birth");
+				String home = data.getStringExtra("home");
+				MySelfFragment.sendDataFragment(username, sex, birth, home);
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override

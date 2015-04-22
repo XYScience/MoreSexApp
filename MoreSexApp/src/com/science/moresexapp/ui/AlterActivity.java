@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Build.VERSION;
@@ -13,6 +14,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -51,6 +53,7 @@ public class AlterActivity extends Activity {
 	private EditText mSexText;
 	private EditText mBirthText;
 	private EditText mHomeTownText;
+	private EditText mPersonalStatement;
 	private Button mAlter;
 
 	private String userId;
@@ -99,6 +102,7 @@ public class AlterActivity extends Activity {
 		mSexText = (EditText) findViewById(R.id.sex);
 		mBirthText = (EditText) findViewById(R.id.birth);
 		mHomeTownText = (EditText) findViewById(R.id.hometown);
+		mPersonalStatement = (EditText) findViewById(R.id.personal_statement);
 		mAlter = (Button) findViewById(R.id.alter);
 	}
 
@@ -132,7 +136,7 @@ public class AlterActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				AlterActivity.this.finish();
+				intentFragment();
 			}
 		});
 
@@ -147,9 +151,16 @@ public class AlterActivity extends Activity {
 						if (!mBirthText.getText().toString().isEmpty()) {
 
 							if (!mHomeTownText.getText().toString().isEmpty()) {
+								if (!mPersonalStatement.getText().toString()
+										.isEmpty()) {
 
-								progressDialogShow();
-								alter();
+									progressDialogShow();
+									alter();
+								} else {
+									Toast.makeText(AlterActivity.this,
+											"请填写你的个人宣言", Toast.LENGTH_LONG)
+											.show();
+								}
 
 							} else {
 								Toast.makeText(AlterActivity.this,
@@ -203,8 +214,9 @@ public class AlterActivity extends Activity {
 		String sex = mSexText.getText().toString();
 		String birth = mBirthText.getText().toString();
 		String home = mHomeTownText.getText().toString();
+		String personalStatement = mPersonalStatement.getText().toString();
 		AVService.alterUserInformation(userId, username, sex, birth, home,
-				saveCallback);
+				personalStatement, saveCallback);
 	}
 
 	private Handler mHandler = new Handler() {
@@ -212,7 +224,7 @@ public class AlterActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
-				AlterActivity.this.finish();
+				intentFragment();
 				Toast.makeText(AlterActivity.this, "保存成功！", Toast.LENGTH_LONG)
 						.show();
 				break;
@@ -237,6 +249,31 @@ public class AlterActivity extends Activity {
 					.getString("UserBirth"));
 			mHomeTownText.setText(responseList.get(responseList.size() - 1)
 					.getString("UserHome"));
+			mPersonalStatement.setText(responseList
+					.get(responseList.size() - 1)
+					.getString("PersonalStatement"));
 		}
+	}
+
+	private void intentFragment() {
+		// 跳回之前界面
+		Intent intent = new Intent(AlterActivity.this, UserActivity.class);
+		intent.putExtra("username", mUsernameText.getText().toString());
+		intent.putExtra("sex", mSexText.getText().toString());
+		intent.putExtra("birth", mBirthText.getText().toString());
+		intent.putExtra("home", mHomeTownText.getText().toString());
+		intent.putExtra("personalStatement", mPersonalStatement.getText()
+				.toString());
+		setResult(RESULT_OK, intent);
+		AlterActivity.this.finish();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			intentFragment();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

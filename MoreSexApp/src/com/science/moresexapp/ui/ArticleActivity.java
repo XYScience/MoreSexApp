@@ -112,6 +112,12 @@ public class ArticleActivity extends Activity {
 	}
 
 	private void getContent() {
+		mTextArticleTitle.setText(mTitle);
+		mTextArticleAuthor.setText("作者：" + "本站整理" + "    来源：" + mSource);
+		mTextArticleTime.setText("发布时间：" + mTime);
+		mImageArticle.setImageUrl(mImgUrl, VolleyTools.getInstance(this)
+				.getImageLoader());
+
 		mContentPath = AppConfig.GET_Content_JSON;
 		mContentPath = mContentPath.replace("{ID}", "" + mId);
 		getJsonData(mContentPath);
@@ -162,11 +168,6 @@ public class ArticleActivity extends Activity {
 	private void addData() {
 
 		mLoadView.setVisibility(View.GONE);// 去除加载
-		mTextArticleTitle.setText(mTitle);
-		mTextArticleAuthor.setText("作者：" + "本站整理" + "    来源：" + mSource);
-		mTextArticleTime.setText("发布时间：" + mTime);
-		mImageArticle.setImageUrl(mImgUrl, VolleyTools.getInstance(this)
-				.getImageLoader());
 		mWebViewArticleContent.loadDataWithBaseURL(null, mContentString,
 				"text/html", "UTF-8", null);
 	}

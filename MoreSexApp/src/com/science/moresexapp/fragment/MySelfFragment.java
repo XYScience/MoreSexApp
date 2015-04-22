@@ -43,10 +43,10 @@ public class MySelfFragment extends Fragment {
 	private View mRootView;
 
 	private TextView mAccountText;
-	private TextView mUsernameText;
-	private TextView mSexText;
-	private TextView mBirthText;
-	private TextView mHomeTownText;
+	private static TextView mUsernameText;
+	private static TextView mSexText;
+	private static TextView mBirthText;
+	private static TextView mHomeTownText;
 	private ImageView mAlterImg;
 	private Button mBackAccount;
 
@@ -125,13 +125,21 @@ public class MySelfFragment extends Fragment {
 		}
 	};
 
+	public static void sendDataFragment(String username, String sex,
+			String birth, String home) {
+		mUsernameText.setText(username);
+		mSexText.setText(sex);
+		mBirthText.setText(birth);
+		mHomeTownText.setText(home);
+	}
+
 	private void addListener() {
 		mAlterImg.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), AlterActivity.class);
-				startActivity(intent);
+				getActivity().startActivityForResult(intent, 0);// getActivity().startActivityForResultµ÷ÓÃFragmentActivityµÄonActivityResult
 			}
 		});
 

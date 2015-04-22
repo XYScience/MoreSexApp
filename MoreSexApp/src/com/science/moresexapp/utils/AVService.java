@@ -103,12 +103,14 @@ public class AVService {
 
 	// 用户基本资料
 	public static void alterUserInformation(String userId, String username,
-			String sex, String birth, String home, SaveCallback saveCallback) {
+			String sex, String birth, String home, String personalStatement,
+			SaveCallback saveCallback) {
 		AVObject doing = new AVObject("UserInformation");
 		doing.put("UserObjectId", userId);
 		doing.put("UserSex", sex);
 		doing.put("UserBirth", birth);
 		doing.put("UserHome", home);
+		doing.put("PersonalStatement", personalStatement);
 		doing.saveInBackground(saveCallback);
 	}
 

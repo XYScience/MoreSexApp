@@ -70,7 +70,7 @@
             android:layout_below="@id/basic_information_ll"
             android:background="#5ddd57" />
 
-        <!-- 用户名 -->
+        <!-- 姓名 -->
 
         <RelativeLayout
             android:id="@+id/username_layout"
@@ -124,13 +124,40 @@
                 android:textSize="15sp" />
         </RelativeLayout>
 
+        <!-- 家乡 -->
+
+        <RelativeLayout
+            android:id="@+id/hometown_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sex_layout"
+            android:layout_marginTop="15dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/hometown"
+                android:text="@string/hometown"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/hometown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/empty"
+                android:textColor="#686868"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
         <!-- 出生日期 -->
 
         <RelativeLayout
             android:id="@+id/birth_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sex_layout"
+            android:layout_below="@id/hometown_layout"
             android:layout_marginTop="15dp" >
 
             <TextView
@@ -151,40 +178,13 @@
                 android:textSize="15sp" />
         </RelativeLayout>
 
-        <!-- 家乡 -->
-
-        <RelativeLayout
-            android:id="@+id/hometown_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/birth_layout"
-            android:layout_marginTop="15dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:drawableLeft="@drawable/hometown"
-                android:text="@string/sex"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/hometown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/empty"
-                android:textColor="#686868"
-                android:textSize="15sp" />
-        </RelativeLayout>
-
         <!-- 社交信息 -->
 
         <TextView
             android:id="@+id/social_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/hometown_layout"
+            android:layout_below="@id/birth_layout"
             android:layout_marginTop="20dp"
             android:text="@string/social_information"
             android:textColor="#5ddd57"

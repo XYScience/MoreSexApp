@@ -43,8 +43,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="2dp"
                     android:contentDescription="@null"
+                    android:focusable="false"
                     android:scaleType="center"
-                    android:src="@drawable/more_select_down" />
+                    android:src="@drawable/more_select_up" />
 
                 <TextView
                     android:id="@+id/item_source"

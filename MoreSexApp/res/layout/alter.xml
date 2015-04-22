@@ -19,7 +19,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp" >
 
-        <!-- 用户名 -->
+        <!-- 姓名 -->
 
         <RelativeLayout
             android:id="@+id/username_layout"
@@ -91,13 +91,50 @@
             android:layout_marginTop="3dp"
             android:background="#ccc" />
 
+        <!-- 家乡 -->
+
+        <RelativeLayout
+            android:id="@+id/hometown_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sex_layout"
+            android:layout_marginTop="15dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/hometown"
+                android:text="@string/hometown"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/hometown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:hint="@string/empty"
+                android:textColor="#686868"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/hometown_layout"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:background="#ccc" />
+
         <!-- 出生日期 -->
 
         <RelativeLayout
             android:id="@+id/birth_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sex_layout"
+            android:layout_below="@id/hometown_layout"
             android:layout_marginTop="15dp" >
 
             <TextView
@@ -128,28 +165,30 @@
             android:layout_marginTop="3dp"
             android:background="#ccc" />
 
-        <!-- 家乡 -->
+        <!-- 个人宣言 -->
 
         <RelativeLayout
-            android:id="@+id/hometown_layout"
+            android:id="@+id/personal_statement_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/birth_layout"
             android:layout_marginTop="15dp" >
 
             <TextView
+                android:id="@+id/personal_statement_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:drawableLeft="@drawable/hometown"
-                android:text="@string/hometown"
+                android:layout_centerHorizontal="true"
+                android:drawableBottom="@drawable/personal_statement_img"
+                android:text="@string/personal_statement"
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/hometown"
+                android:id="@+id/personal_statement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_below="@id/personal_statement_text"
+                android:layout_centerHorizontal="true"
                 android:background="@null"
                 android:hint="@string/empty"
                 android:textColor="#686868"
@@ -159,7 +198,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/hometown_layout"
+            android:layout_below="@id/personal_statement_layout"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:layout_marginTop="3dp"

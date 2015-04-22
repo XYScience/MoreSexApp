@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.NetworkImageView;
@@ -43,7 +45,7 @@ public class PageListViewAdapter extends BaseAdapter {
 	private List<Article> mArticleBriefList = new ArrayList<Article>();
 	private RequestQueue mRequestQueue;
 	// 记录当前展开项的索引
-	private int expandPosition = -1;
+	private int expandPosition = -1, praisePosition = -1, collectPosition = -1;
 	ViewHolder viewHolder = null;
 
 	public PageListViewAdapter(Context context, List<Article> articleBriefList) {
@@ -69,7 +71,7 @@ public class PageListViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 
 		if (convertView == null || convertView.getTag() == null) {
 			convertView = mInflater.inflate(R.layout.item_listview, null);
@@ -135,59 +137,89 @@ public class PageListViewAdapter extends BaseAdapter {
 			viewHolder.thumbnailImage.setImageUrl(article.getImgUrl(),
 					VolleyTools.getInstance(mContext).getImageLoader());
 
-			// viewHolder.morePraiseCollectImg
-			// .setOnClickListener(new MorePraiseCollectImg(position));
-			// 如果点击的是当前项，则将其展开，否则将其隐藏
-			// if (expandPosition == position) {
-			// viewHolder.morePraiseCollectLayout.setVisibility(View.VISIBLE);
+		}
+
+		AnimationSet aset = new AnimationSet(true);
+		viewHolder.morePraiseCollectImg
+				.setOnClickListener(new MorePraiseCollectImg(position));
+		// 如果点击的是当前项，则将其展开，否则将其隐藏
+		if (expandPosition == position) {
+			viewHolder.morePraiseCollectLayout.setVisibility(View.VISIBLE);
 			// viewHolder.morePraiseCollectImg
 			// .setImageResource(R.drawable.more_select_up);
-			// notifyDataSetChanged();
-			// AnimationSet aset = new AnimationSet(true);
-			// RotateAnimation rAnimation = new RotateAnimation(0, 180,
-			// Animation.RELATIVE_TO_SELF, 0.5f,
-			// Animation.RELATIVE_TO_SELF, 0.5f);
-			// // 设置动画执行过程用的时间,单位毫秒
-			// rAnimation.setDuration(1000);
-			// // 动画执行完之后效果定格在执行完之后的状态
-			// aset.setFillAfter(true);
-			// // 将动画加入动画集合中
-			// aset.addAnimation(rAnimation);
-			// // imageView是要旋转的控件的引用.
-			// viewHolder.morePraiseCollectImg.startAnimation(aset);
-			// } else {
-			// viewHolder.morePraiseCollectLayout.setVisibility(View.GONE);
+			RotateAnimation rAnimation = new RotateAnimation(-180, 0,
+					Animation.RELATIVE_TO_SELF, 0.5f,
+					Animation.RELATIVE_TO_SELF, 0.5f);
+			// 设置动画执行过程用的时间,单位毫秒
+			rAnimation.setDuration(1000);
+			// 动画执行完之后效果定格在执行完之后的状态
+			aset.setFillAfter(true);
+			// 将动画加入动画集合中
+			aset.addAnimation(rAnimation);
+			// imageView是要旋转的控件的引用.
+			viewHolder.morePraiseCollectImg.startAnimation(aset);
+			notifyDataSetChanged();
+		} else {
+			viewHolder.morePraiseCollectLayout.setVisibility(View.GONE);
 			// viewHolder.morePraiseCollectImg
 			// .setImageResource(R.drawable.more_select_down);
-			// }
+			RotateAnimation rAnimation = new RotateAnimation(0, 180,
+					Animation.RELATIVE_TO_SELF, 0.5f,
+					Animation.RELATIVE_TO_SELF, 0.5f);
+			// 设置动画执行过程用的时间,单位毫秒
+			rAnimation.setDuration(1000);
+			// 动画执行完之后效果定格在执行完之后的状态
+			aset.setFillAfter(true);
+			// 将动画加入动画集合中
+			aset.addAnimation(rAnimation);
+			// imageView是要旋转的控件的引用.
+			viewHolder.morePraiseCollectImg.startAnimation(aset);
+			notifyDataSetChanged();
+		}
 
-			viewHolder.praiseLayout.setOnClickListener(new OnClickListener() {
+		// 点赞
+		viewHolder.praiseLayout.setOnClickListener(new PraiseLayout(position));
+		if (praisePosition == position) {
+			Drawable drawable1 = mContext.getResources().getDrawable(
+					R.drawable.praise_selected);
+			drawable1.setBounds(0, 0, drawable1.getMinimumWidth(),
+					drawable1.getMinimumHeight());
+			viewHolder.praiseText.setCompoundDrawables(drawable1, null, null,
+					null);
+			notifyDataSetChanged();
+			// Toast.makeText(mContext, "已赞", Toast.LENGTH_SHORT).show();
+		} else {
+			Drawable drawable1 = mContext.getResources().getDrawable(
+					R.drawable.praise);
+			drawable1.setBounds(0, 0, drawable1.getMinimumWidth(),
+					drawable1.getMinimumHeight());
+			viewHolder.praiseText.setCompoundDrawables(drawable1, null, null,
+					null);
+			notifyDataSetChanged();
+			// Toast.makeText(mContext, "已取消赞", Toast.LENGTH_SHORT).show();
+		}
+		// 收藏
+		viewHolder.collectLayout
+				.setOnClickListener(new CollectLayout(position));
+		if (collectPosition == position) {
 
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(mContext, "1111111", Toast.LENGTH_LONG);
-					Drawable drawable = mContext.getResources().getDrawable(
-							R.drawable.praise_selected);
-					drawable.setBounds(0, 0, drawable.getMinimumWidth(),
-							drawable.getMinimumHeight());
-					viewHolder.praiseText.setCompoundDrawables(drawable, null,
-							null, null);
-				}
-			});
-			viewHolder.collectLayout.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// Drawable drawable = mContext.getResources().getDrawable(
-					// R.drawable.collect_selected);
-					// drawable.setBounds(0, 0, drawable.getMinimumWidth(),
-					// drawable.getMinimumHeight());
-					// viewHolder.collectText.setCompoundDrawables(drawable,
-					// null,
-					// null, null);
-				}
-			});
-
+			Drawable drawable2 = mContext.getResources().getDrawable(
+					R.drawable.collect_selected);
+			drawable2.setBounds(0, 0, drawable2.getMinimumWidth(),
+					drawable2.getMinimumHeight());
+			viewHolder.collectText.setCompoundDrawables(drawable2, null, null,
+					null);
+			notifyDataSetChanged();
+			// Toast.makeText(mContext, "已收藏", Toast.LENGTH_SHORT).show();
+		} else {
+			Drawable drawable2 = mContext.getResources().getDrawable(
+					R.drawable.collect);
+			drawable2.setBounds(0, 0, drawable2.getMinimumWidth(),
+					drawable2.getMinimumHeight());
+			viewHolder.collectText.setCompoundDrawables(drawable2, null, null,
+					null);
+			notifyDataSetChanged();
+			// Toast.makeText(mContext, "已取消收藏", Toast.LENGTH_SHORT).show();
 		}
 
 		return convertView;
@@ -209,6 +241,50 @@ public class PageListViewAdapter extends BaseAdapter {
 				expandPosition = -1;
 			} else {
 				expandPosition = position;
+			}
+			notifyDataSetChanged();
+		}
+
+	}
+
+	class PraiseLayout implements OnClickListener {
+
+		private int position;
+
+		public PraiseLayout(int position) {
+			super();
+			this.position = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			// 如果当前项为展开，则将其置为-1，目的是为了让其隐藏，如果当前项为隐藏，则将当前位置设置给全局变量，让其展开，这也就是借助于中间变量实现布局的展开与隐藏
+			if (praisePosition == position) {
+				praisePosition = -1;
+			} else {
+				praisePosition = position;
+			}
+			notifyDataSetChanged();
+		}
+
+	}
+
+	class CollectLayout implements OnClickListener {
+
+		private int position;
+
+		public CollectLayout(int position) {
+			super();
+			this.position = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			// 如果当前项为展开，则将其置为-1，目的是为了让其隐藏，如果当前项为隐藏，则将当前位置设置给全局变量，让其展开，这也就是借助于中间变量实现布局的展开与隐藏
+			if (collectPosition == position) {
+				collectPosition = -1;
+			} else {
+				collectPosition = position;
 			}
 			notifyDataSetChanged();
 		}
