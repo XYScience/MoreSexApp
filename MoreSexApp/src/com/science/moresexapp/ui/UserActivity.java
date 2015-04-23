@@ -1,5 +1,8 @@
 package com.science.moresexapp.ui;
 
+import java.util.List;
+
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +11,8 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -22,8 +27,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.sciecne.moresexapp.R;
 import com.science.moresexapp.adapter.ViewPagerFragmentAdapter;
@@ -58,6 +68,8 @@ public class UserActivity extends FragmentActivity {
 	private ViewPager viewPager;
 	private ViewPagerFragmentAdapter adapter;
 	private MyListener listener = new MyListener();
+	private AVUser currentUser;
+	private String userId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +79,7 @@ public class UserActivity extends FragmentActivity {
 		// 沉浸式状态栏设置
 		initSystemBar();
 		initComponent();
+		findCallback();
 		initTextBar();
 		initViewPager();
 
@@ -114,10 +127,6 @@ public class UserActivity extends FragmentActivity {
 		mPersonalStatement = (TextView) findViewById(R.id.personal_statement);
 		// 头部用户名
 		mBgImgUsername = (TextView) findViewById(R.id.username);
-		AVUser currentUser = AVUser.getCurrentUser();
-		if (currentUser != null) {
-			mBgImgUsername.setText(currentUser.getUsername());
-		}
 
 		// 导航条目
 		mMySelfText = (TextView) findViewById(R.id.myself_text);
@@ -128,6 +137,49 @@ public class UserActivity extends FragmentActivity {
 		mMyCollectText.setOnClickListener(new SelectListener(1));
 		mMyCommentText.setOnClickListener(new SelectListener(2));
 	}
+
+	private void findCallback() {
+
+		currentUser = AVUser.getCurrentUser();
+		if (currentUser != null) {
+			userId = currentUser.getObjectId();
+			mBgImgUsername.setText(currentUser.getUsername());
+		}
+
+		FindCallback<AVObject> findCallback = new FindCallback<AVObject>() {
+			public void done(List<AVObject> avObjects, AVException e) {
+				if (e == null) {
+					Message msg = new Message();
+					msg.what = 1;
+					msg.obj = avObjects;
+					mHandler.sendMessage(msg);
+				} else {
+					Toast.makeText(UserActivity.this, "请检查网络！",
+							Toast.LENGTH_LONG).show();
+				}
+			}
+		};
+
+		AVQuery<AVObject> query = new AVQuery<AVObject>("UserInformation");
+		query.whereEqualTo("userObjectId", userId);
+		query.findInBackground(findCallback);
+	}
+
+	private Handler mHandler = new Handler() {
+		@SuppressLint("HandlerLeak")
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				List<AVObject> responseList = (List<AVObject>) msg.obj;
+				if (responseList != null && responseList.size() != 0) {
+					mPersonalStatement.setText(responseList.get(
+							responseList.size() - 1).getString(
+							"personalStatement"));
+				}
+				break;
+			}
+		}
+	};
 
 	public class SelectListener implements View.OnClickListener {
 		private int index = 0;

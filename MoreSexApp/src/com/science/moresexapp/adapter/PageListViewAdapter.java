@@ -3,6 +3,7 @@ package com.science.moresexapp.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -22,6 +23,11 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.CountCallback;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.sciecne.moresexapp.R;
 import com.science.moresexapp.bean.Article;
@@ -40,6 +46,7 @@ import com.science.moresexapp.utils.VolleyTools;
  * 
  */
 
+@SuppressLint("HandlerLeak")
 public class PageListViewAdapter extends BaseAdapter {
 
 	private String mTimeString;
@@ -52,11 +59,19 @@ public class PageListViewAdapter extends BaseAdapter {
 	private int expandPosition = -1, praisePosition = -1, collectPosition = -1;
 	ViewHolder viewHolder = null;
 	private boolean praiseFlag = true, collectFlag = true;
+	private AVUser currentUser;
+	private String userId;
+	private List<AVObject> responsePraiseList, responseCollectList;
 
 	public PageListViewAdapter(Context context, List<Article> articleBriefList) {
 		mInflater = LayoutInflater.from(context);
 		mContext = context;
 		this.mArticleBriefList = articleBriefList;
+
+		currentUser = AVUser.getCurrentUser();
+		if (currentUser != null) {
+			userId = currentUser.getObjectId();
+		}
 	}
 
 	@Override
@@ -250,6 +265,12 @@ public class PageListViewAdapter extends BaseAdapter {
 
 	}
 
+	/**
+	 * 点赞监听
+	 * 
+	 * @author Science
+	 * 
+	 */
 	class PraiseLayout implements OnClickListener {
 
 		private int position;
@@ -270,45 +291,114 @@ public class PageListViewAdapter extends BaseAdapter {
 			notifyDataSetChanged();
 
 			if (praiseFlag) {
-				SaveCallback saveCallback = new SaveCallback() {
-					@Override
-					public void done(AVException e) {
-						if (e == null) {
-							mHandler.obtainMessage(1).sendToTarget();
-						} else {
-							mHandler.obtainMessage(3).sendToTarget();
-						}
-					}
-				};
-				AVService.article(mArticleContentTitle, 1, 0, "", saveCallback);
-
+				savePraiseCallback();
 				praiseFlag = false;
 			} else {
-				Toast.makeText(mContext, "已取消赞", Toast.LENGTH_SHORT).show();
+				mPraiseHandler.obtainMessage(2).sendToTarget();
 				praiseFlag = true;
 			}
 		}
 	}
 
-	private Handler mHandler = new Handler() {
+	private void savePraiseCallback() {
+		SaveCallback saveCallback = new SaveCallback() {
+
+			@Override
+			public void done(AVException e) {
+				if (e == null) {
+					mPraiseHandler.obtainMessage(1).sendToTarget();
+				} else {
+					mPraiseHandler.obtainMessage(3).sendToTarget();
+				}
+			}
+		};
+		AVService.createArticlePraise(mArticleContentTitle, userId,
+				saveCallback);
+	}
+
+	// 查询点赞人数
+	private void searchPraiseNum(final int i) {
+		CountCallback countCallback = new CountCallback() {
+			@Override
+			public void done(int count, AVException e) {
+				if (e == null) {
+				} else {
+				}
+				switch (i) {
+				case 1:
+					mPraiseHandler.obtainMessage(1).sendToTarget();
+					break;
+
+				case 2:
+					mPraiseHandler.obtainMessage(2).sendToTarget();
+					break;
+				}
+			}
+		};
+		AVService.countArticlePraise(mArticleContentTitle, countCallback);
+	}
+
+	// 创建点赞的用户
+	private Handler mPraiseHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
-				Toast.makeText(mContext, "已赞", Toast.LENGTH_LONG).show();
+				findCallback();
 				break;
 			case 2:
-				Toast.makeText(mContext, "已取消赞", Toast.LENGTH_LONG).show();
+				removeArticlePraise();
 				break;
 			case 3:
-				Toast.makeText(mContext, "非常抱歉，提交出错！", Toast.LENGTH_LONG)
-						.show();
+				Toast.makeText(mContext, "抱歉，提交出错", Toast.LENGTH_SHORT).show();
 				break;
-			default:
-				break;
+
 			}
 		}
 	};
 
+	// 新建线程访问网络
+	private void removeArticlePraise() {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				AVService.removeArticlePraise(responsePraiseList.get(
+						responsePraiseList.size() - 1).getObjectId());
+			}
+
+		}).start();
+
+		Toast.makeText(mContext, "已取消赞", Toast.LENGTH_SHORT).show();
+
+	}
+
+	private void findCallback() {
+
+		FindCallback<AVObject> findCallback = new FindCallback<AVObject>() {
+			public void done(List<AVObject> avObjects, AVException e) {
+
+				if (e == null) {
+					responsePraiseList = avObjects;
+				} else {
+					Toast.makeText(mContext, "请检查网络！", Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		};
+
+		AVQuery<AVObject> query = new AVQuery<AVObject>("ArticlePraise");
+		query.whereEqualTo("userObjectId", userId);
+		query.findInBackground(findCallback);
+		Toast.makeText(mContext, "已赞", Toast.LENGTH_SHORT).show();
+	}
+
+	/**
+	 * 收藏监听
+	 * 
+	 * @author Science
+	 * 
+	 */
 	class CollectLayout implements OnClickListener {
 
 		private int position;
@@ -329,14 +419,85 @@ public class PageListViewAdapter extends BaseAdapter {
 			notifyDataSetChanged();
 
 			if (collectFlag) {
-				Toast.makeText(mContext, "已收藏", Toast.LENGTH_SHORT).show();
+				saveCollectCallback();
 				collectFlag = false;
 			} else {
-				Toast.makeText(mContext, "已取收藏", Toast.LENGTH_SHORT).show();
+				mCollectHandler.obtainMessage(2).sendToTarget();
 				collectFlag = true;
 			}
 		}
 
+	}
+
+	private void saveCollectCallback() {
+		SaveCallback saveCallback = new SaveCallback() {
+
+			@Override
+			public void done(AVException e) {
+				if (e == null) {
+					mCollectHandler.obtainMessage(1).sendToTarget();
+				} else {
+					mCollectHandler.obtainMessage(3).sendToTarget();
+				}
+			}
+		};
+		AVService.createArticleCollect(mArticleContentTitle, userId,
+				saveCallback);
+	}
+
+	// 创建点赞的用户
+	private Handler mCollectHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				findCollectCallback();
+				break;
+			case 2:
+				removeArticleCollect();
+				break;
+			case 3:
+				Toast.makeText(mContext, "抱歉，提交出错", Toast.LENGTH_SHORT).show();
+				break;
+
+			}
+		}
+	};
+
+	// 新建线程访问网络
+	private void removeArticleCollect() {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				AVService.removeArticleCollect(responseCollectList.get(
+						responseCollectList.size() - 1).getObjectId());
+			}
+
+		}).start();
+
+		Toast.makeText(mContext, "已取消收藏", Toast.LENGTH_SHORT).show();
+
+	}
+
+	private void findCollectCallback() {
+
+		FindCallback<AVObject> findCallback = new FindCallback<AVObject>() {
+			public void done(List<AVObject> avObjects, AVException e) {
+
+				if (e == null) {
+					responseCollectList = avObjects;
+				} else {
+					Toast.makeText(mContext, "请检查网络！", Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		};
+
+		AVQuery<AVObject> query = new AVQuery<AVObject>("ArticleCollect");
+		query.whereEqualTo("userObjectId", userId);
+		query.findInBackground(findCallback);
+		Toast.makeText(mContext, "已收藏", Toast.LENGTH_SHORT).show();
 	}
 
 	private static class ViewHolder {

@@ -101,7 +101,7 @@ public class MySelfFragment extends Fragment {
 		};
 
 		AVQuery<AVObject> query = new AVQuery<AVObject>("UserInformation");
-		query.whereEqualTo("UserObjectId", userId);
+		query.whereEqualTo("userObjectId", userId);
 		query.findInBackground(findCallback);
 	}
 
@@ -113,12 +113,12 @@ public class MySelfFragment extends Fragment {
 				List<AVObject> responseList = (List<AVObject>) msg.obj;
 				if (responseList != null && responseList.size() != 0) {
 					mSexText.setText(responseList.get(responseList.size() - 1)
-							.getString("UserSex"));
+							.getString("userSex"));
 					mBirthText.setText(responseList
 							.get(responseList.size() - 1)
-							.getString("UserBirth"));
+							.getString("userBirth"));
 					mHomeTownText.setText(responseList.get(
-							responseList.size() - 1).getString("UserHome"));
+							responseList.size() - 1).getString("userHome"));
 				}
 				break;
 			}

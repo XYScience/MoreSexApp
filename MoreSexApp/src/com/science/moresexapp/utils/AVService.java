@@ -107,11 +107,11 @@ public class AVService {
 			String sex, String birth, String home, String personalStatement,
 			SaveCallback saveCallback) {
 		AVObject doing = new AVObject("UserInformation");
-		doing.put("UserObjectId", userId);
-		doing.put("UserSex", sex);
-		doing.put("UserBirth", birth);
-		doing.put("UserHome", home);
-		doing.put("PersonalStatement", personalStatement);
+		doing.put("userObjectId", userId);
+		doing.put("userSex", sex);
+		doing.put("userBirth", birth);
+		doing.put("userHome", home);
+		doing.put("personalStatement", personalStatement);
 		doing.saveInBackground(saveCallback);
 	}
 
@@ -119,28 +119,66 @@ public class AVService {
 	public static void createAdvice(String userId, String advice,
 			SaveCallback saveCallback) {
 		AVObject doing = new AVObject("SuggestionByUser");
-		doing.put("UserObjectId", userId);
-		doing.put("UserSuggestion", advice);
+		doing.put("userObjectId", userId);
+		doing.put("userSuggestion", advice);
 		doing.saveInBackground(saveCallback);
 	}
 
-	// 文章点赞数、收藏数、评论
-	public static void article(String articleContentTitle, int praiseNum,
-			int collectNum, String comment, SaveCallback saveCallback) {
-		AVObject doing = new AVObject("Article");
-		AVQuery<AVObject> query = new AVQuery<AVObject>("Article");
-		doing.put("ArticleContentTitle", articleContentTitle);
-		doing.put("PraiseNum", praiseNum);
-		doing.put("CollectNum", collectNum);
-		doing.put("Comment", comment);
-		doing.saveInBackground(saveCallback);
+	// 查询文章点赞数
+	public static void countArticlePraise(String articleContentTitle,
+			CountCallback countCallback) {
+
+		AVQuery<AVObject> query = new AVQuery<AVObject>("ArticlePraise");
+		query.whereEqualTo("articleContentTitle", articleContentTitle);
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.MINUTE, -10);// 10分钟前
+		// query.whereNotEqualTo("userObjectId", userId);
+		query.whereGreaterThan("createdAt", c.getTime());
+		query.countInBackground(countCallback);
 	}
 
-	public static void article(int praiseNum, SaveCallback saveCallback)
-			throws AVException {
-		AVObject doing = new AVObject("Article");
-		AVQuery<AVObject> query = new AVQuery<AVObject>("Article");
-		doing = query.get(doing.getObjectId());
+	// 创建文章点赞用户
+	public static void createArticlePraise(String articleContentTitle,
+			String userId, SaveCallback saveCallback) {
+
+		AVObject articlePraise = new AVObject("ArticlePraise");
+		articlePraise.put("articleContentTitle", articleContentTitle);
+		articlePraise.put("userObjectId", userId);
+		articlePraise.saveInBackground(saveCallback);
+	}
+
+	// 删除文章点赞用户
+	public static void removeArticlePraise(String objectId) {
+		AVQuery<AVObject> query = new AVQuery<AVObject>("ArticlePraise");
+		AVObject articlePraise;
+		try {
+			articlePraise = query.get(objectId);
+			articlePraise.delete();
+		} catch (AVException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 创建文章收藏用户
+	public static void createArticleCollect(String articleContentTitle,
+			String userId, SaveCallback saveCallback) {
+
+		AVObject articleCollect = new AVObject("ArticleCollect");
+		articleCollect.put("articleContentTitle", articleContentTitle);
+		articleCollect.put("userObjectId", userId);
+		articleCollect.saveInBackground(saveCallback);
+	}
+
+	// 删除文章收藏用户
+	public static void removeArticleCollect(String objectId) {
+		AVQuery<AVObject> query = new AVQuery<AVObject>("ArticleCollect");
+		AVObject articleCollect;
+		try {
+			articleCollect = query.get(objectId);
+			articleCollect.delete();
+		} catch (AVException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// 退出登录

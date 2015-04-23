@@ -56,10 +56,9 @@ public class AlterActivity extends Activity {
 	private EditText mPersonalStatement;
 	private Button mAlter;
 
-	private String userId;
-
 	private ProgressDialog mProgressDialog;
 	private AVUser currentUser;
+	private String userId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +125,7 @@ public class AlterActivity extends Activity {
 			mUsernameText.setText(currentUser.getUsername());
 		}
 		AVQuery<AVObject> query = new AVQuery<AVObject>("UserInformation");
-		query.whereEqualTo("UserObjectId", userId);
+		query.whereEqualTo("userObjectId", userId);
 		query.findInBackground(findCallback);
 	}
 
@@ -244,14 +243,14 @@ public class AlterActivity extends Activity {
 	private void showOldInformation(List<AVObject> responseList) {
 		if (responseList != null && responseList.size() != 0) {
 			mSexText.setText(responseList.get(responseList.size() - 1)
-					.getString("UserSex"));
+					.getString("userSex"));
 			mBirthText.setText(responseList.get(responseList.size() - 1)
-					.getString("UserBirth"));
+					.getString("userBirth"));
 			mHomeTownText.setText(responseList.get(responseList.size() - 1)
-					.getString("UserHome"));
+					.getString("userHome"));
 			mPersonalStatement.setText(responseList
 					.get(responseList.size() - 1)
-					.getString("PersonalStatement"));
+					.getString("personalStatement"));
 		}
 	}
 

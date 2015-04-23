@@ -106,7 +106,7 @@ public class FeedBackActivity extends Activity {
 			}
 		};
 		AVQuery<AVObject> query = new AVQuery<AVObject>("SuggestionByUser");
-		query.whereEqualTo("UserObjectId", userId);
+		query.whereEqualTo("userObjectId", userId);
 		query.findInBackground(findCallback);
 	}
 
