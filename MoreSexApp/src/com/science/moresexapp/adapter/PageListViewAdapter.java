@@ -158,6 +158,30 @@ public class PageListViewAdapter extends BaseAdapter {
 
 		}
 
+		// 查找用户是否已赞
+		AVQuery<AVObject> query = new AVQuery<AVObject>("ArticlePraise");
+		query.whereEqualTo("userObjectId", userId);
+		query.findInBackground(new FindCallback<AVObject>() {
+			public void done(List<AVObject> avObjects, AVException e) {
+
+				if (e == null) {
+					if (responsePraiseList.get(responsePraiseList.size() - 1)
+							.getString("userObjectId") != null) {
+						Drawable drawable1 = mContext.getResources()
+								.getDrawable(R.drawable.praise_selected);
+						drawable1.setBounds(0, 0, drawable1.getMinimumWidth(),
+								drawable1.getMinimumHeight());
+						viewHolder.praiseText.setCompoundDrawables(drawable1,
+								null, null, null);
+						notifyDataSetChanged();
+					}
+				} else {
+					Toast.makeText(mContext, "查询错误！", Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		});
+
 		AnimationSet aset = new AnimationSet(true);
 		viewHolder.morePraiseCollectImg
 				.setOnClickListener(new MorePraiseCollectImg(position));
@@ -202,13 +226,17 @@ public class PageListViewAdapter extends BaseAdapter {
 		// 点赞
 		viewHolder.praiseLayout.setOnClickListener(new PraiseLayout(position));
 		if (praisePosition == position) {
-			Drawable drawable1 = mContext.getResources().getDrawable(
-					R.drawable.praise_selected);
-			drawable1.setBounds(0, 0, drawable1.getMinimumWidth(),
-					drawable1.getMinimumHeight());
-			viewHolder.praiseText.setCompoundDrawables(drawable1, null, null,
-					null);
-			notifyDataSetChanged();
+			if (userId == null) {
+
+			} else {
+				Drawable drawable1 = mContext.getResources().getDrawable(
+						R.drawable.praise_selected);
+				drawable1.setBounds(0, 0, drawable1.getMinimumWidth(),
+						drawable1.getMinimumHeight());
+				viewHolder.praiseText.setCompoundDrawables(drawable1, null,
+						null, null);
+				notifyDataSetChanged();
+			}
 		} else {
 			Drawable drawable1 = mContext.getResources().getDrawable(
 					R.drawable.praise);
@@ -222,14 +250,17 @@ public class PageListViewAdapter extends BaseAdapter {
 		viewHolder.collectLayout
 				.setOnClickListener(new CollectLayout(position));
 		if (collectPosition == position) {
+			if (userId == null) {
 
-			Drawable drawable2 = mContext.getResources().getDrawable(
-					R.drawable.collect_selected);
-			drawable2.setBounds(0, 0, drawable2.getMinimumWidth(),
-					drawable2.getMinimumHeight());
-			viewHolder.collectText.setCompoundDrawables(drawable2, null, null,
-					null);
-			notifyDataSetChanged();
+			} else {
+				Drawable drawable2 = mContext.getResources().getDrawable(
+						R.drawable.collect_selected);
+				drawable2.setBounds(0, 0, drawable2.getMinimumWidth(),
+						drawable2.getMinimumHeight());
+				viewHolder.collectText.setCompoundDrawables(drawable2, null,
+						null, null);
+				notifyDataSetChanged();
+			}
 		} else {
 			Drawable drawable2 = mContext.getResources().getDrawable(
 					R.drawable.collect);
@@ -291,8 +322,13 @@ public class PageListViewAdapter extends BaseAdapter {
 			notifyDataSetChanged();
 
 			if (praiseFlag) {
-				savePraiseCallback();
-				praiseFlag = false;
+				if (userId == null) {
+					Toast.makeText(mContext, "你还没有登陆(⊙o⊙)哦", Toast.LENGTH_SHORT)
+							.show();
+				} else {
+					savePraiseCallback();
+					praiseFlag = false;
+				}
 			} else {
 				mPraiseHandler.obtainMessage(2).sendToTarget();
 				praiseFlag = true;
@@ -419,8 +455,13 @@ public class PageListViewAdapter extends BaseAdapter {
 			notifyDataSetChanged();
 
 			if (collectFlag) {
-				saveCollectCallback();
-				collectFlag = false;
+				if (userId == null) {
+					Toast.makeText(mContext, "你还没有登陆(⊙o⊙)哦", Toast.LENGTH_SHORT)
+							.show();
+				} else {
+					saveCollectCallback();
+					collectFlag = false;
+				}
 			} else {
 				mCollectHandler.obtainMessage(2).sendToTarget();
 				collectFlag = true;
