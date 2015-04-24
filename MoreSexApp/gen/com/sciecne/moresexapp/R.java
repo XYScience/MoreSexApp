@@ -328,20 +328,20 @@ containing a value of this type.
         public static final int wx=0x7f020065;
     }
     public static final class id {
-        public static final int account=0x7f070054;
-        public static final int account_line=0x7f070053;
-        public static final int account_title=0x7f070052;
+        public static final int account=0x7f070055;
+        public static final int account_line=0x7f070054;
+        public static final int account_title=0x7f070053;
         public static final int action_settings=0x7f07007b;
         public static final int alter=0x7f070019;
-        public static final int alter_img=0x7f070057;
+        public static final int alter_img=0x7f070058;
         public static final int alter_information_layout=0x7f07000d;
-        public static final int article_list=0x7f07005e;
+        public static final int article_list=0x7f070052;
         public static final int back=0x7f070032;
-        public static final int back_account=0x7f07005c;
-        public static final int basic_information=0x7f070056;
+        public static final int back_account=0x7f07005d;
+        public static final int basic_information=0x7f070057;
         public static final int basic_information_layout=0x7f070023;
-        public static final int basic_information_line=0x7f070058;
-        public static final int basic_information_ll=0x7f070055;
+        public static final int basic_information_line=0x7f070059;
+        public static final int basic_information_ll=0x7f070056;
         public static final int birth=0x7f070015;
         public static final int birth_layout=0x7f070014;
         public static final int bottom_layout=0x7f07002a;
@@ -414,7 +414,7 @@ containing a value of this type.
         public static final int praise_layout=0x7f07003d;
         public static final int promptTV=0x7f070046;
         public static final int qq=0x7f070050;
-        public static final int qq_login_layout=0x7f07005b;
+        public static final int qq_login_layout=0x7f07005c;
         public static final int quick_register=0x7f070064;
         public static final int quick_register_ll=0x7f070063;
         public static final int register=0x7f07004e;
@@ -428,10 +428,10 @@ containing a value of this type.
         public static final int shapeLoadingView=0x7f070047;
         public static final int sina_weibo=0x7f070051;
         public static final int slidingmenumain=0x7f070065;
-        public static final int social_information=0x7f070059;
-        public static final int social_information_line=0x7f07005a;
+        public static final int social_information=0x7f07005a;
+        public static final int social_information_line=0x7f07005b;
         public static final int start_app=0x7f070079;
-        public static final int swipe_container=0x7f07005d;
+        public static final int swipe_container=0x7f07005e;
         public static final int text_article_author=0x7f07001e;
         public static final int text_article_time=0x7f07001f;
         public static final int text_article_title=0x7f07001d;

@@ -243,7 +243,7 @@ public class ModuleBaseFragment extends Fragment implements OnRefreshListener,
 				mSwipeRefreshLayout.setRefreshing(false);
 
 			} else if (msg.what == -1) {
-				Toast.makeText(getActivity(), "ÍøÂç´íÎó", Toast.LENGTH_LONG);
+				Toast.makeText(getActivity(), "ÍøÂç´íÎó", Toast.LENGTH_LONG).show();
 			}
 		}
 	};

@@ -161,11 +161,12 @@ public class AVService {
 
 	// 创建文章收藏用户
 	public static void createArticleCollect(String articleContentTitle,
-			String userId, SaveCallback saveCallback) {
+			String userId, Integer articleId, SaveCallback saveCallback) {
 
 		AVObject articleCollect = new AVObject("ArticleCollect");
 		articleCollect.put("articleContentTitle", articleContentTitle);
 		articleCollect.put("userObjectId", userId);
+		articleCollect.put("articleId", articleId);
 		articleCollect.saveInBackground(saveCallback);
 	}
 

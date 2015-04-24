@@ -62,6 +62,7 @@ public class PageListViewAdapter extends BaseAdapter {
 	private AVUser currentUser;
 	private String userId;
 	private List<AVObject> responsePraiseList, responseCollectList;
+	private Integer mArticleId;
 
 	public PageListViewAdapter(Context context, List<Article> articleBriefList) {
 		mInflater = LayoutInflater.from(context);
@@ -127,6 +128,7 @@ public class PageListViewAdapter extends BaseAdapter {
 		}
 
 		Article article = mArticleBriefList.get(position);
+
 		if (null != article) {
 
 			if (article.getTime() == null) {
@@ -155,32 +157,7 @@ public class PageListViewAdapter extends BaseAdapter {
 			// holder.imageView.setErrorImageResId(R.drawable.error);
 			viewHolder.thumbnailImage.setImageUrl(article.getImgUrl(),
 					VolleyTools.getInstance(mContext).getImageLoader());
-
 		}
-
-		// 查找用户是否已赞
-		AVQuery<AVObject> query = new AVQuery<AVObject>("ArticlePraise");
-		query.whereEqualTo("userObjectId", userId);
-		query.findInBackground(new FindCallback<AVObject>() {
-			public void done(List<AVObject> avObjects, AVException e) {
-
-				if (e == null) {
-					if (responsePraiseList.get(responsePraiseList.size() - 1)
-							.getString("userObjectId") != null) {
-						Drawable drawable1 = mContext.getResources()
-								.getDrawable(R.drawable.praise_selected);
-						drawable1.setBounds(0, 0, drawable1.getMinimumWidth(),
-								drawable1.getMinimumHeight());
-						viewHolder.praiseText.setCompoundDrawables(drawable1,
-								null, null, null);
-						notifyDataSetChanged();
-					}
-				} else {
-					Toast.makeText(mContext, "查询错误！", Toast.LENGTH_SHORT)
-							.show();
-				}
-			}
-		});
 
 		AnimationSet aset = new AnimationSet(true);
 		viewHolder.morePraiseCollectImg
@@ -188,7 +165,29 @@ public class PageListViewAdapter extends BaseAdapter {
 		// 如果点击的是当前项，则将其展开，否则将其隐藏
 		if (expandPosition == position) {
 
-			mArticleContentTitle = mArticleBriefList.get(position).getTitle();
+			// 判断当前项是否已经点赞
+			AVQuery<AVObject> query = new AVQuery<AVObject>("ArticleCollect");
+			query.whereEqualTo("userObjectId", userId);
+			query.findInBackground(new FindCallback<AVObject>() {
+				public void done(List<AVObject> avObjects, AVException e) {
+					if (e == null) {
+						if (avObjects.size() != 0) {
+							Drawable drawable1 = mContext.getResources()
+									.getDrawable(R.drawable.praise_selected);
+							drawable1.setBounds(0, 0,
+									drawable1.getMinimumWidth(),
+									drawable1.getMinimumHeight());
+							viewHolder.praiseText.setCompoundDrawables(
+									drawable1, null, null, null);
+							notifyDataSetChanged();
+						}
+					} else {
+					}
+				}
+			});
+
+			mArticleContentTitle = mArticleBriefList.get(position).getTitle();// 得到当前项的文章题目
+			mArticleId = mArticleBriefList.get(position).getId();// 得到当前项的文章ID
 
 			viewHolder.morePraiseCollectLayout.setVisibility(View.VISIBLE);
 			// viewHolder.morePraiseCollectImg
@@ -483,10 +482,10 @@ public class PageListViewAdapter extends BaseAdapter {
 			}
 		};
 		AVService.createArticleCollect(mArticleContentTitle, userId,
-				saveCallback);
+				mArticleId, saveCallback);
 	}
 
-	// 创建点赞的用户
+	// 创建收藏的用户
 	private Handler mCollectHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
