@@ -12,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -166,59 +164,60 @@ public class PageListViewAdapter extends BaseAdapter {
 		if (expandPosition == position) {
 
 			// 判断当前项是否已经点赞
-			AVQuery<AVObject> query = new AVQuery<AVObject>("ArticleCollect");
-			query.whereEqualTo("userObjectId", userId);
-			query.findInBackground(new FindCallback<AVObject>() {
-				public void done(List<AVObject> avObjects, AVException e) {
-					if (e == null) {
-						if (avObjects.size() != 0) {
-							Drawable drawable1 = mContext.getResources()
-									.getDrawable(R.drawable.praise_selected);
-							drawable1.setBounds(0, 0,
-									drawable1.getMinimumWidth(),
-									drawable1.getMinimumHeight());
-							viewHolder.praiseText.setCompoundDrawables(
-									drawable1, null, null, null);
-							notifyDataSetChanged();
-						}
-					} else {
-					}
-				}
-			});
+			// AVQuery<AVObject> query = new
+			// AVQuery<AVObject>("ArticleCollect");
+			// query.whereEqualTo("userObjectId", userId);
+			// query.findInBackground(new FindCallback<AVObject>() {
+			// public void done(List<AVObject> avObjects, AVException e) {
+			// if (e == null) {
+			// if (avObjects.size() != 0) {
+			// Drawable drawable1 = mContext.getResources()
+			// .getDrawable(R.drawable.praise_selected);
+			// drawable1.setBounds(0, 0,
+			// drawable1.getMinimumWidth(),
+			// drawable1.getMinimumHeight());
+			// viewHolder.praiseText.setCompoundDrawables(
+			// drawable1, null, null, null);
+			// notifyDataSetChanged();
+			// }
+			// } else {
+			// }
+			// }
+			// });
 
 			mArticleContentTitle = mArticleBriefList.get(position).getTitle();// 得到当前项的文章题目
 			mArticleId = mArticleBriefList.get(position).getId();// 得到当前项的文章ID
 
 			viewHolder.morePraiseCollectLayout.setVisibility(View.VISIBLE);
-			// viewHolder.morePraiseCollectImg
-			// .setImageResource(R.drawable.more_select_up);
-			RotateAnimation rAnimation = new RotateAnimation(-180, 0,
-					Animation.RELATIVE_TO_SELF, 0.5f,
-					Animation.RELATIVE_TO_SELF, 0.5f);
-			// 设置动画执行过程用的时间,单位毫秒
-			rAnimation.setDuration(700);
-			// 动画执行完之后效果定格在执行完之后的状态
-			aset.setFillAfter(true);
-			// 将动画加入动画集合中
-			aset.addAnimation(rAnimation);
-			// imageView是要旋转的控件的引用.
-			viewHolder.morePraiseCollectImg.startAnimation(aset);
+			viewHolder.morePraiseCollectImg
+					.setImageResource(R.drawable.more_select_up);
+			// RotateAnimation rAnimation = new RotateAnimation(-180, 0,
+			// Animation.RELATIVE_TO_SELF, 0.5f,
+			// Animation.RELATIVE_TO_SELF, 0.5f);
+			// // 设置动画执行过程用的时间,单位毫秒
+			// rAnimation.setDuration(700);
+			// // 动画执行完之后效果定格在执行完之后的状态
+			// aset.setFillAfter(true);
+			// // 将动画加入动画集合中
+			// aset.addAnimation(rAnimation);
+			// // imageView是要旋转的控件的引用.
+			// viewHolder.morePraiseCollectImg.startAnimation(aset);
 			notifyDataSetChanged();
 		} else {
 			viewHolder.morePraiseCollectLayout.setVisibility(View.GONE);
-			// viewHolder.morePraiseCollectImg
-			// .setImageResource(R.drawable.more_select_down);
-			RotateAnimation rAnimation = new RotateAnimation(0, 180,
-					Animation.RELATIVE_TO_SELF, 0.5f,
-					Animation.RELATIVE_TO_SELF, 0.5f);
-			// 设置动画执行过程用的时间,单位毫秒
-			rAnimation.setDuration(700);
-			// 动画执行完之后效果定格在执行完之后的状态
-			aset.setFillAfter(true);
-			// 将动画加入动画集合中
-			aset.addAnimation(rAnimation);
-			// imageView是要旋转的控件的引用.
-			viewHolder.morePraiseCollectImg.startAnimation(aset);
+			viewHolder.morePraiseCollectImg
+					.setImageResource(R.drawable.more_select_down);
+			// RotateAnimation rAnimation = new RotateAnimation(0, 180,
+			// Animation.RELATIVE_TO_SELF, 0.5f,
+			// Animation.RELATIVE_TO_SELF, 0.5f);
+			// // 设置动画执行过程用的时间,单位毫秒
+			// rAnimation.setDuration(700);
+			// // 动画执行完之后效果定格在执行完之后的状态
+			// aset.setFillAfter(true);
+			// // 将动画加入动画集合中
+			// aset.addAnimation(rAnimation);
+			// // imageView是要旋转的控件的引用.
+			// viewHolder.morePraiseCollectImg.startAnimation(aset);
 			notifyDataSetChanged();
 		}
 
@@ -318,7 +317,6 @@ public class PageListViewAdapter extends BaseAdapter {
 			} else {
 				praisePosition = position;
 			}
-			notifyDataSetChanged();
 
 			if (praiseFlag) {
 				if (userId == null) {
@@ -332,6 +330,7 @@ public class PageListViewAdapter extends BaseAdapter {
 				mPraiseHandler.obtainMessage(2).sendToTarget();
 				praiseFlag = true;
 			}
+			notifyDataSetChanged();
 		}
 	}
 
@@ -451,7 +450,6 @@ public class PageListViewAdapter extends BaseAdapter {
 			} else {
 				collectPosition = position;
 			}
-			notifyDataSetChanged();
 
 			if (collectFlag) {
 				if (userId == null) {
@@ -465,6 +463,7 @@ public class PageListViewAdapter extends BaseAdapter {
 				mCollectHandler.obtainMessage(2).sendToTarget();
 				collectFlag = true;
 			}
+			notifyDataSetChanged();
 		}
 
 	}

@@ -54,6 +54,7 @@ public class MyCollectFragment extends Fragment implements OnItemClickListener {
 	private View mView;
 	private ListView mArticleListView;
 	private List<Article> mArticleBriefList = new ArrayList<Article>();
+	private List<Article> listTemp = new ArrayList<Article>();
 	private PageListViewAdapter mListAdapter;
 	private Intent mIntent;
 	private String mClickPath;
@@ -115,11 +116,15 @@ public class MyCollectFragment extends Fragment implements OnItemClickListener {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
-				mArticleId = responseCollectList.get(
-						responseCollectList.size() - 1).getNumber("articleId");
-				mArticlePath = AppConfig.GET_ARTICLE_JSON.replace("{ID}", ""
-						+ mArticleId);
-				initData(mArticlePath);
+				for (int i = 0; i < responseCollectList.size(); i++) {
+
+					mArticleId = responseCollectList.get(i).getNumber(
+							"articleId");
+					mArticlePath = AppConfig.GET_ARTICLE_JSON.replace("{ID}",
+							"" + mArticleId);
+					initData(mArticlePath);
+					Log.e("111111111", "1111111111111111:" + mArticleId);
+				}
 
 				break;
 			case 2:
@@ -165,18 +170,26 @@ public class MyCollectFragment extends Fragment implements OnItemClickListener {
 		mRequestQueue.add(jsonArrayRequest);
 	}
 
+	private int i = 0;
 	@SuppressLint("HandlerLeak")
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
+				i++;
 				mGson = new Gson();
-				mArticleBriefList = mGson.fromJson(mJsonArray.toString(),
+				listTemp = mGson.fromJson(mJsonArray.toString(),
 						new TypeToken<List<Article>>() {
 						}.getType());
-				mListAdapter = new PageListViewAdapter(getActivity(),
-						mArticleBriefList);
+				mArticleBriefList.addAll(listTemp);
+				listTemp.clear();
 
-				mArticleListView.setAdapter(mListAdapter);
+				if (responseCollectList.size() <= i) {
+					mListAdapter = new PageListViewAdapter(getActivity(),
+							mArticleBriefList);
+					mArticleListView.setAdapter(mListAdapter);
+					mListAdapter.notifyDataSetChanged();
+					i = 0;
+				}
 
 			} else if (msg.what == 2) {
 				Toast.makeText(getActivity(), "还没有收藏(⊙o⊙)哦!", Toast.LENGTH_LONG)
