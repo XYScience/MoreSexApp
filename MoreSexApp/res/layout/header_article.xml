@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_relativelayout_header"
     android:layout_width="match_parent"
-    android:layout_height="50dip"
-    android:background="@drawable/content_top_style" >
+    android:layout_height="50dp"
+    android:background="#5ddd57" >
 
     <ImageView
         android:id="@+id/back"

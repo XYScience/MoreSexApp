@@ -202,7 +202,6 @@ public class PageListViewAdapter extends BaseAdapter {
 			// aset.addAnimation(rAnimation);
 			// // imageView是要旋转的控件的引用.
 			// viewHolder.morePraiseCollectImg.startAnimation(aset);
-			notifyDataSetChanged();
 		} else {
 			viewHolder.morePraiseCollectLayout.setVisibility(View.GONE);
 			viewHolder.morePraiseCollectImg
@@ -330,7 +329,6 @@ public class PageListViewAdapter extends BaseAdapter {
 				mPraiseHandler.obtainMessage(2).sendToTarget();
 				praiseFlag = true;
 			}
-			notifyDataSetChanged();
 		}
 	}
 

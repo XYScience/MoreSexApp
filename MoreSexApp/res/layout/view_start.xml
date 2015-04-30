@@ -13,8 +13,8 @@
         android:layout_marginTop="40dp"
         android:contentDescription="@null"
         android:src="@drawable/guide_c_b"
-        app:y_in="2"
-        app:y_out="2" />
+        app:y_in="1.8"
+        app:y_out="1.8" />
 
     <ImageView
         android:id="@+id/iv_2"
@@ -24,8 +24,8 @@
         android:layout_toLeftOf="@id/iv_1"
         android:contentDescription="@null"
         android:src="@drawable/guide_c_a"
-        app:y_in="1.1"
-        app:y_out="1.1" />
+        app:y_in="1.0"
+        app:y_out="1.0" />
 
     <ImageView
         android:id="@+id/iv_3"
@@ -35,8 +35,8 @@
         android:layout_toRightOf="@id/iv_1"
         android:contentDescription="@null"
         android:src="@drawable/guide_c_c"
-        app:y_in="1.1"
-        app:y_out="1.1" />
+        app:y_in="1.0"
+        app:y_out="1.0" />
 
     <ImageView
         android:id="@+id/iv_4"
@@ -47,8 +47,8 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@null"
         android:src="@drawable/guide_c_d"
-        app:y_in="1.1"
-        app:y_out="1.1" />
+        app:y_in="1.0"
+        app:y_out="1.0" />
 
     <Button
         android:id="@+id/start_app"
@@ -63,8 +63,8 @@
         android:paddingTop="10dp"
         android:text="@string/start_app"
         android:textSize="20sp"
-        app:y_in="-1.1"
-        app:y_out="-1.1" />
+        app:y_in="-1.0"
+        app:y_out="-1.0" />
 
     <ImageView
         android:id="@+id/iv_5"
@@ -74,8 +74,8 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="@null"
         android:src="@drawable/guide_c"
-        app:y_in="-1.1"
-        app:y_out="-1.1" />
+        app:y_in="-1.0"
+        app:y_out="-1.0" />
 
     <ImageView
         android:id="@+id/iv_6"
@@ -87,8 +87,8 @@
         android:layout_toLeftOf="@id/iv_5"
         android:contentDescription="@null"
         android:src="@drawable/guide_cb"
-        app:y_in="-1.9"
-        app:y_out="-1.9" />
+        app:y_in="-1.5"
+        app:y_out="-1.5" />
 
     <ImageView
         android:id="@+id/iv_7"
@@ -100,8 +100,8 @@
         android:layout_toRightOf="@id/iv_5"
         android:contentDescription="@null"
         android:src="@drawable/guide_cc"
-        app:y_in="-1.9"
-        app:y_out="-1.9" />
+        app:y_in="-1.5"
+        app:y_out="-1.5" />
 
     <ImageView
         android:id="@+id/iv_8"
@@ -113,7 +113,7 @@
         android:layout_marginRight="30dp"
         android:contentDescription="@null"
         android:src="@drawable/guide_ca"
-        app:y_in="1.9"
-        app:y_out="1.9" />
+        app:y_in="1.5"
+        app:y_out="1.5" />
 
 </RelativeLayout>

@@ -42,6 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="2dp"
+                    android:clickable="true"
                     android:contentDescription="@null"
                     android:focusable="false"
                     android:scaleType="center"
@@ -144,6 +145,7 @@
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:background="@drawable/praise_bg_style"
+            android:clickable="true"
             android:focusable="false"
             android:gravity="center"
             android:orientation="horizontal" >
@@ -167,6 +169,7 @@
             android:layout_marginLeft="2dp"
             android:layout_weight="1"
             android:background="@drawable/collect_bg_style"
+            android:clickable="true"
             android:focusable="false"
             android:gravity="center"
             android:orientation="horizontal" >

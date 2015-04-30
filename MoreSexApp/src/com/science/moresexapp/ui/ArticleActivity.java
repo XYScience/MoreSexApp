@@ -1,7 +1,12 @@
 package com.science.moresexapp.ui;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +14,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
@@ -22,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.sciecne.moresexapp.R;
 import com.science.moresexapp.utils.AppConfig;
 import com.science.moresexapp.utils.VolleyTools;
@@ -62,9 +69,30 @@ public class ArticleActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.article_content);
-
+		// 沉浸式状态栏设置
+		initSystemBar();
 		initComponent();
 		initData();
+	}
+
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	private void initSystemBar() {
+		if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+			// 透明状态栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// 透明导航栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
+		// 创建状态栏的管理实例
+		SystemBarTintManager tintManager = new SystemBarTintManager(this);
+		// 激活状态栏设置
+		tintManager.setStatusBarTintEnabled(true);
+		// 激活导航栏设置
+		tintManager.setNavigationBarTintEnabled(true);
+		// 设置一个颜色给系统栏
+		tintManager.setTintColor(Color.parseColor("#5ddd57"));
 	}
 
 	private void initComponent() {
