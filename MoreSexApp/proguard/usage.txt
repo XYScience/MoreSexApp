@@ -1,0 +1,91 @@
+com.mingle.shapeloading.R:
+    9:9:public R()
+com.mingle.shapeloading.R$attr
+com.mingle.shapeloading.R$color:
+    13:13:public R$color()
+com.mingle.shapeloading.R$drawable
+com.mingle.shapeloading.R$id:
+    23:23:public R$id()
+com.mingle.shapeloading.R$layout:
+    28:28:public R$layout()
+com.mingle.shapeloading.R$string
+com.mingle.shapeloading.R$styleable:
+    34:34:public R$styleable()
+com.sciecne.moresexapp.BuildConfig
+com.sciecne.moresexapp.R
+com.sciecne.moresexapp.R$anim
+com.sciecne.moresexapp.R$attr
+com.sciecne.moresexapp.R$color
+com.sciecne.moresexapp.R$dimen
+com.sciecne.moresexapp.R$drawable
+com.sciecne.moresexapp.R$id
+com.sciecne.moresexapp.R$layout
+com.sciecne.moresexapp.R$menu
+com.sciecne.moresexapp.R$string
+com.sciecne.moresexapp.R$style
+com.sciecne.moresexapp.R$styleable
+com.science.moresexapp.adapter.PageListViewAdapter:
+    353:371:private void searchPraiseNum(int)
+com.science.moresexapp.adapter.PageListViewAdapter$4
+com.science.moresexapp.adapter.ViewPagerFragmentAdapter:
+    30:30:public java.util.List getFragments()
+    34:35:public void setFragments(java.util.List)
+com.science.moresexapp.bean.Article:
+    private java.lang.String author
+    private java.lang.String type
+    private java.lang.String contentId
+    private java.lang.String sourceUrl
+    private java.lang.String url
+    private java.lang.String imgAddress
+    34:35:public void setId(java.lang.Integer)
+    42:43:public void setTitle(java.lang.String)
+    46:46:public java.lang.String getAuthor()
+    50:51:public void setAuthor(java.lang.String)
+    58:59:public void setTime(java.lang.String)
+    62:62:public java.lang.String getType()
+    66:67:public void setType(java.lang.String)
+    70:70:public java.lang.String getContentId()
+    74:75:public void setContentId(java.lang.String)
+    82:83:public void setContent(java.lang.String)
+    90:91:public void setSource(java.lang.String)
+    94:94:public java.lang.String getSourceUrl()
+    98:99:public void setSourceUrl(java.lang.String)
+    102:102:public java.lang.String getUrl()
+    106:107:public void setUrl(java.lang.String)
+    114:115:public void setImgUrl(java.lang.String)
+    118:118:public java.lang.String getImgAddress()
+    122:123:public void setImgAddress(java.lang.String)
+    130:131:public void setClick(java.lang.Integer)
+com.science.moresexapp.fragment.ModuleBaseFragment:
+    private java.lang.String mContentPath
+com.science.moresexapp.guide.ParallaxContainer:
+    private static final long DELAY_TIME
+com.science.moresexapp.utils.AVService:
+    33:33:public AVService()
+    36:43:public static void countDoing(java.lang.String,com.avos.avoscloud.CountCallback)
+    48:61:public static void getAchievement(java.lang.String)
+    64:68:public static void createDoing(java.lang.String,java.lang.String)
+    72:73:public static void requestPasswordReset(java.lang.String,com.avos.avoscloud.RequestPasswordResetCallback)
+    76:79:public static void findDoingListGroup(com.avos.avoscloud.FindCallback)
+    83:87:public static void findChildrenList(java.lang.String,com.avos.avoscloud.FindCallback)
+    90:93:public static void initPushService(android.content.Context)
+    131:138:public static void countArticlePraise(java.lang.String,com.avos.avoscloud.CountCallback)
+com.science.moresexapp.utils.AVService$1
+com.science.moresexapp.utils.AppConfig
+com.science.moresexapp.utils.GsonTools
+com.science.moresexapp.utils.GsonTools$1
+com.science.moresexapp.utils.VolleyTools:
+    49:49:public com.android.volley.RequestQueue getQueue()
+com.science.moresexapp.widget.DampView:
+    private static final int LEN
+    private static final int DURATION
+    private static final int MAX_DY
+    private static final java.lang.String TAG
+com.science.moresexapp.widget.DampView$TouchTool:
+    137:138:public int getScrollX(float)
+com.science.moresexapp.widget.ParallaxScollListView
+com.science.moresexapp.widget.ParallaxScollListView$1
+com.science.moresexapp.widget.ParallaxScollListView$2
+com.science.moresexapp.widget.ParallaxScollListView$OnOverScrollByListener
+com.science.moresexapp.widget.ParallaxScollListView$OnTouchEventListener
+com.science.moresexapp.widget.ParallaxScollListView$ResetAnimimation

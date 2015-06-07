@@ -10,8 +10,64 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# Add any project specific keep options here:
+# Add any project specific keep options here: 
 
+-keep class com.android.volley.** { *;}    
+-dontwarn com.android.volley.**
+-keep class com.whos.swiperefreshandload.view.** { *;}
+-dontwarn com.whos.swiperefreshandload.view.**
+-keep class com.slidingmenu.lib.** { *;}
+-dontwarn com.slidingmenu.lib.**
+-keep class com.readystatesoftware.systembartint.** { *;}
+-dontwarn com.readystatesoftware.systembartint.**
+-keep class de.hdodenhof.circleimageview.** { *;}
+-dontwarn de.hdodenhof.circleimageview.**
+-keep class com.mingle.widget.** { *;}
+-dontwarn com.mingle.widget.**
+
+ -keep class android.** {*;}
+-dontwarn android.**
+
+-keepattributes Signature
+-dontwarn com.jcraft.jzlib.**
+-keep class com.jcraft.jzlib.**  { *;}
+
+-dontwarn sun.misc.**
+-keep class sun.misc.** { *;}
+
+-dontwarn com.alibaba.fastjson.**
+-keep class com.alibaba.fastjson.** { *;}
+
+-dontwarn sun.security.**
+-keep class sun.security.** { *; }
+
+-dontwarn com.google.**
+-keep class com.google.** { *;}
+
+-dontwarn com.avos.**
+-keep class com.avos.** { *;}
+
+-keep public class android.net.http.SslError
+-keep public class android.webkit.WebViewClient
+
+-dontwarn android.webkit.WebView
+-dontwarn android.net.http.SslError
+-dontwarn android.webkit.WebViewClient 
+
+-dontwarn org.apache.**
+-keep class org.apache.** { *;}
+
+-dontwarn org.jivesoftware.smack.**
+-keep class org.jivesoftware.smack.** { *;}
+
+-dontwarn com.loopj.**
+-keep class com.loopj.** { *;}
+
+-dontwarn org.xbill.**
+-keep class org.xbill.** { *;}
+
+-keepattributes *Annotation*
+  
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:

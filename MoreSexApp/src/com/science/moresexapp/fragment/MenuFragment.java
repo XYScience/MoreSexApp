@@ -1,10 +1,12 @@
 package com.science.moresexapp.fragment;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +39,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenuFragment extends Fragment implements OnItemClickListener {
 
-	private View mView;
+	private static final int RECOMMEND = 0;
+	private static final int SKILL = 1;
+	private static final int HEALTH = 2;
+	private static final int PHYSIOLOGY = 3;
+	private static final int MENTALITY = 4;
+	private static final int BIRTHCONTROL = 5;
+
+	private View mRootView; // 缓存Fragment view
+	private FragmentManager mFragmentManager;
+	private MainActivity mActivity;
+
 	private ListView mListView;
 	private TextView mFeedback;
 	private CircleImageView mUserCircleImage;
@@ -45,7 +57,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private MenuAdapter mMenuAdapter;
 	private Fragment mRecommendFragment, mSkillFragment, mHealthFragment,
 			mPhysiologyFragment, mMentalityFragment, mBirthControlFragment;
-	private FragmentManager mFragmentManager;
 	private String[] mMenu = { "推荐", "生活", "健康", "生理", "心理", "避孕" };
 	private int[] mIcMenu = { R.drawable.recommand, R.drawable.ic_skill,
 			R.drawable.ic_health, R.drawable.ic_physiology,
@@ -58,27 +69,36 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private AVUser mCurrentUser;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mView = inflater.inflate(R.layout.frame_menu, container, false);
+		if (mRootView == null) {
+			mRootView = inflater.inflate(R.layout.frame_menu, container, false);
+			// mRootView = inflater.inflate(R.layout.frame_menu, null);
+		}
 
-		initComponent();
-
-		addListener();
+		initView();
+		initListener();
 
 		mMenuAdapter = new MenuAdapter(getActivity());
 		mListView.setAdapter(mMenuAdapter);
 		mFragmentManager = this.getFragmentManager();
 
-		return mView;
+		OnTabSelected(RECOMMEND);
+
+		return mRootView;
 	}
 
-	private void initComponent() {
-		mListView = (ListView) mView.findViewById(R.id.menu_listview);
-		mFeedback = (TextView) mView.findViewById(R.id.feedback);
-		mUserCircleImage = (CircleImageView) mView
+	private void initView() {
+		mListView = (ListView) mRootView.findViewById(R.id.menu_listview);
+		mFeedback = (TextView) mRootView.findViewById(R.id.feedback);
+		mUserCircleImage = (CircleImageView) mRootView
 				.findViewById(R.id.user_flexiImage);
-		mUserName = (TextView) mView.findViewById(R.id.user_name);
+		mUserName = (TextView) mRootView.findViewById(R.id.user_name);
 		// 用户圆形头像
 		// mUserFlexiImage.setShape(FlexiImageView.SHAPE_CIRCLE)
 		// .setShadow(true, 50.0f, 0.0f, 10.0f, Color.BLACK).draw();
@@ -92,7 +112,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		}
 	}
 
-	private void addListener() {
+	private void initListener() {
+
 		mListView.setOnItemClickListener(this);
 		mFeedback.setOnClickListener(new OnClickListener() {
 
@@ -185,6 +206,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	}
 
 	@Override
+	public void onAttach(Activity activity) {
+		mActivity = (MainActivity) activity;
+		super.onAttach(activity);
+	}
+
+	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
 		isClick = false;
@@ -194,118 +221,114 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 
 		switch (arg2) {
 		case 0:
-			showRecommendFragment();
+			OnTabSelected(RECOMMEND);
 			break;
 		case 1:
-			showSkillFragment();
+			OnTabSelected(SKILL);
 			break;
 		case 2:
-			showHealthFragment();
+			OnTabSelected(HEALTH);
 			break;
 		case 3:
-			showPhysiologyFragment();
+			OnTabSelected(PHYSIOLOGY);
 			break;
 		case 4:
-			showMentalityFragment();
+			OnTabSelected(MENTALITY);
 			break;
 		case 5:
-			showBirthControlFragment();
+			OnTabSelected(BIRTHCONTROL);
 			break;
 
 		default:
 			break;
 		}
 
+		mActivity.getSlidingMenu().toggle();
+
+	}
+
+	// 选中导航中对应的tab选项
+	private void OnTabSelected(int index) {
+		FragmentTransaction transaction = mFragmentManager.beginTransaction();
+		hideFragments(transaction);
+		switch (index) {
+		case RECOMMEND: // 推荐页面
+			if (null == mRecommendFragment) {
+				mRecommendFragment = new RecommendFragment();
+				transaction.add(R.id.content, mRecommendFragment);
+			} else {
+				transaction.show(mRecommendFragment);
+			}
+			break;
+		case SKILL: // 技巧界面
+			if (null == mSkillFragment) {
+				mSkillFragment = new SkillFragment();
+				transaction.add(R.id.content, mSkillFragment);
+			} else {
+				transaction.show(mSkillFragment);
+			}
+			break;
+		case HEALTH:// 健康界面
+			if (null == mHealthFragment) {
+				mHealthFragment = new HealthFragment();
+				transaction.add(R.id.content, mHealthFragment);
+			} else {
+				transaction.show(mHealthFragment);
+			}
+			break;
+		case PHYSIOLOGY:// 生理界面
+			if (null == mPhysiologyFragment) {
+				mPhysiologyFragment = new PhysiologyFragment();
+				transaction.add(R.id.content, mPhysiologyFragment);
+			} else {
+				transaction.show(mPhysiologyFragment);
+			}
+			break;
+		case MENTALITY:// 心里界面
+			if (null == mMentalityFragment) {
+				mMentalityFragment = new MentalityFragment();
+				transaction.add(R.id.content, mMentalityFragment);
+			} else {
+				transaction.show(mMentalityFragment);
+			}
+			break;
+		case BIRTHCONTROL:// 避孕界面
+			if (null == mBirthControlFragment) {
+				mBirthControlFragment = new BirthControlFragment();
+				transaction.add(R.id.content, mBirthControlFragment);
+			} else {
+				transaction.show(mBirthControlFragment);
+			}
+			break;
+		}
+		transaction.commit();
 	}
 
 	/**
-	 * Recommend module fragment
+	 * 将所有fragment都置为隐藏状态
+	 * 
+	 * @param transaction
+	 *            用于对Fragment执行操作的事务
 	 */
-	public void showRecommendFragment() {
-
-		if (mRecommendFragment == null) {
-			mRecommendFragment = new RecommendFragment();
+	private void hideFragments(FragmentTransaction transaction) {
+		if (mRecommendFragment != null) {
+			transaction.hide(mRecommendFragment);
 		}
-		if (!mRecommendFragment.isVisible()) {
-			mFragmentManager.beginTransaction()
-					.replace(R.id.content, mRecommendFragment).commit();
+		if (mSkillFragment != null) {
+			transaction.hide(mSkillFragment);
 		}
-		((MainActivity) getActivity()).getSlidingMenu().toggle();
-	}
-
-	/**
-	 * skill module fragment
-	 */
-	public void showSkillFragment() {
-
-		if (mSkillFragment == null) {
-			mSkillFragment = new SkillFragment();
+		if (mHealthFragment != null) {
+			transaction.hide(mHealthFragment);
 		}
-		if (!mSkillFragment.isVisible()) {
-			mFragmentManager.beginTransaction()
-					.replace(R.id.content, mSkillFragment).commit();
+		if (mPhysiologyFragment != null) {
+			transaction.hide(mPhysiologyFragment);
 		}
-		((MainActivity) getActivity()).getSlidingMenu().toggle();
-	}
-
-	/**
-	 * health module fragment
-	 */
-	public void showHealthFragment() {
-
-		if (mHealthFragment == null) {
-			mHealthFragment = new HealthFragment();
+		if (mMentalityFragment != null) {
+			transaction.hide(mMentalityFragment);
 		}
-		if (!mHealthFragment.isVisible()) {
-			mFragmentManager.beginTransaction()
-					.replace(R.id.content, mHealthFragment).commit();
+		if (mBirthControlFragment != null) {
+			transaction.hide(mBirthControlFragment);
 		}
-		((MainActivity) getActivity()).getSlidingMenu().toggle();
-	}
-
-	/**
-	 * Physiology module fragment
-	 */
-	public void showPhysiologyFragment() {
-
-		if (mPhysiologyFragment == null) {
-			mPhysiologyFragment = new PhysiologyFragment();
-		}
-		if (!mPhysiologyFragment.isVisible()) {
-			mFragmentManager.beginTransaction()
-					.replace(R.id.content, mPhysiologyFragment).commit();
-		}
-		((MainActivity) getActivity()).getSlidingMenu().toggle();
-	}
-
-	/**
-	 * Mentality module fragment
-	 */
-	public void showMentalityFragment() {
-
-		if (mMentalityFragment == null) {
-			mMentalityFragment = new MentalityFragment();
-		}
-		if (!mMentalityFragment.isVisible()) {
-			mFragmentManager.beginTransaction()
-					.replace(R.id.content, mMentalityFragment).commit();
-		}
-		((MainActivity) getActivity()).getSlidingMenu().toggle();
-	}
-
-	/**
-	 * BirthControl module fragment
-	 */
-	public void showBirthControlFragment() {
-
-		if (mBirthControlFragment == null) {
-			mBirthControlFragment = new BirthControlFragment();
-		}
-		if (!mBirthControlFragment.isVisible()) {
-			mFragmentManager.beginTransaction()
-					.replace(R.id.content, mBirthControlFragment).commit();
-		}
-		((MainActivity) getActivity()).getSlidingMenu().toggle();
 	}
 
 	public void showUserFragment() {

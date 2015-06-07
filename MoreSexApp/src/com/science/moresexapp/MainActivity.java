@@ -1,14 +1,15 @@
 package com.science.moresexapp;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -19,7 +20,9 @@ import com.science.moresexapp.fragment.MenuFragment;
 import com.science.moresexapp.fragment.RecommendFragment;
 import com.science.moresexapp.utils.AppContext;
 import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingActivity;
+import com.slidingmenu.lib.SlidingMenu.OnClosedListener;
+import com.slidingmenu.lib.SlidingMenu.OnOpenListener;
+import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
 /**
  * The main entrance
@@ -30,20 +33,21 @@ import com.slidingmenu.lib.app.SlidingActivity;
  * @date 2015-1-27
  */
 
-public class MainActivity extends SlidingActivity {
+public class MainActivity extends SlidingFragmentActivity {
 
-	private Fragment mRecommendFragment;
 	private SlidingMenu mSlidingMenu;
-	private FragmentTransaction mFragmentTransaction;
+	private RecommendFragment mRecommendFragment;
+	private MenuFragment mMenuFragment;
 
 	private AppContext appContext;// 全局Context
+	// 定义一个变量，来标识是否退出
+	private static boolean isExit = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		// 沉浸式状态栏设置
-		initSystemBar();
+
 		// 跟踪统计应用的打开情况
 		AVAnalytics.trackAppOpened(getIntent());
 
@@ -53,18 +57,11 @@ public class MainActivity extends SlidingActivity {
 			Toast.makeText(this, R.string.network_not_connected,
 					Toast.LENGTH_LONG).show();
 
-		// set the behind menu view
-		setBehindContentView(R.layout.layout_menu);
-		mFragmentTransaction = getFragmentManager().beginTransaction();
-		// add the left menu
-		MenuFragment menuFragment = new MenuFragment();
-		mFragmentTransaction.replace(R.id.layout_menu, menuFragment);
-		mFragmentTransaction.commit();
-
+		// 沉浸式状态栏设置
+		initSystemBar();
 		initSlidingMenu();
-
-		// show recommend module Fragment
-		showRecommendFragment();
+		initListener();
+		// showRecommendFragment();
 	}
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)
@@ -88,6 +85,16 @@ public class MainActivity extends SlidingActivity {
 	}
 
 	private void initSlidingMenu() {
+
+		mSlidingMenu = getSlidingMenu();
+
+		// set the behind menu view
+		setBehindContentView(R.layout.layout_menu);
+		// add the left menu
+		mMenuFragment = new MenuFragment();
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.layout_menu, mMenuFragment).commit();
+
 		// customize the SlidingMenu
 		mSlidingMenu = getSlidingMenu();
 		// Sliding to the left
@@ -107,31 +114,72 @@ public class MainActivity extends SlidingActivity {
 
 	}
 
-	/**
-	 * recommend module fragment
-	 */
-	public void showRecommendFragment() {
+	public void initListener() {
 
-		if (mRecommendFragment == null) {
-			mRecommendFragment = new RecommendFragment();
-		}
-		if (!mRecommendFragment.isVisible()) {
-			FragmentManager fragmentManager = this.getFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.content, mRecommendFragment).commit();
-		}
-		mSlidingMenu.showContent(true);
+		// 导航打开监听事件
+		mSlidingMenu.setOnOpenListener(new OnOpenListener() {
+			@Override
+			public void onOpen() {
+			}
+		});
+		// 导航关闭监听事件
+		mSlidingMenu.setOnClosedListener(new OnClosedListener() {
+
+			@Override
+			public void onClosed() {
+			}
+		});
 	}
 
-	/**
-	 * Capture the return key, if the currently displayed menu, just hide
-	 */
 	@Override
-	public void onBackPressed() {
-		if (mSlidingMenu.isMenuShowing()) {
-			mSlidingMenu.showContent();
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			exit();
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	private void exit() {
+		if (!isExit) {
+			isExit = true;
+			Toast.makeText(getApplicationContext(), "再按一次退出程序",
+					Toast.LENGTH_SHORT).show();
+			// 利用handler延迟发送更改状态信息
+			mHandler.sendEmptyMessageDelayed(0, 2000);
 		} else {
-			super.onBackPressed();
+			finish();
+			// 杀死该应用进程
+			android.os.Process.killProcess(android.os.Process.myPid());
+			System.exit(0);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 		}
 	}
+
+	@SuppressLint("HandlerLeak")
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			isExit = false;
+		}
+	};
+
+	// /**
+	// * recommend module fragment
+	// */
+	// public void showRecommendFragment() {
+	//
+	// if (mRecommendFragment == null) {
+	// mRecommendFragment = new RecommendFragment();
+	// }
+	// if (!mRecommendFragment.isVisible()) {
+	// FragmentManager fragmentManager = this.getSupportFragmentManager();
+	// fragmentManager.beginTransaction()
+	// .replace(R.id.content, mRecommendFragment).commit();
+	// }
+	// mSlidingMenu.showContent(true);
+	// }
+
 }
